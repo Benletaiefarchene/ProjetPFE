@@ -3,7 +3,39 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<form method="post">
+<!-- Titlebar
+================================================== -->
+<div id="titlebar" class="gradient">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+
+				<h2>Log In</h2>
+
+				<!-- Breadcrumbs -->
+				<nav id="breadcrumbs" class="dark">
+					<ul>
+						<li><a href="#">Home</a></li>
+						<li>Log In</li>
+					</ul>
+				</nav>
+
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-xl-5 offset-xl-3">
+
+
+			<div class="login-register-page">
+				<!-- Welcome Text -->
+				<div class="welcome-text">
+					<h3>We're glad to see you again!</h3>
+					<span>Don't have an account? <a href="{{path('app_register')}}">Sign Up!</a></span>
+				</div>
+<form method="post" id="login-form">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
@@ -14,12 +46,19 @@
         </div>
     {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
+    <div class="input-with-icon-left">
+						<label class="user-online current-status">Email</label>
+                        <input type="email" class="input-text with-border" value="{{ last_username }}" name="email" id="inputEmail"  class="form-control" autocomplete="email" required autofocus>
+    
+	</div>
+    <div class="input-with-icon-left">
+		<label class="user-online current-status">Password</label>
+		<input type="password" class="input-text with-border" name="password" id="inputPassword"  required autocomplete="current-password"/>
+			
+    </div>
+    
+    
+    
     <input type="hidden" name="_csrf_token"
            value="{{ csrf_token('authenticate') }}"
     >
@@ -35,8 +74,12 @@
         </div>
     #}
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
+   <button class="button full-width button-sliding-icon ripple-effect margin-top-10" type="submit" form="login-form">Log In <i class="icon-material-outline-arrow-right-alt"></i></button>
 </form>
+
+
+		</div>
+	</div>
+</div>
+</div>
 {% endblock %}
