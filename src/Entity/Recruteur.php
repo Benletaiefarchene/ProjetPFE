@@ -6,11 +6,12 @@ use App\Repository\RecruteurRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=RecruteurRepository::class)
  */
-class Recruteur extends User
+class Recruteur 
 {
     /**
      * @ORM\Id
@@ -30,7 +31,8 @@ class Recruteur extends User
     private $pays;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(name="photo", type="string", length=500)
+     * @Assert\File(maxSize="500k", mimeTypes={"image/jpeg", "image/jpg", "image/png", "image/GIF"})
      */
     private $photo;
 
@@ -63,6 +65,11 @@ class Recruteur extends User
      * @ORM\OneToMany(targetEntity=Forum::class, mappedBy="recruteur")
      */
     private $Forum;
+
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
+     */
+    private $User;
 
     public function __construct()
     {
@@ -234,6 +241,18 @@ class Recruteur extends User
                 $forum->setRecruteur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->User;
+    }
+
+    public function setUser(?User $User): self
+    {
+        $this->User = $User;
 
         return $this;
     }

@@ -34,15 +34,33 @@
 				</div>
 
     {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.nom) }}
-        {{ form_row(registrationForm.prenom) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
 
-        <button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-10">Register</button>
+	            <div class="account-type">
+					<div>
+						<input type="radio" name="account-type-radio" id="Candidat" class="account-type-radio" />
+						<label for="freelancer-radio" class="ripple-effect-dark"><i class="icon-material-outline-account-circle"></i> Candidat</label>
+					</div>
+
+					<div>
+						<input type="radio" name="account-type-radio" id="Recruteur" class="account-type-radio"/>
+						<label for="employer-radio" class="ripple-effect-dark"><i class="icon-material-outline-business-center"></i>Recruteur </label>
+					</div>
+				</div>
+				
+	
+               	{{ form_widget(registrationForm.email,{'attr':{'type':'text','class':'form-control','placeholder':'email...'}}) }}
+               	{{ form_widget(registrationForm.nom,{'attr':{'type':'text','class':'form-control','placeholder':'nom...'}}) }}
+         		{{ form_widget(registrationForm.prenom,{'attr':{'type':'text','class':'form-control','placeholder':'prenom...'}}) }}
+        		{{ form_widget(registrationForm.plainPassword, {'attr':{'type':'password','class':'form-control','placeholder':'password...'}}) }}
+		
+		 
+		
+		<div class="submit-field" >
+	
+        
+        </div>
+		 </div>
+        <button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-10">Register<i class="icon-material-outline-arrow-right-alt"></i></button>
     {{ form_end(registrationForm) }}
 
     </div>

@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+
+       </br>
+       </br>
+       </br>
+       </br>
+        <!-- Post Content -->
+        <p class="lead">Email : {{ cv.email }}</p>
+        <p class="lead">sexe : {{ cv.sexe }}</p>
+        <p class="lead">pays : {{ cv.pays }}</p>
+        <p class="lead">ville : {{ cv.ville }}</p>
+       <p class="lead"> date_naissance : {{ cv.datenaissance|date('d-m-Y ') }}</p>
+        <p class="lead">langue_preferee : {{ cv.languepreferee }}</p>
+
+        <hr>
+        <hr>
+        <!-- Preview Image --> 
+        <img class="img-fluid rounded" src="{{ asset('uploads/images/' ~ cv.photo) }}" alt="" style="width: 250px;height:250px">
+        <hr>   
+        <video controls width="500">
+         <source src="{{ asset('uploads/images/' ~ cv.video) }}"
+            type="video/mp4">
+            
+        </video>
+               
+{% endblock %}
+

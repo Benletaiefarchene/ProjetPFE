@@ -6,6 +6,7 @@ use App\Repository\CVRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CVRepository::class)
@@ -37,7 +38,7 @@ class CV
     /**
      * @ORM\Column(type="date")
      */
-    private $date_naissance;
+    private $datenaissance;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -47,20 +48,29 @@ class CV
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $langue_preferee;
+    private $languepreferee;
 
-    /**
-     * @ORM\Column(type="string", length=255)
+  /**
+     * @ORM\Column(name="photo", type="string", length=500)
+     * @Assert\File(mimeTypes={"image/jpeg", "image/jpg", "image/png", "image/GIF"})
      */
     private $photo;
 
+/**
+     * @ORM\Column(name="video", type="string", length=500)
+     * @Assert\File(mimeTypes = {"video/mpeg", "video/mp4", "video/quicktime", "video/x-ms-wmv", "video/x-msvideo", "video/x-flv"})
+     */
+    private $video;
+    
+
+
     /**
-     * @ORM\OneToMany(targetEntity=Competance::class, mappedBy="CV")
+     * @ORM\OneToMany(targetEntity=Competance::class, mappedBy="CV" , cascade={"persist"} )
      */
     private $competances;
 
     /**
-     * @ORM\OneToMany(targetEntity=Experience::class, mappedBy="CV")
+     * @ORM\OneToMany(targetEntity=Experience::class, mappedBy="CV", cascade={"persist"})
      */
     private $experiences;
 
@@ -73,6 +83,12 @@ class CV
     public function getId(): ?int
     {
         return $this->id;
+    }
+    public function setId( $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getEmail(): ?string
@@ -113,12 +129,12 @@ class CV
 
     public function getDateNaissance(): ?\DateTimeInterface
     {
-        return $this->date_naissance;
+        return $this->datenaissance;
     }
 
-    public function setDateNaissance(\DateTimeInterface $date_naissance): self
+    public function setDateNaissance(\DateTimeInterface $datenaissance): self
     {
-        $this->date_naissance = $date_naissance;
+        $this->datenaissance = $datenaissance;
 
         return $this;
     }
@@ -137,24 +153,35 @@ class CV
 
     public function getLanguePreferee(): ?string
     {
-        return $this->langue_preferee;
+        return $this->languepreferee;
     }
 
-    public function setLanguePreferee(string $langue_preferee): self
+    public function setLanguePreferee(string $languepreferee): self
     {
-        $this->langue_preferee = $langue_preferee;
+        $this->languepreferee = $languepreferee;
 
         return $this;
     }
 
-    public function getPhoto(): ?string
+    public function getPhoto()
     {
         return $this->photo;
     }
 
-    public function setPhoto(string $photo): self
+    public function setPhoto($photo)
     {
         $this->photo = $photo;
+
+        return $this;
+    }
+    public function getVideo()
+    {
+        return $this->video;
+    }
+
+    public function setVideo($video)
+    {
+        $this->video = $video;
 
         return $this;
     }
@@ -214,8 +241,14 @@ class CV
             if ($experience->getCV() === $this) {
                 $experience->setCV(null);
             }
+             
         }
 
         return $this;
     }
+    public function __toString() 
+{ 
+   return (string)$this->id; 
+}
+  
 }

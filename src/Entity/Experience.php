@@ -28,6 +28,31 @@ class Experience
      */
     private $CV;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $Date_debut;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $Date_fin;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Titre;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Lieu;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Description;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -53,6 +78,66 @@ class Experience
     public function setCV(?CV $CV): self
     {
         $this->CV = $CV;
+
+        return $this;
+    }
+
+    public function getDateDebut(): ?\DateTimeInterface
+    {
+        return $this->Date_debut;
+    }
+
+    public function setDateDebut(\DateTimeInterface $Date_debut): self
+    {
+        $this->Date_debut = $Date_debut;
+
+        return $this;
+    }
+
+    public function getDateFin(): ?\DateTimeInterface
+    {
+        return $this->Date_fin;
+    }
+
+    public function setDateFin(\DateTimeInterface $Date_fin): self
+    {
+        $this->Date_fin = $Date_fin;
+
+        return $this;
+    }
+
+    public function getTitre(): ?string
+    {
+        return $this->Titre;
+    }
+
+    public function setTitre(string $Titre): self
+    {
+        $this->Titre = $Titre;
+
+        return $this;
+    }
+
+    public function getLieu(): ?string
+    {
+        return $this->Lieu;
+    }
+
+    public function setLieu(string $Lieu): self
+    {
+        $this->Lieu = $Lieu;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->Description;
+    }
+
+    public function setDescription(string $Description): self
+    {
+        $this->Description = $Description;
 
         return $this;
     }

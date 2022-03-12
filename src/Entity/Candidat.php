@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass=CandidatRepository::class)
  */
-class Candidat extends User
+class Candidat 
 {
     /**
      * @ORM\Id
@@ -40,6 +40,11 @@ class Candidat extends User
      */
     private $forums;
 
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
+     */
+    private $User;
+
     public function __construct()
     {
         $this->offreEmplois = new ArrayCollection();
@@ -57,7 +62,7 @@ class Candidat extends User
         return $this->CV;
     }
 
-    public function setCV(CV $CV): self
+    public function setCV( $CV): self
     {
         $this->CV = $CV;
 
@@ -141,6 +146,18 @@ class Candidat extends User
         if ($this->forums->removeElement($forum)) {
             $forum->removeCandidat($this);
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->User;
+    }
+
+    public function setUser(?User $User): self
+    {
+        $this->User = $User;
 
         return $this;
     }
