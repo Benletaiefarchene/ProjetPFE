@@ -23,7 +23,9 @@ class ExperienceType extends AbstractType
             ])
             ->add('Date_fin',DateType::class, [
                 'widget' => 'single_text'
+
             ])
+            
             ->add('diplome',TextType::class,['attr' => ['placeholder' => 'Diplome '],'label' => false])
             ->add('Description',TextareaType::class,['attr' => ['placeholder' => 'Description '],'label' => false])
             

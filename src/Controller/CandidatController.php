@@ -6,6 +6,7 @@ use App\Entity\CV;
 use App\Form\CVType;
 use App\Entity\Candidat;
 use App\Entity\Competance;
+use App\Entity\Experience;
 use App\Form\CompetanceType;
 use App\Repository\CVRepository;
 use Symfony\Component\Form\FormInterface;
@@ -15,6 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Collections\ArrayCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Services\QrcodeService;
 
 class CandidatController extends AbstractController
 {
@@ -25,6 +27,7 @@ class CandidatController extends AbstractController
      * @Route("/addcv", name="candidat")
      */
     public function addCV(Request $request){
+        
         $cv= new CV();
         $candidat= new Candidat();
         $em = $this->getDoctrine()->getManager();
@@ -81,15 +84,18 @@ class CandidatController extends AbstractController
                 }
             }
             
+            
+            dd($qrCode);
             $em->persist($cv);
             $em->flush();
-            $cv->setPhoto($filename);   
             
+            $cv->setPhoto($filename);   
             $candidat->setCV($cv);
             $candidat->setUser($this->getUser());
             $em->persist($candidat);
             $em->flush();
-            dd($candidat);
+            
+           
             $this->addFlash('info', 'Created Successfully !');
             return $this->redirectToRoute('homee');
         }
@@ -102,13 +108,23 @@ class CandidatController extends AbstractController
     /**
      * @Route("/detailedCV/{id}", name="detailed")
      */
-        public function showdetailedAction($id)
+        public function showdetailedAction($id,QrcodeService $qrcodeService)
     {
-        $CV= $this->getDoctrine()->getRepository(CV::class)->find($id);
+        $qrCode = null;
+        $Candidat= $this->getDoctrine()->getRepository(Candidat::class)->find($id);
+        $video=$Candidat->getCV()->getVideo();
+        $qrCode = $qrcodeService->qrcode($video);
         
-        
+        $Competance= $this->getDoctrine()->getRepository(Competance::class)->findComById($id);
+    
+        $Experience= $this->getDoctrine()->getRepository(Experience::class)->findExpById($id);
+       
         return $this->render('Candidat/detailedCV.html.twig',[
-            'cv'=> $CV
+            'cv'=> $Candidat,
+            'Competances'=>$Competance,
+            'Experiences'=>$Experience,
+            'qrCode' => $qrCode
+
         ] 
             
            

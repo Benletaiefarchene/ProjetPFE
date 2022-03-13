@@ -3133,8 +3133,8 @@ body #backtotop a {
 /* Media Queries for Single Page Header */
 @media (max-width: 1366px) {
 	.single-page-header.freelancer-header .header-image {
-	    height: 130px;
-	    flex: 0 0 130px;
+	    height: 200px;
+	    flex: 0 0 200px;
 	    width: 130px;
 	}
 }
@@ -5313,7 +5313,7 @@ span.blog-item-tag {
 
 /* Media Queiers for Freelancers List */
 @media (max-width: 1366px) {
-	.freelances-grid-layout .freelancer-overview .freelancer-avatar { width: 100px; }
+	.freelances-grid-layout .freelancer-overview .freelancer-avatar { width: 10px; }
 }
 
 @media (max-width: 768px) {

@@ -36,15 +36,21 @@ class ExperienceRepository extends ServiceEntityRepository
     }
     */
 
-    /*
-    public function findOneBySomeField($value): ?Experience
+    
+    public function findExpById($id)
     {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
+        //dd($value);
+        $query = $this
+            ->createQueryBuilder('e')
+            ->leftJoin("e.CV", "cv")
+            ->andWhere('cv.id = :id')
+            ->setParameter('id', $id)
+
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->execute();
+
+        return $query;
     }
-    */
+    
+ 
 }

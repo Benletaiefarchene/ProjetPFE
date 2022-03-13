@@ -47,4 +47,18 @@ class CompetanceRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findComById($id)
+    {
+        //dd($value);
+        $query = $this
+            ->createQueryBuilder('c')
+            ->leftJoin("c.CV", "cv")
+            ->andWhere('cv.id = :id')
+            ->setParameter('id', $id)
+
+            ->getQuery()
+            ->execute();
+
+        return $query;
+    }
 }

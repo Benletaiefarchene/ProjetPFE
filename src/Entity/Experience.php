@@ -31,12 +31,12 @@ class Experience
     /**
      * @ORM\Column(type="datetime")
      */
-    private $Date_debut;
+    private $Datedebut;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $Date_fin;
+    private $Datefin;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -84,24 +84,24 @@ class Experience
 
     public function getDateDebut(): ?\DateTimeInterface
     {
-        return $this->Date_debut;
+        return $this->Datedebut;
     }
 
-    public function setDateDebut(\DateTimeInterface $Date_debut): self
+    public function setDateDebut(\DateTimeInterface $Datedebut): self
     {
-        $this->Date_debut = $Date_debut;
+        $this->Date_debut = $Datedebut;
 
         return $this;
     }
 
     public function getDateFin(): ?\DateTimeInterface
     {
-        return $this->Date_fin;
+        return $this->Datefin;
     }
 
-    public function setDateFin(\DateTimeInterface $Date_fin): self
+    public function setDateFin(\DateTimeInterface $Datefin): self
     {
-        $this->Date_fin = $Date_fin;
+        $this->Date_fin = $Datefin;
 
         return $this;
     }
