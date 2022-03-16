@@ -30,9 +30,9 @@ class Recruteur
      */
     private $pays;
 
-    /**
+   /**
      * @ORM\Column(name="photo", type="string", length=500)
-     * @Assert\File(maxSize="500k", mimeTypes={"image/jpeg", "image/jpg", "image/png", "image/GIF"})
+     * @Assert\File(mimeTypes={"image/jpeg", "image/jpg", "image/png", "image/GIF"})
      */
     private $photo;
 
@@ -107,12 +107,12 @@ class Recruteur
         return $this;
     }
 
-    public function getPhoto(): ?string
+    public function getPhoto()
     {
         return $this->photo;
     }
 
-    public function setPhoto(string $photo): self
+    public function setPhoto( $photo)   
     {
         $this->photo = $photo;
 

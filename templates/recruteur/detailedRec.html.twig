@@ -1,0 +1,61 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+
+       </br>
+       </br>
+       </br>
+       </br>
+          
+       
+    <div class="single-page-header freelancer-header" data-background-image="images/single-freelancer.jpg">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="single-page-header-inner">
+					<div class="left-side">
+						<div class="header-image freelancer-avatar"> <img class="img-fluid rounded" src="{{ asset('uploads/images/' ~ Rec.photo) }}" alt="" style="width: 300px;height:300px"></div>
+						<div class="header-details">
+							<h3>{{ Rec.User.nom }} {{ Rec.User.prenom }}<span>{{ Rec.User.email }}</span></h3>
+                            <ul>
+								<li>{{ Rec.pays }}</li>
+                            </ul>
+                           
+							<ul>
+								<li>{{ Rec.ville }}</li>
+                            <ul>
+                            </ul>
+								<li>{{ Rec.diplome }}</li>
+								
+							</ul>
+                             <ul>
+								
+								<li> langue_preferee : {{ Rec.languepreferee }}</li>
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Page Content
+================================================== -->
+<div class="container">
+	<div class="row">
+			
+			  
+	</div>
+</div>
+
+
+	<!-- Spacer -->
+	<div class="margin-top-15"></div>
+	<!-- Spacer / End-->           
+{% endblock %}
+

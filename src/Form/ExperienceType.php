@@ -22,7 +22,8 @@ class ExperienceType extends AbstractType
 
             ])
             ->add('Date_fin',DateType::class, [
-                'widget' => 'single_text'
+                'widget' => 'single_text',
+                'required'=>false
 
             ])
             

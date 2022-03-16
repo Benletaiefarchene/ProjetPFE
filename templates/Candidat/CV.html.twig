@@ -1,15 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Add Profile{% endblock %}
+{% block title %}Add Profile
+{% endblock %}
 
 {% block body %}
- 
+
 
 	<!-- Dashboard Content
-	================================================== -->
+			================================================== -->
 	<div class="dashboard-content-container" data-simplebar>
-		<div class="dashboard-content-inner" >
-			
+		<div
+			class="dashboard-content-inner">
+
 			<!-- Dashboard Headline -->
 			<div class="dashboard-headline">
 				<h3>ADD PROFILE</h3>
@@ -17,155 +19,150 @@
 				<!-- Breadcrumbs -->
 				<nav id="breadcrumbs" class="dark">
 					<ul>
-						<li><a href="#">Home</a></li>
-						<li><a href="#">Dashboard</a></li>
+						<li>
+							<a href="#">Home</a>
+						</li>
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
 						<li>add profile</li>
 					</ul>
 				</nav>
 			</div>
-	
+
 			<!-- Row -->
-			<div class="row">
+			<div
+				class="row">
 
 				<!-- Dashboard Box -->
 				<div class="col-xl-12">
-					<div class="dashboard-box margin-top-0">
+					<div
+						class="dashboard-box margin-top-0">
 
 						<!-- Headline -->
 						<div class="headline">
-							<h3><i class="icon-feather-folder-plus"></i> Profile Form</h3>
+							<h3>
+								<i class="icon-feather-folder-plus"></i>
+								Profile Form</h3>
 						</div>
 
 
-                        {{ form_start(cv) }}
-                        
+						{{ form_start(cv) }}
+
 						<div class="content with-padding padding-bottom-10">
-							<div class="row" >
-                    
-								<div class="col-xl-4" >
-									<div class="submit-field" >
-									{{ form_widget(cv.email,{'attr':{'type':'text','class':'form-control','placeholder':'email...' ,'text-align':'center'}}) }}
-                                  
-                                    </div>
+							<div class="row">
+
+								<div class="col-xl-4">
+									<div class="submit-field">
+										{{ form_widget(cv.email,{'attr':{'type':'text','class':'form-control','placeholder':'email...' ,'text-align':'center'}}) }}
+
+									</div>
 								</div>
-                                <div class="col-xl-4" >
-									<div class="submit-field" >
-									
-                                    {{ form_widget(cv.sexe,{'attr':{'type':'text','class':'form-control','placeholder':'sexe...'}}) }}
-								
-                                    </div>
+								<div class="col-xl-4">
+									<div class="submit-field">
+
+										{{ form_widget(cv.sexe,{'attr':{'type':'text','class':'form-control','placeholder':'sexe...'}}) }}
+
+									</div>
 								</div>
-                                <div class="col-xl-4" >
-									<div class="submit-field" >
-									
-									{{ form_widget(cv.pays,{'attr':{'type':'text','class':'form-control','placeholder':'pays...'}}) }}
-									
-                                    </div>
+								<div class="col-xl-4">
+									<div class="submit-field">
+
+										{{ form_widget(cv.pays,{'attr':{'type':'text','class':'form-control','placeholder':'pays...'}}) }}
+
+									</div>
 								</div>
 
-                                        
-									
-                              
-								
 
 								<div class="col-xl-6">
-									<div class="submit-field">
-									 {{ form_label(cv.date_naissance, null, {
+									<div class="submit-field"></br>
+									{{ form_label(cv.date_naissance, null, {
                                             'label': 'date de naissance',
                                             'label_attr': {'class': 'uploadButton-button ripple-effect'}
                                             }) }}
-                                    {{ form_widget(cv.date_naissance,{'attr':{'type':'date','class':'form-control','placeholder':'date_naissance...'}}) }}
-									<div class="col-xl-8" >
-                                       <div class="submit-field">
-										
-										 	<div class="uploadButton margin-top-30 ">
-                                         		{{ form_label(cv.photo, null, {
+									{{ form_widget(cv.date_naissance,{'attr':{'type':'date','class':'form-control','placeholder':'date_naissance...'}}) }}
+									<div class="col-xl-12">
+										<div class="submit-field">
+
+											<div class="uploadButton S ">
+												{{ form_label(cv.photo, null, {
                                            			'label': 'Upload photo',
                                             		'label_attr': {'class': 'uploadButton-button ripple-effect'}
                                            		 }) }}
-                                            	{{ form_widget(cv.photo,{'attr':{'type':'file','accept':'image/*','class':'uploadButton-input'}}) }}
-                                          
-											
-											
-                                            	<span class="uploadButton-file-name"> AND </span>
-											
-                                            	{{ form_label(cv.video, null, {
+												{{ form_widget(cv.photo,{'attr':{'type':'file','accept':'image/*','class':'uploadButton-input'}}) }}
+
+
+												<span class="uploadButton-file-name">
+													AND
+												</span>
+
+												{{ form_label(cv.video, null, {
                                             	'label': 'Upload video',
                                             	'label_attr': {'class': 'uploadButton-button ripple-effect'}
                                             	}) }}
-                                            	{{ form_widget(cv.video,{'attr':{'type':'file','accept':'video/*','class':'uploadButton-input'}}) }}
-										
-											
+												{{ form_widget(cv.video,{'attr':{'type':'file','accept':'video/*','class':'uploadButton-input'}}) }}
+
+
 											</div>
+										</div>
 									</div>
-                                    </div>
-										
-									
-									</div>
+
+
 								</div>
-                                    	<div class="col-xl-6">
-									     <div class="submit-field">
-										{{ form_widget(cv.ville,{'attr':{'type':'text','class':'form-control','placeholder':'ville...'}}) }}
-										 {{ form_widget(cv.langue_preferee,{'attr':{'type':'text','class':'form-control','placeholder':'langue_preferee...'}}) }}
-                                         
-									 
-                                       
-                                   
-                                          </div>
-								        </div>
-
-						<div class="col-xl-6" id="competance_list" data-prototype="{{form_widget(cv.competances.vars.prototype)|e('html_attr')}}">
-
-				
-							{% for row in cv.competances %}
-								<div class="panel panel-warning">
-                    				<div class="panel-heading"></div>
-                    				<div class="panel-body">
-                        				{{ form_row(row) }}
-                    				</div>
-                				</div>
-							{% endfor %}
-                        </div>
-						<div class="col-xl-6" id="experiance_list" data-prototype="{{form_widget(cv.experiences.vars.prototype)|e('html_attr')}}">
-							
-							{% for row in cv.experiences %}
-								<div class="panel panel-warning">
-                    				<div class="panel-heading">
-                       					<strong>{{ row.vars.value.name }}</strong>
-                    				</div>
-                    				<div class="panel-body">
-										
-                        				{{ form_row(row) }}
-                    				</div>
-                				</div>
-							{% endfor %}
-                        </div>
-						<div class="col-xl-12">
-				<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-10">Add Profile<i class="icon-material-outline-arrow-right-alt"></i></button>
-				</div>
-                    {{ form_end(cv) }}
-					</div>
-				</div>
-
-
 							</div>
+							<div class="col-xl-6">
+								<div class="submit-field">
+									{{ form_widget(cv.ville,{'attr':{'type':'text','class':'form-control','placeholder':'ville...'}}) }}
+									{{ form_widget(cv.langue_preferee,{'attr':{'type':'text','class':'form-control','placeholder':'langue_preferee...'}}) }}
+
+
+								</div>
+							</div>
+							
+								<div class="CC" id="competance_list" data-prototype="{{form_widget(cv.competances.vars.prototype)|e('html_attr')}}">
+
+
+									{% for row in cv.competances %}
+
+										<div class="panel panel-warning">
+											<div class="panel-heading"></div>
+											<div class="panel-body">
+
+												{{ form_row(row) }}
+											</div>
+										</div>
+									{% endfor %}
+								</div>
+								<div class="CC" id="experiance_list" data-prototype="{{form_widget(cv.experiences.vars.prototype)|e('html_attr')}}">
+
+									{% for row in cv.experiences %}
+										<div class="panel panel-warning">
+											<div class="panel-heading"></div>
+											<div class="panel-body">
+
+												{{ form_row(row) }}
+											</div>
+										</div>
+									{% endfor %}
+								</div>
+						
+							<div class="col-xl-12">
+								<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-10">Add Profile<i class="icon-material-outline-arrow-right-alt"></i>
+								</button>
+							</div>
+							{{ form_end(cv) }}
 						</div>
-				
-					
-				
-						
-						
-						
+					</div>
 
-				
 
-			</div>	
-			<!-- Row / End -->
+				</div>
+			</div>
 
-		
 
 		</div>
-	</div>
-	<!-- Dashboard Content / End -->
+		<!-- Row / End -->
 
-{% endblock %}
+
+	</div>
+</div>
+<!-- Dashboard Content / End -->{% endblock %}

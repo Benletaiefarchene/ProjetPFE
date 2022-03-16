@@ -1,154 +1,126 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Profile{% endblock %}
+{% block title %}Profile
+{% endblock %}
 
 {% block body %}
 
-       </br>
-       </br>
-       </br>
-       </br>
-          
-       
-    <div class="single-page-header freelancer-header" data-background-image="images/single-freelancer.jpg">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="single-page-header-inner">
-					<div class="left-side">
-						<div class="header-image freelancer-avatar"> <img class="img-fluid rounded" src="{{ asset('uploads/images/' ~ cv.CV.photo) }}" alt="" style="width: 300px;height:300px"></div>
-						<div class="header-details">
-							<h3>{{ cv.User.nom }} {{ cv.User.prenom }}<span>{{ cv.CV.email }}</span></h3>
-                            <ul>
-								<li>{{ cv.CV.sexe }}</li>
-                            </ul>
-                            <ul>
-								<li>{{ cv.CV.datenaissance|date('d-m-Y ') }}</li>
-								
-							</ul>
-							<ul>
-								<li>{{ cv.CV.pays }}</li>
-                            <ul>
-                            </ul>
-								<li>{{ cv.CV.ville }}</li>
-								
-							</ul>
-                             <ul>
-								
-								<li> langue_preferee : {{ cv.CV.languepreferee }}</li>
-								
-							</ul>
-						</div>
-					</div>
-				</div>
+</br></br></br></br><div class="single-page-header freelancer-header" data-background-image="images/single-freelancer.jpg"><div class="container"><div class="row">
+<div class="col-md-12">
+	<div class="single-page-header-inner">
+		<div class="left-side">
+			<div class="header-image freelancer-avatar">
+				<img class="img-fluid rounded" src="{{ asset('uploads/images/' ~ cv.CV.photo) }}" alt="" style="width: 300px;height:300px"></div>
+			<div class="header-details">
+				<h3>{{ cv.User.nom }}
+					{{ cv.User.prenom }}<span>{{ cv.CV.email }} </span>
+				</h3>
+				
+				<ul>
+					<li>{{ cv.CV.sexe }}</li>
+				</ul>
+				<ul>
+					<li>{{ cv.CV.datenaissance|date('d-m-Y ') }}</li>
+
+				</ul>
+				<ul>
+					<li>{{ cv.CV.pays }}</li>
+					<ul></ul>
+					<li>{{ cv.CV.ville }}</li>
+
+				</ul>
+				<ul>
+
+					<li>
+						langue_preferee :
+						{{ cv.CV.languepreferee }}</li>
+
+				</ul>
 			</div>
 		</div>
 	</div>
+</div></div></div></div><!-- Page Content
+	================================================== --><div class="container"><div class="row"><div class="col-xl-4 col-lg-4 content-right-offset">
+
+
+<div class="boxed-list margin-bottom-60">
+	<div class="boxed-list-headline">
+		<h3>
+			<i class="icon-material-outline-thumb-up"></i>
+			Competance</h3>
+	</div>
 </div>
 
+{% for com in Competances %}
+	<div class="sidebar-widget">
 
-<!-- Page Content
-================================================== -->
-<div class="container">
-	<div class="row">
-			
-			
-			    <div class="col-xl-4 col-lg-4 content-right-offset">
-				
-				
-				
-
-				
-				    <div class="boxed-list margin-bottom-60">
-					        <div class="boxed-list-headline">
-						        <h3><i class="icon-material-outline-thumb-up"></i> Competance</h3>
-					        </div>
-                       </div>      
-					    
-                        {% for com in Competances %}
-                        <div class="sidebar-widget">
-				 
-                        <div class="boxed-list-headline">
-                            <tr >
-                                <td>
-					            <h3 class="margin-bottom-25">Competance : {{ com.Competance }}</h3>
-                                </td>
-					        </tr >  
-				        </div>
-				        </div>
-                          {% endfor %}  
-				   
-                    
-			
-			    </div>
-			
-
-			
-			    <div class="col-xl-4 col-lg-4">
-				    <div class="sidebar-container">
-			
-				        <div class="boxed-list margin-bottom-60">
-					        <div class="boxed-list-headline">
-						    <h3><i class="icon-material-outline-business"></i> Experience</h3>
-					        </div>
-					
-				        </div>
-                        {% for Exp in Experiences %}
-                        <div class="sidebar-widget">
-				 
-                       <div class="boxed-list-headline">
-                       
-                       
-                        <tr >
-                        <td>
-                        <h3 class="margin-bottom-25">Titre : {{ Exp.Titre }}</h3>
-                        </td>
-                        <td>
-                        <h3 class="margin-bottom-25">Lieu : {{ Exp.Lieu }}</h3>
-                        </td>
-                        <td>
-                        <h3 class="margin-bottom-25">Date debut : {{ Exp.Datedebut|date('d-m-Y ') }}</h3>
-                        </td>
-                        <td>
-                        <h3 class="margin-bottom-25">Date fin : {{ Exp.Datefin|date('d-m-Y ') }}</h3>
-                        </td>
-                        <td>
-                        <h3 class="margin-bottom-25">diplome : {{ Exp.diplome }}</h3>
-                        </td>
-                        <td>
-                        <h3 class="margin-bottom-25">Description : {{ Exp.Description }}</h3>
-                        </td>
-					      </tr >  
-					    
-				        </div>
-                     
-                         
-                           
-                       </div>
-                        {% endfor %} 
-					       
-					    
-				      
-					
-					
-					</div>
-					
-					
-
-
-
-				</div>
-                <div class="col-xl-4 col-lg-4 content-right-offset">
-			        {% if qrCode %}
-                    <img src="{{ qrCode }}" alt="qr-code">
-                    {% endif %}
-                </div>
+		<div class="boxed-list-headline">
+			<tr>
+				<td>
+					<h3 class="margin-bottom-25">Competance :
+						{{ com.Competance }}</h3>
+				</td>
+			</tr>
 		</div>
 	</div>
+{% endfor %}</div><div class="col-xl-4 col-lg-4">
+<div class="sidebar-container">
+
+	<div class="boxed-list margin-bottom-60">
+		<div class="boxed-list-headline">
+			<h3>
+				<i class="icon-material-outline-business"></i>
+				Experience</h3>
+		</div>
+
+	</div>
+	{% for Exp in Experiences %}
+		<div class="sidebar-widget">
+
+			<div class="boxed-list-headline">
 
 
-	<!-- Spacer -->
-	<div class="margin-top-15"></div>
-	<!-- Spacer / End-->           
-{% endblock %}
+				<tr>
+					<td>
+						<h3 class="margin-bottom-25">Titre :
+							{{ Exp.Titre }}</h3>
+					</td>
+					<td>
+						<h3 class="margin-bottom-25">Lieu :
+							{{ Exp.Lieu }}</h3>
+					</td>
+					<td>
+						<h3 class="margin-bottom-25">Date debut :
+							{{ Exp.Datedebut|date('d-m-Y ') }}</h3>
+					</td>
+					<td>
+						<h3 class="margin-bottom-25">Date fin :
+							{{ Exp.Datefin|date('d-m-Y ') }}</h3>
+					</td>
+					<td>
+						<h3 class="margin-bottom-25">diplome :
+							{{ Exp.diplome }}</h3>
+					</td>
+					<td>
+						<h3 class="margin-bottom-25">Description :
+							{{ Exp.Description }}</h3>
+					</td>
+				</tr>
+
+			</div>
+
+
+		</div>
+	{% endfor %}
+
+
+</div></div><div class="col-xl-4 col-lg-4 content-right-offset">
+{% if qrCode %}
+	<img src="{{ qrCode }}" alt="qr-code">
+{% endif %}
+
+<video controls width="250">
+	<source src="{{ asset('uploads/images/' ~ cv.CV.video) }}" type="video/mp4">
+</video></div></div></div><!-- Spacer --><div class="margin-top-15"></div><!-- Spacer / End-->{% endblock %}
+
 

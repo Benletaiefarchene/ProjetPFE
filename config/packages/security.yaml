@@ -38,4 +38,5 @@ security:
          - { path: ^/profil, roles: ROLE_USER }
     role_hierarchy:
         ROLE_RECRUTEUR: ROLE_USER
-        ROLE_ADMIN: ROLE_RECRUTEUR 
+        ROLE_CANDIDAT: ROLE_USER
+        ROLE_ADMIN: ROLE_RECRUTEUR , ROLE_CANDIDAT

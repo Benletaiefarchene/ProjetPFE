@@ -1,0 +1,133 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add Profile
+{% endblock %}
+
+{% block body %}
+
+
+	<!-- Dashboard Content
+		================================================== -->
+	<div class="dashboard-content-container" data-simplebar>
+		<div
+			class="dashboard-content-inner">
+
+			<!-- Dashboard Headline -->
+			<div class="dashboard-headline">
+				<h3>ADD PROFILE</h3>
+
+				<!-- Breadcrumbs -->
+				<nav id="breadcrumbs" class="dark">
+					<ul>
+						<li>
+							<a href="#">Home</a>
+						</li>
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li>add profile</li>
+					</ul>
+				</nav>
+			</div>
+
+			<!-- Row -->
+			<div
+				class="row">
+
+				<!-- Dashboard Box -->
+				<div class="col-xl-12">
+					<div
+						class="dashboard-box margin-top-0">
+
+						<!-- Headline -->
+						<div class="headline">
+							<h3>
+								<i class="icon-feather-folder-plus"></i>
+								Profile Form</h3>
+						</div>
+
+
+						{{ form_start(Rec) }}
+
+						<div class="content with-padding padding-bottom-10">
+							<div class="row">
+
+								<div class="col-xl-4">
+									<div class="submit-field">
+										{{ form_widget(Rec.eamil,{'attr':{'type':'text','class':'form-control','placeholder':'email...' ,'text-align':'center'}}) }}
+
+									</div>
+								</div>
+
+								<div class="col-xl-4">
+									<div class="submit-field">
+
+										{{ form_widget(Rec.pays,{'attr':{'type':'text','class':'form-control','placeholder':'pays...'}}) }}
+
+									</div>
+								</div>
+								<div class="col-xl-4">
+									<div class="submit-field">
+
+										{{ form_widget(Rec.ville,{'attr':{'type':'text','class':'form-control','placeholder':'ville...'}}) }}
+
+									</div>
+								</div>
+								<div class="col-xl-6">
+									<div class="submit-field">
+
+										{{ form_widget(Rec.diplome,{'attr':{'type':'text','class':'form-control','placeholder':'diplome...'}}) }}
+
+
+									</div>
+								</div>
+								<div class="col-xl-6">
+									<div class="submit-field">
+
+
+										{{ form_widget(Rec.langue_preferee,{'attr':{'type':'text','class':'form-control','placeholder':'langue_preferee...'}}) }}
+
+
+									</div>
+								</div>
+
+
+								<div class="col-xl-12">
+
+									<div class="submit-field">
+
+										<div class="uploadButton photo  ">
+											{{ form_label(Rec.photo, null, {
+                                           			'label': 'Upload photo',
+                                            		'label_attr': {'class': 'uploadButton-button ripple-effect'}
+                                           			 }) }}
+											{{ form_widget(Rec.photo,{'attr':{'type':'file','accept':'image/*','class':'uploadButton-input'}}) }}
+
+
+										</div>
+									</div>
+								</div>
+
+
+							</div>
+
+						</div>
+
+						<div class="col-xl-12">
+							<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-10">Add Profile<i class="icon-material-outline-arrow-right-alt"></i>
+							</button>
+						</div>
+						{{ form_end(Rec) }}
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+
+
+	</div>
+	<!-- Row / End -->
+
+
+</div></div><!-- Dashboard Content / End -->{% endblock %}

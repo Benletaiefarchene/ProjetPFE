@@ -25,8 +25,8 @@ class CVType extends AbstractType
             ])
             ->add('ville')
             ->add('langue_preferee')
-            ->add('photo',FileType::class)
-            ->add('video',FileType::class)
+            ->add('photo',FileType::class , array('data_class'=>null))
+            ->add('video',FileType::class , array('data_class'=>null))
             ->add('competances',CollectionType::class,[
                 'entry_type' => CompetanceType::class,
                 'entry_options' => [

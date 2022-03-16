@@ -23,16 +23,16 @@ class QrcodeService
 
     public function qrcode($query)
     {
-       
+        $url = 'http://127.0.0.1:8000/uploads/images/';
 
         $objDateTime = new \DateTime('NOW');
         $dateString = $objDateTime->format('d-m-Y H:i:s');
 
         $path = dirname(__DIR__, 2).'/public/assets/';
-
+        
         // set qrcode
         $result = $this->builder
-            ->data($query)
+            ->data($url.$query)
             ->encoding(new Encoding('UTF-8'))
             ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
             ->size(400)

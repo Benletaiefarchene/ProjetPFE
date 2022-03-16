@@ -29,14 +29,14 @@ class Experience
     private $CV;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
-    private $Datedebut;
+    private $Date_debut;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
-    private $Datefin;
+    private $Date_fin;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -84,24 +84,24 @@ class Experience
 
     public function getDateDebut(): ?\DateTimeInterface
     {
-        return $this->Datedebut;
+        return $this->Date_debut;
     }
 
-    public function setDateDebut(\DateTimeInterface $Datedebut): self
+    public function setDateDebut(\DateTimeInterface $Date_debut): self
     {
-        $this->Date_debut = $Datedebut;
+        $this->Date_debut = $Date_debut;
 
         return $this;
     }
 
     public function getDateFin(): ?\DateTimeInterface
     {
-        return $this->Datefin;
+        return $this->Date_fin;
     }
 
-    public function setDateFin(\DateTimeInterface $Datefin): self
+    public function setDateFin(\DateTimeInterface $Date_fin): self
     {
-        $this->Date_fin = $Datefin;
+        $this->Date_fin = $Date_fin;
 
         return $this;
     }

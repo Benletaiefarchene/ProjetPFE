@@ -3,12 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\CV;
+use App\Entity\User;
 use App\Form\CVType;
+use App\Form\UserType;
 use App\Entity\Candidat;
 use App\Entity\Competance;
 use App\Entity\Experience;
 use App\Form\CompetanceType;
+use App\Services\QrcodeService;
 use App\Repository\CVRepository;
+
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,15 +20,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Collections\ArrayCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Services\QrcodeService;
 
 class CandidatController extends AbstractController
 {
-   
-    
-
     /**
-     * @Route("/addcv", name="candidat")
+     * @Route("/addcv", name="addcv.candidat")
      */
     public function addCV(Request $request){
         
@@ -83,9 +83,6 @@ class CandidatController extends AbstractController
                     $em->remove($com);
                 }
             }
-            
-            
-            dd($qrCode);
             $em->persist($cv);
             $em->flush();
             
@@ -129,6 +126,46 @@ class CandidatController extends AbstractController
             
            
         );
+    }
+    /**
+     * @Route("/editProfile/{id}", name="edit.candidat")
+     */
+    public function editProfileAction(Request $request , $id){
+
+        $em=$this->getDoctrine()->getManager();
+        $p= $em->getRepository(CV::class)->find($id);
+        $user=$em->getRepository(User::class)->find($id);
+        $form1=$this->createForm(UserType::class,$user);
+        $form1->handleRequest($request);
+        $form=$this->createForm(CVType::class,$p);
+        $form->handleRequest($request);
+        
+       
+        if($form->isSubmitted() && $form1->isSubmitted() ){
+            $file = $p->getPhoto();
+            $filename= md5(uniqid()) . '.' . $file->guessExtension();
+            $file->move($this->getParameter('images_directory'), $filename);
+            $p->setPhoto($filename);
+
+            $file1 = $p->getVideo();
+
+            $filename1= md5(uniqid()) . '.' . $file1->guessExtension();
+            $file1->move($this->getParameter('images_directory'), $filename1);
+            $p->setVideo($filename1);
+         
+            $em= $this->getDoctrine()->getManager();
+            $em->persist($p);
+            $em->flush();
+            $em->persist($user);
+            $em->flush();
+           // return $this->redirectToRoute('detailed');
+
+        }
+        return $this->render('Candidat/editProfile.html.twig', array(
+            "user"=>$form1->createView(),
+            "cv"=> $form->createView()
+        ));
+
     }
    
    
