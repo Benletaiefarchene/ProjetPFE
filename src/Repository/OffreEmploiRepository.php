@@ -47,4 +47,18 @@ class OffreEmploiRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findActualites()
+    {  
+            $limit=5;
+            return $this
+            ->createQueryBuilder('e')
+            ->addOrderBy('e.dateOffre', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->execute()
+        ;
+    
+       
+     }
+    
 }

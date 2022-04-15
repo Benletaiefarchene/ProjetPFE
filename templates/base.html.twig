@@ -15,11 +15,14 @@
 <link rel="stylesheet" href={{ asset('css/style.css')}}>
 <link rel="stylesheet" href="css/colors/blue.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css">
-
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
     <body>
     <!-- Header Container
 ================================================== -->
+
 <header id="header-container" class="fullwidth">
 
 	<!-- Header -->
@@ -38,42 +41,24 @@
 				<nav id="navigation">
 					<ul id="responsive">
 
-						<li><a href="#" class="current">Home</a>
+						<li><a href="{{ path('listposthome') }}" class="current">Home</a>
+							
+						</li>
+						<li><a href="{{ path('Actualites') }}" class="current">News</a>
+							
+						</li>
+
+						<li><a href="#">Job offer</a>
 							<ul class="dropdown-nav">
-								<li><a href="index.html">Home 1</a></li>
-								<li><a href="index-2.html">Home 2</a></li>
-								<li><a href="index-3.html">Home 3</a></li>
+								
+								<li><a href="{{path('listpostRec',{'id': 'recrutement'})}}">Recrutement</a></li>
+								<li><a href="{{path('listpostRec',{'id': 'free-lance'})}}">Free-lance</a></li>
+								<li><a href="{{path('listpostRec',{'id': 'télétravail'})}}">Télétravail</a></li>
+								<li><a href="{{path('listpostRec',{'id': 'stage'})}}">Stage</a></li>
 							</ul>
 						</li>
 
-						<li><a href="#">Find Work</a>
-							<ul class="dropdown-nav">
-								<li><a href="#">Browse Jobs</a>
-									<ul class="dropdown-nav">
-										<li><a href="jobs-list-layout-full-page-map.html">Full Page List + Map</a></li>
-										<li><a href="jobs-grid-layout-full-page-map.html">Full Page Grid + Map</a></li>
-										<li><a href="jobs-grid-layout-full-page.html">Full Page Grid</a></li>
-										<li><a href="jobs-list-layout-1.html">List Layout 1</a></li>
-										<li><a href="jobs-list-layout-2.html">List Layout 2</a></li>
-										<li><a href="jobs-grid-layout.html">Grid Layout</a></li>
-									</ul>
-								</li>
-								<li><a href="#">Browse Tasks</a>
-									<ul class="dropdown-nav">
-										<li><a href="tasks-list-layout-1.html">List Layout 1</a></li>
-										<li><a href="tasks-list-layout-2.html">List Layout 2</a></li>
-										<li><a href="tasks-grid-layout.html">Grid Layout</a></li>
-										<li><a href="tasks-grid-layout-full-page.html">Full Page Grid</a></li>
-									</ul>
-								</li>
-								<li><a href="browse-companies.html">Browse Companies</a></li>
-								<li><a href="single-job-page.html">Job Page</a></li>
-								<li><a href="single-task-page.html">Task Page</a></li>
-								<li><a href="single-company-profile.html">Company Profile</a></li>
-							</ul>
-						</li>
-
-						<li><a href="#">For Employers</a>
+						<li><a href="#">Training</a>
 							<ul class="dropdown-nav">
 								<li><a href="#">Find a Freelancer</a>
 									<ul class="dropdown-nav">
@@ -88,6 +73,7 @@
 								<li><a href="dashboard-post-a-task.html">Post a Task</a></li>
 							</ul>
 						</li>
+						
 
 						<li><a href="#">Dashboard</a>
 							<ul class="dropdown-nav">
@@ -275,51 +261,7 @@
 
 				</div>
 				<!--  User Notifications / End -->
-
-				<!-- User Menu -->
-				<div class="header-widget">
-
-					<!-- Messages -->
-					<div class="header-notifications user-menu">
-						<div class="header-notifications-trigger">
-							<a href="#"><div class="user-avatar status-online"><img src={{ asset('images/user-avatar-small-01.jpg')}} alt=""></div></a>
-						</div>
-
-						<!-- Dropdown -->
-						<div class="header-notifications-dropdown">
-
-							<!-- User Status -->
-							<div class="user-status">
-
-								<!-- User Name / Avatar -->
-								<div class="user-details">
-									<div class="user-avatar status-online"><img src={{ asset('images/user-avatar-small-01.jpg')}}  alt=""></div>
-									<div class="user-name">
-										Tom Smith <span>Freelancer</span>
-									</div>
-								</div>
-								
-								<!-- User Status Switcher -->
-								<div class="status-switch" id="snackbar-user-status">
-									<label class="user-online current-status">Online</label>
-									<label class="user-invisible">Invisible</label>
-									<!-- Status Indicator -->
-									<span class="status-indicator" aria-hidden="true"></span>
-								</div>	
-						</div>
-						
-						<ul class="user-menu-small-nav">
-							<li><a href="dashboard.html"><i class="icon-material-outline-dashboard"></i> Dashboard</a></li>
-							<li><a href="dashboard-settings.html"><i class="icon-material-outline-settings"></i> Settings</a></li>
-							<li><a href="{{path('app_logout')}}"><i class="icon-material-outline-power-settings-new"></i> Logout</a></li>
-						</ul>
-
-						</div>
-					</div>
-
-				</div>
-				<!-- User Menu / End -->
-
+{% block header %}{% endblock %}
 				<!-- Mobile Navigation Button -->
 				<span class="mmenu-trigger">
 					<button class="hamburger hamburger--collapse" type="button">

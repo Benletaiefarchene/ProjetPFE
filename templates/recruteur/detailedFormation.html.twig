@@ -1,0 +1,141 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Training{% endblock %}
+
+{% block body %}
+
+       </br>
+       </br>
+       </br>
+       </br>
+    <!-- Titlebar
+================================================== -->
+<div class="single-page-header" data-background-image="images/single-job.jpg">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="single-page-header-inner">
+					<div class="left-side">
+						<div class="header-image"><a href="single-company-profile.html"><img  src="{{ asset('uploads/images/' ~ Formation.recruteur.photo) }}" alt="" ></a></div>
+						<div class="header-details">
+                       
+							<h3>{{ Formation.titre }} </h3>
+							<h5>{{ Formation.recruteur.User.nom }} {{ Formation.recruteur.User.prenom }}</h5>
+							<ul>
+								<li><i class="icon-material-outline-business"></i> {{ Formation.recruteur.ville }}</a></li>
+
+								<li><i class="icon-material-outline-location-on"></i> {{ Formation.recruteur.pays }}</li>
+								
+							</ul>
+                            <h5><i class="icon-line-awesome-calendar-o"></i>{{Formation.DateDebut|date('d-m-Y ')}} <h5>
+							<h5><i class="icon-material-outline-access-time"></i> {{Formation.dureeformation}} Days </h5>
+                           
+                             
+						</div>
+					</div>
+					<div class="right-side">
+						<div class="salary-box">
+							<div class="salary-type"><h3><center>Price</center></h3></div>
+							<div class="salary-amount">{{ Formation.price }} $</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Page Content
+================================================== -->
+<div class="container">
+	<div class="row">
+		
+		<!-- Content -->
+		<div class="col-xl-8 col-lg-8 content-right-offset">
+
+			<div class="single-page-section">
+				<h3 class="margin-bottom-25">Job Description</h3>
+				<p>{{Formation.description}}</p>
+			</div>
+
+			{# <div class="single-page-section">
+				<h3 class="margin-bottom-30">Location</h3>
+				<div id="single-job-map-container">
+					<div id="singleListingMap" data-latitude="51.507717" data-longitude="-0.131095" data-map-icon="im im-icon-Hamburger"></div>
+					<a href="#" id="streetView">Street View</a>
+				</div>
+			</div> #}
+
+			
+		</div>
+		
+
+		<!-- Sidebar -->
+		<div class="col-xl-4 col-lg-4">
+			<div class="sidebar-container">
+
+				<button type="submit" class="apply-now-button">Apply Now </button>
+					
+				<!-- Sidebar Widget -->
+				<div class="sidebar-widget">
+					<div class="job-overview">
+						<div class="job-overview-headline">Job Summary</div>
+						<div class="job-overview-inner">
+							<ul>
+								<li>
+									<i class="icon-material-outline-location-on"></i>
+									<span>Location</span>
+									<h5>{{ Formation.recruteur.ville }}, {{ Formation.recruteur.pays }}</h5>
+								</li>
+								{# <li>
+									<i class="icon-material-outline-business-center"></i>
+									<span>Job Type</span>
+									<h5>Full Time</h5>
+								</li> #}
+								<li>
+									<i class="icon-material-outline-local-atm"></i>
+									<span>Price</span>
+									<h5>{{ Formation.price }} $</h5>
+								</li>
+								<li>
+									<i class="icon-line-awesome-calendar-o"></i>
+									<span>Start Date</span>
+									<h5>{{Formation.DateDebut|date('d-m-Y ')}}</h5>
+								</li>
+                                <li>
+									<i class="icon-material-outline-access-time"></i>
+									<span>Training Duration</span>
+									<h5>{{Formation.dureeformation}} Days</h5>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+			
+
+			</div>
+		</div>
+
+	</div>
+</div>
+      
+
+
+
+<!-- Page Content
+================================================== -->
+<div class="container">
+	<div class="row">
+			
+			  
+	</div>
+</div>
+
+
+	<!-- Spacer -->
+	<div class="margin-top-15"></div>
+	<!-- Spacer / End-->           
+{% endblock %}
+

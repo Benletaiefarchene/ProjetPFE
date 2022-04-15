@@ -7,12 +7,14 @@ use App\Entity\User;
 use App\Form\CVType;
 use App\Form\UserType;
 use App\Entity\Candidat;
+use App\Entity\Recruteur;
 use App\Entity\Competance;
 use App\Entity\Experience;
+use App\Entity\OffreEmploi;
 use App\Form\CompetanceType;
+
 use App\Services\QrcodeService;
 use App\Repository\CVRepository;
-
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,13 +22,17 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Collections\ArrayCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+     /**
+     * @Route("/candidat", name="candidat_")
+     */
 class CandidatController extends AbstractController
 {
     /**
-     * @Route("/addcv", name="addcv.candidat")
+     * IsGranted("ROLE_CANDIDAT)
+     * @Route("/addcv", name="addcv")
      */
     public function addCV(Request $request){
+        $this->denyAccessUnlessGranted('ROLE_CANDIDAT');
         
         $cv= new CV();
         $candidat= new Candidat();
@@ -85,13 +91,16 @@ class CandidatController extends AbstractController
             }
             $em->persist($cv);
             $em->flush();
+            $cv->setPhoto($filename); 
             
-            $cv->setPhoto($filename);   
             $candidat->setCV($cv);
             $candidat->setUser($this->getUser());
             $em->persist($candidat);
             $em->flush();
-            
+           
+           $ex=$this->getUser()->setExist(true);
+           $em->persist($ex);
+           $em->flush();
            
             $this->addFlash('info', 'Created Successfully !');
             return $this->redirectToRoute('homee');
@@ -103,7 +112,8 @@ class CandidatController extends AbstractController
         
     }
     /**
-     * @Route("/detailedCV/{id}", name="detailed")
+     * 
+     * @Route("/detailedCV/{id}", name="detailedCV")
      */
         public function showdetailedAction($id,QrcodeService $qrcodeService)
     {
@@ -127,11 +137,13 @@ class CandidatController extends AbstractController
            
         );
     }
+    
     /**
-     * @Route("/editProfile/{id}", name="edit.candidat")
+     * IsGranted("ROLE_CANDIDAT)
+     * @Route("/editProfile/{id}", name="editProfile")
      */
     public function editProfileAction(Request $request , $id){
-
+        $this->denyAccessUnlessGranted('ROLE_CANDIDAT');
         $em=$this->getDoctrine()->getManager();
         $p= $em->getRepository(CV::class)->find($id);
         $user=$em->getRepository(User::class)->find($id);
@@ -167,6 +179,38 @@ class CandidatController extends AbstractController
         ));
 
     }
-   
+   /**
+     * @Route("/listPost", name="listpost")
+     */
+    public function listpostAction(Request $request)
+    {
+       
+        $em=$this->getDoctrine()->getManager();
+        $posts=$em->getRepository(OffreEmploi::class)->findAll();
+        
+        
+        
+        return $this->render('recruteur/listPost.html.twig', array(
+            "posts" =>$posts
+        ));
+       // return $this->redirectToRoute('list_post');
+
+    }
+    /**
+     * 
+     * @Route("/detailedOffre/{id}", name="detailedOff")
+     */
+    public function detailedOffreAction($id)
+    {
+        
+        $Off= $this->getDoctrine()->getRepository(OffreEmploi::class)->find($id);
+      
+       
+        return $this->render('Recruteur/detailedOffre.html.twig',[
+           
+            'off'=>$Off
+        ]   
+        );
+    }
    
 }

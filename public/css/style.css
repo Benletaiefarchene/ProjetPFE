@@ -5676,7 +5676,7 @@ button.button,
 input[type="button"],
 input[type="submit"],
 a.button {
-	background-color: #66676b;
+	background-color: #2a41e8;
 	top: 0;
 	padding: 10px 20px;
 	line-height: 24px;
@@ -10918,12 +10918,23 @@ img.mfp-img {
 	margin-right: 20px;
 }
 
-.account-type label {
+/* .account-type label {
   border-radius: 3px;
   border: none;
   background-color: #f2f2f2;
   width: 100%;
+} */
+.account-type label:checked {
+	color: #fff;
+	background-color: #47bb67;
 }
+
+/* .account-type label {
+	border-radius: 3px;
+	border: none;
+	background-color: #f2f2f2;
+	width: 100%;
+  } */
 
 /* hide input */
 .account-type input.account-type-radio:empty {
@@ -10956,7 +10967,20 @@ img.mfp-img {
 	line-height: 28px;
 	overflow: hidden;
 }
+a{
+	text-decoration: auto !important;
+}
+span.list-apply-button.ripple-effect:hover{
+	color: #FFFFFF !important;
+	background-color: #2b41e6;
+}
+a.headline-link:hover{
 
+	color: #9d9ea1 !important;
+}
+a:hover{
+	color: #f0f0f0 !important;
+}
 .account-type input.account-type-radio ~ label:hover {
 	color: #289c41;
 	background-color: #e4f6e9;
@@ -10966,6 +10990,7 @@ img.mfp-img {
 	color: #fff;
 	background-color: #47bb67;
 }
+
 
 .account-type input.account-type-radio:empty ~ label:after,
 .account-type input.account-type-radio:empty ~ label:before {
@@ -12816,10 +12841,27 @@ body .pac-container {
 	font-size: 24px;
 	color: #66676b;
 }
+button.apply-now-button{
+	
+		background-color: #2a41e8;
+		color: #fff;
+		text-align: center;
+		font-size: 20px;
+		border-radius: 4px;
+		padding: 15px 129px;
+		margin-bottom: 35px;
+		box-shadow: 0 2px 8px rgba(102,103,107,0.15);
+		transition: 0.3s;
+		display: block;
 
+}
+button.apply-now-button:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 2px 8px rgba(102,103,107,0.35);
+}
 /* Apply Now Button */
 a.apply-now-button {
-	background-color: #66676b;
+	background-color: #2a41e8;
 	color: #fff;
 	text-align: center;
 	font-size: 18px;

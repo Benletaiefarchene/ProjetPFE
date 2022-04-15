@@ -20,14 +20,14 @@ class OffreEmploi
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=1000)
      */
     private $description;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="datetime")
      */
-    private $date_Offre;
+    private $dateOffre;
 
     /**
      * @ORM\ManyToMany(targetEntity=Candidat::class, inversedBy="offreEmplois")
@@ -45,10 +45,7 @@ class OffreEmploi
      */
     private $titre;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $type;
+   
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -59,6 +56,16 @@ class OffreEmploi
      * @ORM\Column(type="integer")
      */
     private $salaire;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Type::class, inversedBy="OffreEmploi")
+     */
+    private $type;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $DateFinOffre;
 
     public function __construct()
     {
@@ -84,12 +91,12 @@ class OffreEmploi
 
     public function getDateOffre(): ?\DateTimeInterface
     {
-        return $this->date_Offre;
+        return $this->dateOffre;
     }
 
-    public function setDateOffre(\DateTimeInterface $date_Offre): self
+    public function setDateOffre(\DateTimeInterface $dateOffre): self
     {
-        $this->date_Offre = $date_Offre;
+        $this->dateOffre = $dateOffre;
 
         return $this;
     }
@@ -142,17 +149,7 @@ class OffreEmploi
         return $this;
     }
 
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
+   
 
     public function getCategorie(): ?string
     {
@@ -174,6 +171,30 @@ class OffreEmploi
     public function setSalaire(int $salaire): self
     {
         $this->salaire = $salaire;
+
+        return $this;
+    }
+
+    public function getType(): ?Type
+    {
+        return $this->type;
+    }
+
+    public function setType(?Type $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getDateFinOffre(): ?\DateTimeInterface
+    {
+        return $this->DateFinOffre;
+    }
+
+    public function setDateFinOffre(\DateTimeInterface $DateFinOffre): self
+    {
+        $this->DateFinOffre = $DateFinOffre;
 
         return $this;
     }

@@ -26,7 +26,7 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @ORM\Column(type="json")
+     * @ORM\Column(name="roles", type="array")
      */
     private $roles = [];
 
@@ -43,6 +43,18 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      */
     private $prenom;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $exist;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $resetToken;
+
+   
 
   
 
@@ -94,17 +106,15 @@ class User implements UserInterface
     {
         return (string) $this->email;
     }
-
+ 
     /**
      * @see UserInterface
      */
     public function getRoles(): array
     {
-        $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
+        $roles = $this->roles;    
+      
+  return $roles; 
     }
 
     public function setRoles(array $roles): self
@@ -148,6 +158,32 @@ class User implements UserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+    public function getExist(): ?bool
+    {
+        return $this->exist;
+    }
+
+    public function setExist(bool $exist): self
+    {
+        $this->exist = $exist;
+
+        return $this;
+    }
+
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
+
+    public function setResetToken(?string $resetToken): self
+    {
+        $this->resetToken = $resetToken;
+
+        return $this;
+    }
+
+
 
   
 }

@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mot de passe oublié{% endblock %}
+
+{% block body %}
+<!-- Titlebar
+================================================== -->
+<div id="titlebar" class="gradient">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+
+				
+
+				<!-- Breadcrumbs -->
+			
+
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-xl-5 offset-xl-3">
+
+
+			<div class="login-register-page">
+				<!-- Welcome Text -->
+                
+				<div class="welcome-text">
+                <h2>Mot de passe oublié</h2>
+                </br>
+					{{form(emailForm)}}
+                    
+                      <button class="button full-width button-sliding-icon ripple-effect margin-top-10" type="submit" form="login-form">Envoyer<i class="icon-material-outline-arrow-right-alt"></i></button>
+                    
+				</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

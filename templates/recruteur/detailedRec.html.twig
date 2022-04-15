@@ -33,7 +33,13 @@
                              <ul>
 								
 								<li> langue_preferee : {{ Rec.languepreferee }}</li>
-								
+								{% for rec in Rec %}
+
+									<li>
+									{{dump(rec.OffreEmploi)}}
+									</li>
+
+								{% endfor %}
 							</ul>
 						</div>
 					</div>

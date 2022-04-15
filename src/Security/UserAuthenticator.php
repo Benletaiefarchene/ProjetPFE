@@ -30,6 +30,7 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
     private $urlGenerator;
     private $csrfTokenManager;
     private $passwordEncoder;
+    private $user;
 
     public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
     {
@@ -51,6 +52,7 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
             'email' => $request->request->get('email'),
             'password' => $request->request->get('password'),
             'csrf_token' => $request->request->get('_csrf_token'),
+            'roles' =>$request->request->get('roles')
         ];
         $request->getSession()->set(
             Security::LAST_USERNAME,
@@ -72,7 +74,9 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
         if (!$user) {
             throw new UsernameNotFoundException('Email could not be found.');
         }
-
+       
+        $this->user=$user;
+        
         return $user;
     }
 
@@ -91,12 +95,31 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
+       $ro=$request->request->get("registration_form")["roles"];
+        //dd($this->user);
+        $can = 'ROLE_CANDIDAT';
+        //$id = $this->user->getId();
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
+       
+       // if( $this->security->isGranted('ROLE_CANDIDAT')){
+        if($token->getUser()->getExist() == false){
+            if($token->getUser()->getRoles()[0] == $can){
+
+                return new RedirectResponse($this->urlGenerator->generate('candidat_addcv'));
+            }else{
+                return new RedirectResponse($this->urlGenerator->generate('recruteur_addpofile'));
+            }
+        }else{
+            if ($token->getUser()->getRoles()[0]=='ROLE_CANDIDAT') {
+                return new RedirectResponse($this->urlGenerator->generate('candidat_listpost'));
+            }else if ($token->getUser()->getRoles()[0]=='ROLE_RECRUTEUR'){
+                return new RedirectResponse($this->urlGenerator->generate('recruteur_listpost'));
+            }
+            }
         
-        return new RedirectResponse($this->urlGenerator->generate('homee'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
     protected function getLoginUrl()

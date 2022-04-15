@@ -1,0 +1,145 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Training
+{% endblock %}
+
+{% block body %}
+
+
+	<!-- Dashboard Content
+								================================================== -->
+	<div class="dashboard-content-container" data-simplebar>
+		<div
+			class="dashboard-content-inner">
+
+			<!-- Dashboard Headline -->
+			<div class="dashboard-headline">
+				<h3>EDIT TRAINING</h3>
+
+				<!-- Breadcrumbs -->
+				<nav id="breadcrumbs" class="dark">
+					<ul>
+						<li>
+							<a href="#">Home</a>
+						</li>
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li>Edit Training</li>
+					</ul>
+				</nav>
+			</div>
+
+			<!-- Row -->
+			<div
+				class="row">
+
+				<!-- Dashboard Box -->
+				<div class="col-xl-12">
+					<div
+						class="dashboard-box margin-top-0">
+
+						<!-- Headline -->
+						<div class="headline">
+							<h3>
+								<i class="icon-feather-folder-plus"></i>
+								Edit Training Form</h3>
+						</div>
+
+
+						{{ form_start(Formation) }}
+
+						<div class="content with-padding padding-bottom-10">
+							<div class="row">
+
+								<div class="col-xl-4">
+									<div class="submit-field">
+										{{ form_label(Formation.titre, null, {
+                                            'label': 'titre :',
+                                            'label_attr': {'class': 'uploadButton-button ripple-effect'}
+                                            }) }}
+										{{ form_widget(Formation.titre,{'attr':{'type':'text','class':'form-control','placeholder':'titre...' ,'text-align':'center'}}) }}
+
+									</div>
+								</div>
+
+								<div class="col-xl-4">
+									<div class="submit-field">
+										{{ form_label(Formation.lieu_formation, null, {
+                                            'label': 'lieu formation :',
+                                            'label_attr': {'class': 'uploadButton-button ripple-effect'}
+                                            }) }}
+										{{ form_widget(Formation.lieu_formation,{'attr':{'type':'text','class':'form-control','placeholder':'lieu formation...'}}) }}
+
+									</div>
+								</div>
+								<div class="col-xl-4">
+									<div class="submit-field">
+										{{ form_label(Formation.price, null, {
+                                            'label': 'price :',
+                                            'label_attr': {'class': 'uploadButton-button ripple-effect'}
+                                            }) }}
+										{{ form_widget(Formation.price,{'attr':{'type':'text','class':'form-control','placeholder':'price...'}}) }}
+
+									</div>
+								</div>
+								<div class="col-xl-6">
+									<div class="submit-field">
+										{{ form_label(Formation.DateDebut, null, {
+                                            'label': 'Date Debut :',
+                                            'label_attr': {'class': 'uploadButton-button ripple-effect'}
+                                            }) }}
+										{{ form_widget(Formation.DateDebut,{'attr':{'type':'text','class':'form-control','placeholder':'DateDebut...'}}) }}
+
+
+									</div>
+								</div>
+								<div class="col-xl-6">
+									<div class="submit-field">
+										{{ form_label(Formation.dureeformation, null, {
+                                            'label': 'duree formation  :',
+                                            'label_attr': {'class': 'uploadButton-button ripple-effect'}
+                                            }) }}
+
+										{{ form_widget(Formation.dureeformation,{'attr':{'type':'text','class':'form-control','placeholder':'dureeformation...'}}) }}
+
+									</div>
+								</div>
+								<div class="col-xl-12">
+									<div class="submit-field">
+										{{ form_label(Formation.description, null, {
+                                            'label': 'description :',
+                                            'label_attr': {'class': 'uploadButton-button ripple-effect'}
+                                            }) }}
+
+
+										{{ form_widget(Formation.description,{'attr':{'type':'Textarea','class':'form-control','placeholder':'description...'}}) }}
+
+
+									</div>
+								</div>
+
+
+							</div>
+
+						</div>
+
+						<div class="col-xl-12">
+							<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-10">Edit Training
+								<i class="icon-material-outline-arrow-right-alt"></i>
+							</button>
+						</div>
+						{{ form_end(Formation) }}
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+
+
+	</div>
+	<!-- Row / End -->
+
+
+</div></div><!-- Dashboard Content / End -->{% endblock %}

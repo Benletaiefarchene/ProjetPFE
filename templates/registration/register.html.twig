@@ -1,71 +1,80 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Register
+{% endblock %}
 
 {% block body %}
-    <div id="titlebar" class="gradient">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-12">
+	<div id="titlebar" class="gradient">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
 
-				<h2>Register</h2>
+					<h2>Register</h2>
 
-				<!-- Breadcrumbs -->
-				<nav id="breadcrumbs" class="dark">
-					<ul>
-						<li><a href="#">Home</a></li>
-						<li>Register</li>
-					</ul>
-				</nav>
+					<!-- Breadcrumbs -->
+					<nav id="breadcrumbs" class="dark">
+						<ul>
+							<li>
+								<a href="#">Home</a>
+							</li>
+							<li>Register</li>
+						</ul>
+					</nav>
 
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<div class="container">
-	<div class="row">
-		<div class="col-xl-5 offset-xl-3">
+	<div class="container">
+		<div class="row">
+			<div class="col-xl-5 offset-xl-3">
 
-			<div class="login-register-page">
-				<!-- Welcome Text -->
-				<div class="welcome-text">
-					<h3 style="font-size: 26px;">Let's create your account!</h3>
-					<span>Already have an account? <a href="{{path('app_login')}}">Log In!</a></span>
-				</div>
-
-    {{ form_start(registrationForm) }}
-
-	            <div class="account-type">
-					<div>
-						<input type="radio" name="account-type-radio" id="Candidat" class="account-type-radio" checked/>
-						<label for="freelancer-radio" class="ripple-effect-dark"><i class="icon-material-outline-account-circle"></i> Candidat</label>
+				<div
+					class="login-register-page">
+					<!-- Welcome Text -->
+					<div class="welcome-text">
+						<h3 style="font-size: 26px;">Let's create your account!</h3>
+						<span>Already have an account?
+							<a href="{{path('app_login')}}">Log In!</a>
+						</span>
 					</div>
 
-					<div>
-						<input type="radio" name="account-type-radio" id="Recruteur" class="account-type-radio"/>
-						<label for="employer-radio" class="ripple-effect-dark"><i class="icon-material-outline-business-center"></i>Recruteur </label>
-					</div>
-				</div>
+					{{ form_start(registrationForm) }}
+
+					<div class="col-xl-12">
+									<div class="submit-field">
+						{# <div>
+							<input type="radio" name="roles" value="ROLE_CANDIDAT" id="Candidat" class="account-type-radio"/>
+							<label for="Candidat" class="ripple-effect-dark">
+								<i class="icon-material-outline-account-circle"></i>
+								{{form_widget(registrationForm.roles[0])}}</label> 
+
+						</div> #}
+
+						
+							
+							<label for="Recruteur" class="ripple-effect-dark col-xl-12" >
+								
+								{{form_widget(registrationForm.roles,{'attr':{'style':'text-align:center' ,'class':'role'}})}}
+							</label>
+						</div> 
+					</div> 
 				
-	
-               	{{ form_widget(registrationForm.email,{'attr':{'type':'text','class':'form-control','placeholder':'email...'}}) }}
-               	{{ form_widget(registrationForm.nom,{'attr':{'type':'text','class':'form-control','placeholder':'nom...'}}) }}
-         		{{ form_widget(registrationForm.prenom,{'attr':{'type':'text','class':'form-control','placeholder':'prenom...'}}) }}
-        		{{ form_widget(registrationForm.plainPassword, {'attr':{'type':'password','class':'form-control','placeholder':'password...'}}) }}
-		
-		 
-		
-		<div class="submit-field" >
-	
-        
-        </div>
-		 </div>
-        <button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-10">Register<i class="icon-material-outline-arrow-right-alt"></i></button>
-    {{ form_end(registrationForm) }}
+					 {# {{ form_widget(registrationForm.roles	)}}  #}
+					{{ form_widget(registrationForm.email,{'attr':{'type':'text','class':'form-control','placeholder':'email...'}}) }}
+					{{ form_widget(registrationForm.nom,{'attr':{'type':'text','class':'form-control','placeholder':'nom...'}}) }}
+					{{ form_widget(registrationForm.prenom,{'attr':{'type':'text','class':'form-control','placeholder':'prenom...'}}) }}
+					{{ form_widget(registrationForm.plainPassword, {'attr':{'type':'password','class':'form-control','placeholder':'password...'}}) }}
 
-    </div>
+
+					<div class="submit-field"></div>
+				</div>
+				<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-10">Register<i class="icon-material-outline-arrow-right-alt"></i>
+				</button>
+				{{ form_end(registrationForm) }}
+
+			</div>
 
 		</div>
 	</div>
-</div>
-{% endblock %}
+</div>{% endblock %}
