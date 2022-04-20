@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use App\Data\SearchData;
 use App\Entity\OffreEmploi;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method OffreEmploi|null find($id, $lockMode = null, $lockVersion = null)
@@ -59,6 +60,37 @@ class OffreEmploiRepository extends ServiceEntityRepository
         ;
     
        
+     }
+     public function findSearch(SearchData $search):array
+     {
+         $query=$this
+         
+         ->createQueryBuilder('o')
+         ->select('t','o')
+         ->join('o.type','t');
+
+        if(!empty($search->q)){
+            $query = $query
+            ->andWhere('o.titre LIKE :q')
+            ->setParameter('q',"%{$search->q}%");
+        }
+        if(!empty($search->min)){
+            $query = $query
+            ->andWhere('o.salaire >= :min')
+            ->setParameter('min', $search->min);
+        }
+        if(!empty($search->max)){
+            $query = $query
+            ->andWhere('o.salaire <= :max')
+            ->setParameter('max', $search->max);
+        }
+        if(!empty($search->type)){
+            $query = $query
+            ->andWhere('t.id IN (:type)')
+            ->setParameter('type', $search->type);
+        }
+        return $query->getQuery()->getResult();
+
      }
     
 }

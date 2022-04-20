@@ -277,11 +277,15 @@
 		</div>
 	</div>
 	<!-- Header / End -->
-
+</br>
+</br>
 </header>
 <div class="clearfix"></div>
 <!-- Header Container / End -->
 </br>
+</br>
+</br>
+</br></br>
 </br>
 
         {% block body %}{% endblock %}
@@ -473,6 +477,18 @@
 
 <!-- Snackbar // documentation: https://www.polonel.com/snackbar/ -->
 <script>
+var lastScrollTop;
+navbar = document.getElementById('header');
+window.addEventListener('scroll',function(){
+var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+if(scrollTop > lastScrollTop){
+navbar.style.top='-80px';
+}
+else{
+navbar.style.top='0';
+}
+lastScrollTop = scrollTop;
+});
 // Snackbar for user status switcher
 $('#snackbar-user-status label').click(function() { 
 	Snackbar.show({

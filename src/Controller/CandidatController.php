@@ -212,5 +212,6 @@ class CandidatController extends AbstractController
         ]   
         );
     }
+  
    
 }

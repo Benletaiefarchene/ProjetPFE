@@ -2,18 +2,21 @@
 
 namespace App\Controller;
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use App\Entity\Type;
+use App\Data\SearchData;
 use App\Entity\Candidat;
+use App\Form\SearchForm;
 use App\Entity\Competance;
 use App\Entity\Experience;
 use App\Entity\OffreEmploi;
 use App\Form\TypeOffreType;
+use App\Repository\OffreEmploiRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Dompdf\Dompdf;
-use Dompdf\Options;
 
 
 class HomeController extends AbstractController
@@ -46,16 +49,22 @@ class HomeController extends AbstractController
     /**
      * @Route("/listPosthome", name="listposthome")
      */
-    public function listposteAction(Request $request)
+    public function listposteAction(Request $request,OffreEmploiRepository $repository)
     {
+        $data = new SearchData();
+        $form = $this->createForm(SearchForm::class , $data);
+        $form->handleRequest($request);
        
-        $em=$this->getDoctrine()->getManager();
-        $posts=$em->getRepository(OffreEmploi::class)->findAll();
+        $posts=$repository->findSearch($data);
+      
+       
         
         
         
         return $this->render('recruteur/listPost.html.twig', array(
-            "posts" =>$posts
+            "posts" =>$posts,
+         
+            'form'=>$form->createView()
         ));
        // return $this->redirectToRoute('list_post');
 
@@ -190,4 +199,15 @@ class HomeController extends AbstractController
        
         
     }
+    // public function search(OffreEmploiRepository $repository){
+        
+    //     $data = new SearchData();
+    //     $form = $this->createForm(SearchForm::class , $data);
+    //     $offre=$repository->findSearch();
+    //     return $this->render('recruteur/listPost.html.twig',[
+    //         'offre'=>$offre,
+    //         'form'=>$form->createView()
+    //     ]);
+
+    // }
 }
