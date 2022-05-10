@@ -1,0 +1,66 @@
+{% extends 'dashboard.html.twig' %}
+{% block body %}
+	<div class="container">
+		<div class="row"></br>
+		<div class="col-xl-9 col-lg-8 content-left-offset">
+			{% for user in user %}
+				{# {% if posts.type[0] == "télétravail" %} #}
+				<div class="listings-container margin-top-35">
+
+						{# {% if is_granted('ROLE_CANDIDAT') %}
+												<a href="{{ path('candidat_detailedOff',{'id': user.id}) }}" class="job-listing">
+												{% elseif is_granted('ROLE_RECRUTEUR') %}
+													<a href="{{ path('recruteur_detailedOff',{'id': user.id}) }}" class="job-listing">
+													{% else %}
+														<a href="{{ path('detailedOff',{'id': posts.id}) }}" class="job-listing">
+														{% endif %}
+														<!-- Job Listing --> #}
+
+
+						<!-- Job Listing Details -->
+						<div class="job-listing-details"> {# <!-- Logo -->
+																<div class="job-listing-company-logo">
+																	<img src="{{ asset('uploads/images/' ~ posts.recruteur.photo ) }}" alt="">
+																</div> #}
+
+							<!-- Details -->
+							<div class="job-listing-description"> <h4 class="job-listing-company">{{user.nom	}}
+
+								<span class="verified-badge" title="Verified Employer" data-tippy-placement="top"></span>
+							</h4>
+							<h4 class="job-listing-company">{{user.prenom }}
+
+								<span class="verified-badge" title="Verified Employer" data-tippy-placement="top"></span>
+							</h4>
+							<h3 class="job-listing-title">{{user.email}}</h3>
+							<p class="job-listing-text">{{user.roles['0']}}</p>
+							</div>
+
+						</div>
+						<div class="right-side">
+							<a href="{{ path('admin_editUser',{'id': user.id}) }}" class="button full-width button-sliding-icon ripple-effect margin-top-10">Edit<i class="icon-material-outline-arrow-right-alt"></i>
+								</a>
+						</div>
+				</div>
+
+				{# </a> #}
+			{% endfor %}
+
+			{# 
+						<!-- Pagination -->
+								<div class="clearfix"></div>
+											<div class="row">
+									<div class="col-md-12">
+								{# <!-- Pagination -->
+							<div class="pagination-container margin-top-30 margin-bottom-60" style="text-align: center;">
+						 {{ knp_pagination_render(user) }}
+							</div> 
+						</div>
+					</div>
+				<!-- Pagination / End --> 
+			#}
+		</div>
+		{# {% endif %} #}
+
+	</div>
+</div>{% endblock %}

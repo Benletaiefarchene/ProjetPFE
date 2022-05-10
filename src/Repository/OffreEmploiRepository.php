@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Data\SearchData;
 use App\Entity\OffreEmploi;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
@@ -15,9 +17,10 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
  */
 class OffreEmploiRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator)
     {
         parent::__construct($registry, OffreEmploi::class);
+        $this->paginator =$paginator;
     }
 
     // /**
@@ -48,6 +51,17 @@ class OffreEmploiRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findOffre()
+    { 
+
+    
+    return $this  
+    ->createQueryBuilder('o')
+    ->select('o')
+    ->orderBy('o.dateOffre','DESC')
+    ->getQuery()
+    ->getResult();
+    }
     public function findActualites()
     {  
             $limit=5;
@@ -61,14 +75,21 @@ class OffreEmploiRepository extends ServiceEntityRepository
     
        
      }
-     public function findSearch(SearchData $search):array
+     /**
+      * Undocumented function
+      *
+      * 
+      */
+     public function findSearch(SearchData $search):PaginationInterface
      {
          $query=$this
          
          ->createQueryBuilder('o')
          ->select('t','o')
-         ->join('o.type','t');
-
+         ->join('o.type','t')
+         ->andWhere('o.blocked = false')
+         ->andWhere('o.accepted = true')
+         ->orderBy('o.dateOffre','DESC');
         if(!empty($search->q)){
             $query = $query
             ->andWhere('o.titre LIKE :q')
@@ -89,8 +110,34 @@ class OffreEmploiRepository extends ServiceEntityRepository
             ->andWhere('t.id IN (:type)')
             ->setParameter('type', $search->type);
         }
-        return $query->getQuery()->getResult();
+       
+        $query= $query->getQuery();
+        //  dd($this->paginator->paginate($query, 1, 15));
+        return $this->paginator->paginate(
+            $query, /* query NOT result */
+            $search->page, /*page number*/
+            5 /*limit per page*/
+        );
 
      }
     
+     public function countoffre()
+     {   
+        return $this->createQueryBuilder('o')
+            ->select('COUNT(o)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        
+     }
+     public function countoffreAcc()
+     {   
+        return $this->createQueryBuilder('o')
+            ->select('COUNT(o)')
+            ->andWhere('o.accepted = true')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        
+     }
 }

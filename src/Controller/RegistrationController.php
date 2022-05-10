@@ -42,7 +42,7 @@ class RegistrationController extends AbstractController
             $role=$form->getData()->getroles();
              $ex = false;
              $user->setExist($ex);
-       
+            $user->setCreatedAt(new \DateTime());
             $entityManager->persist($user);
             $entityManager->flush();
 

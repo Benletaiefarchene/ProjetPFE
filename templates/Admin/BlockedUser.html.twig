@@ -1,0 +1,81 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block body %}
+
+
+	<!-- Page Content
+						================================================== -->
+	<div class="container">
+		<div class="row"></br>
+
+		<div class="col-xl-12 col-lg-12 content-left-offset">
+			{% for user in user %}
+
+				<div class="listings-container margin-top-35">
+
+					<div class="job-listing-details">
+
+						{# <div class="job-listing-company-logo">
+												        <img src="{{ asset('uploads/images/' ~ posts.recruteur.photo ) }}" alt="">
+											        </div> #}
+
+						<!-- Details -->
+							<div class="job-listing-description"> <h4 class="job-listing-company">{{user.nom	}}
+
+								<span class="verified-badge" title="Verified Employer" data-tippy-placement="top"></span>
+							</h4>
+							<h3 class="job-listing-title">{{user.prenom}}</h3>
+							<p class="job-listing-text">{{user.email}}</p>
+						</div>
+						<div class="right-side">
+
+
+							{% if user.blocked == true %}
+
+								<a href="{{ path('admin_BlockedUser',{'id': user.id}) }}" class="button full-width button-sliding-icon ripple-effect margin-top-10">Unblocked<i class="icon-material-outline-arrow-right-alt"></i>
+								</a>
+							{% else %}
+								<a href="{{ path('admin_BlockedUser',{'id': user.id}) }}" class="button full-width button-sliding-icon ripple-effect margin-top-10">Blocked<i class="icon-material-outline-arrow-right-alt"></i>
+								</a>
+							{% endif %}
+
+
+						</div>
+
+
+					</div>
+
+					<!-- Job Listing Footer -->
+					<div class="job-listing-footer">
+
+						<i class="icon-material-outline-business"></i>
+						{{user.roles['0']}}
+
+
+					</div>
+
+				{% endfor %}
+
+				<!-- Pagination -->
+				<div class="clearfix">
+					<div class="row">
+						<div
+							class="col-md-12">
+							<!-- Pagination -->
+							<div class="pagination-container margin-top-30 margin-bottom-60" style="text-align: center;">
+								{{ knp_pagination_render(user) }}
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<!-- Pagination / End -->
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div></div></div></div><!-- Dashboard Content / End -->{% endblock %}

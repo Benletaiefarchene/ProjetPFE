@@ -1,0 +1,39 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+<div class="container">
+		<div class="row">
+			<div class="col-xl-5 offset-xl-3">
+
+				<div
+					class="login-register-page">
+					<!-- Welcome Text -->
+					<div class="welcome-text">
+						<h3 style="font-size: 26px;">Let's create new Admin</h3>
+						
+					</div>
+
+					{{ form_start(addAdmin) }}
+
+					
+				
+					 {# {{ form_widget(registrationForm.roles	)}}  #}
+					{{ form_widget(addAdmin.email,{'attr':{'type':'text','class':'form-control','placeholder':'email...'}}) }}
+					{{ form_widget(addAdmin.nom,{'attr':{'type':'text','class':'form-control','placeholder':'nom...'}}) }}
+					{{ form_widget(addAdmin.prenom,{'attr':{'type':'text','class':'form-control','placeholder':'prenom...'}}) }}
+					{{ form_widget(addAdmin.plainPassword, {'attr':{'type':'password','class':'form-control','placeholder':'password...'}}) }}
+
+
+					<div class="submit-field"></div>
+				</div>
+				<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-10">Register<i class="icon-material-outline-arrow-right-alt"></i>
+				</button>
+				{{ form_end(addAdmin) }}
+
+			</div>
+
+		</div>
+	</div>
+{% endblock %}

@@ -6,15 +6,18 @@ use App\Entity\CV;
 use App\Entity\User;
 use App\Form\CVType;
 use App\Form\UserType;
+use App\Data\SearchData;
 use App\Entity\Candidat;
+use App\Form\SearchForm;
 use App\Entity\Recruteur;
 use App\Entity\Competance;
 use App\Entity\Experience;
+
 use App\Entity\OffreEmploi;
 use App\Form\CompetanceType;
-
 use App\Services\QrcodeService;
 use App\Repository\CVRepository;
+use App\Repository\OffreEmploiRepository;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,9 +25,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Collections\ArrayCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-     /**
-     * @Route("/candidat", name="candidat_")
-     */
+   
 class CandidatController extends AbstractController
 {
     /**
@@ -182,16 +183,23 @@ class CandidatController extends AbstractController
    /**
      * @Route("/listPost", name="listpost")
      */
-    public function listpostAction(Request $request)
+    public function listpostAction(Request $request,OffreEmploiRepository $repository)
     {
        
-        $em=$this->getDoctrine()->getManager();
-        $posts=$em->getRepository(OffreEmploi::class)->findAll();
         
         
+        $data = new SearchData();
+        $form = $this->createForm(SearchForm::class , $data);
+        $form->handleRequest($request);
+       $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
+       $can=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
+        $posts=$repository->findSearch($data);
         
         return $this->render('recruteur/listPost.html.twig', array(
-            "posts" =>$posts
+            "posts" =>$posts,
+            "rec"=>$rec,
+            "can"=>$can,
+            'form'=>$form->createView()
         ));
        // return $this->redirectToRoute('list_post');
 

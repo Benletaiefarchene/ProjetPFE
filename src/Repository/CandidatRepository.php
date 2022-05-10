@@ -47,4 +47,14 @@ class CandidatRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function countCan()
+    {   
+       return $this->createQueryBuilder('c')
+           ->select('COUNT(c)')
+       
+           ->getQuery()
+           ->getSingleScalarResult();
+
+       
+    }
 }

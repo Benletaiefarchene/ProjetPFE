@@ -47,4 +47,14 @@ class RecruteurRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function countRec()
+    {   
+       return $this->createQueryBuilder('r')
+           ->select('COUNT(r)')
+       
+           ->getQuery()
+           ->getSingleScalarResult();
+
+       
+    }
 }

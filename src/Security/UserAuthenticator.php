@@ -4,21 +4,24 @@ namespace App\Security;
 
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Csrf\CsrfToken;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Http\Util\TargetPathTrait;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Exception\LockedException;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
-use Symfony\Component\Security\Core\Security;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
-use Symfony\Component\Security\Csrf\CsrfToken;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
-use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
-use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class UserAuthenticator extends AbstractFormLoginAuthenticator implements PasswordAuthenticatedInterface
 {
@@ -70,11 +73,13 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
         }
 
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
-
+     
         if (!$user) {
             throw new UsernameNotFoundException('Email could not be found.');
         }
-       
+        if($user->getBlocked() == true){
+            throw new LockedException('Ce compte est bloquer');
+        }
         $this->user=$user;
         
         return $user;
@@ -104,19 +109,22 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
         }
        
        // if( $this->security->isGranted('ROLE_CANDIDAT')){
-        if($token->getUser()->getExist() == false){
-            if($token->getUser()->getRoles()[0] == $can){
+        
+            if($token->getUser()->getExist() == false){
+                if($token->getUser()->getRoles()[0] == $can){
 
-                return new RedirectResponse($this->urlGenerator->generate('candidat_addcv'));
+                    return new RedirectResponse($this->urlGenerator->generate('candidat_addcv'));
+                }else{
+                    return new RedirectResponse($this->urlGenerator->generate('recruteur_addpofile'));
+                }
             }else{
-                return new RedirectResponse($this->urlGenerator->generate('recruteur_addpofile'));
-            }
-        }else{
-            if ($token->getUser()->getRoles()[0]=='ROLE_CANDIDAT') {
-                return new RedirectResponse($this->urlGenerator->generate('candidat_listpost'));
-            }else if ($token->getUser()->getRoles()[0]=='ROLE_RECRUTEUR'){
-                return new RedirectResponse($this->urlGenerator->generate('recruteur_listpost'));
-            }
+                if ($token->getUser()->getRoles()[0]=='ROLE_CANDIDAT') {
+                    return new RedirectResponse($this->urlGenerator->generate('candidat_listpost'));
+                }else if ($token->getUser()->getRoles()[0]=='ROLE_RECRUTEUR'){
+                    return new RedirectResponse($this->urlGenerator->generate('recruteur_listpost'));
+                }else if ($token->getUser()->getRoles()[0]=='ROLE_ADMIN'){
+                    return new RedirectResponse($this->urlGenerator->generate('admin_count'));
+                }
             }
         
         //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);

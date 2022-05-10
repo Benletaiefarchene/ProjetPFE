@@ -51,10 +51,10 @@
 						<li><a href="#">Job offer</a>
 							<ul class="dropdown-nav">
 								
-								<li><a href="{{path('listpostRec',{'id': 'recrutement'})}}">Recrutement</a></li>
-								<li><a href="{{path('listpostRec',{'id': 'free-lance'})}}">Free-lance</a></li>
-								<li><a href="{{path('listpostRec',{'id': 'télétravail'})}}">Télétravail</a></li>
-								<li><a href="{{path('listpostRec',{'id': 'stage'})}}">Stage</a></li>
+								<li><a href="http://127.0.0.1:8000/listPosthome?q=&type%5B%5D=1&min=&max=&_token=tXdUxYvDEnrDBv0uoOyUW1YMZq_fRqucCESknfhcc2I">Recrutement</a></li>
+								<li><a href="http://127.0.0.1:8000/listPosthome?q=&type%5B%5D=2&min=&max=&_token=tXdUxYvDEnrDBv0uoOyUW1YMZq_fRqucCESknfhcc2I">Free-lance</a></li>
+								<li><a href="http://127.0.0.1:8000/listPosthome?q=&type%5B%5D=3&min=&max=&_token=tXdUxYvDEnrDBv0uoOyUW1YMZq_fRqucCESknfhcc2I">Télétravail</a></li>
+								<li><a href="http://127.0.0.1:8000/listPosthome?q=&type%5B%5D=4&min=&max=&_token=tXdUxYvDEnrDBv0uoOyUW1YMZq_fRqucCESknfhcc2I">Stage</a></li>
 							</ul>
 						</li>
 
@@ -113,7 +113,9 @@
 								<li><a href="pages-contact.html">Contact</a></li>
 							</ul>
 						</li>
-
+						<li><a href="{{ path('app_contact') }}" class="current">Contact</a>
+							
+						</li>
 					</ul>
 				</nav>
 				<div class="clearfix"></div>
@@ -279,14 +281,19 @@
 	<!-- Header / End -->
 </br>
 </br>
+</br>
+</br>
+</br>
+</br>
 </header>
+</br>
+</br>
+</br>
+</br>
 <div class="clearfix"></div>
 <!-- Header Container / End -->
-</br>
-</br>
-</br>
-</br></br>
-</br>
+
+
 
         {% block body %}{% endblock %}
 
@@ -294,9 +301,91 @@
 </br>
 </br>
 
-<!-- Footer
+
+
+</div>
+<!-- Wrapper / End -->
+
+
+<!-- Scripts
 ================================================== -->
-<div id="footer">
+<script src={{ asset('js/competance.js')}}></script>
+<script src={{ asset('js/experiance.js')}}></script>
+<script src={{ asset('js/jquery-3.3.1.min.js')}}></script>
+<script src={{ asset('js/jquery-migrate-3.0.0.min.js')}}></script>
+<script src={{ asset('js/mmenu.min.js')}}></script>
+<script src={{ asset('js/tippy.all.min.js')}}></script>
+<script src={{ asset('js/simplebar.min.js')}}></script>
+<script src={{ asset('js/bootstrap-slider.min.js')}}></script>
+<script src={{ asset('js/bootstrap-select.min.js')}}></script>
+<script src={{ asset('js/snackbar.js')}}></script>
+<script src={{ asset('js/clipboard.min.js')}}></script>
+<script src={{ asset('js/counterup.min.js')}}></script>
+<script src={{ asset('js/magnific-popup.min.js')}}></script>
+<script src={{ asset('js/slick.min.js')}}></script>
+<script src={{ asset('js/custom.js')}}></script>
+
+
+<!-- Snackbar // documentation: https://www.polonel.com/snackbar/ -->
+<script>
+var lastScrollTop;
+navbar = document.getElementById('header');
+window.addEventListener('scroll',function(){
+var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+if(scrollTop > lastScrollTop){
+navbar.style.top='-80px';
+}
+else{
+navbar.style.top='0';
+}
+lastScrollTop = scrollTop;
+});
+// Snackbar for user status switcher
+$('#snackbar-user-status label').click(function() { 
+	Snackbar.show({
+		text: 'Your status has been changed!',
+		pos: 'bottom-center',
+		showAction: false,
+		actionText: "Dismiss",
+		duration: 3000,
+		textColor: '#fff',
+		backgroundColor: '#383838'
+	}); 
+}); 
+</script>
+
+
+<!-- Google Autocomplete -->
+<script>
+	function initAutocomplete() {
+		 var options = {
+		  types: ['(cities)'],
+		  // componentRestrictions: {country: "us"}
+		 };
+
+		 var input = document.getElementById('autocomplete-input');
+		 var autocomplete = new google.maps.places.Autocomplete(input, options);
+	}
+
+	// Autocomplete adjustment for homepage
+	if ($('.intro-banner-search-form')[0]) {
+	    setTimeout(function(){ 
+	        $(".pac-container").prependTo(".intro-search-field.with-autocomplete");
+	    }, 300);
+	}
+
+</script>
+
+<!-- Google API -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgeuuDfRlweIs7D6uo4wdIHVvJ0LonQ6g&libraries=places&callback=initAutocomplete"></script>
+</body>
+
+
+	<!-- Footer
+================================================== -->
+<footer>
+
+	<div id="footer">
 	
 	<!-- Footer Top Section -->
 	<div class="footer-top-section">
@@ -452,81 +541,6 @@
 </div>
 <!-- Footer / End -->
 
-</div>
-<!-- Wrapper / End -->
+</footer>
 
-
-<!-- Scripts
-================================================== -->
-<script src={{ asset('js/competance.js')}}></script>
-<script src={{ asset('js/experiance.js')}}></script>
-<script src={{ asset('js/jquery-3.3.1.min.js')}}></script>
-<script src={{ asset('js/jquery-migrate-3.0.0.min.js')}}></script>
-<script src={{ asset('js/mmenu.min.js')}}></script>
-<script src={{ asset('js/tippy.all.min.js')}}></script>
-<script src={{ asset('js/simplebar.min.js')}}></script>
-<script src={{ asset('js/bootstrap-slider.min.js')}}></script>
-<script src={{ asset('js/bootstrap-select.min.js')}}></script>
-<script src={{ asset('js/snackbar.js')}}></script>
-<script src={{ asset('js/clipboard.min.js')}}></script>
-<script src={{ asset('js/counterup.min.js')}}></script>
-<script src={{ asset('js/magnific-popup.min.js')}}></script>
-<script src={{ asset('js/slick.min.js')}}></script>
-<script src={{ asset('js/custom.js')}}></script>
-
-
-<!-- Snackbar // documentation: https://www.polonel.com/snackbar/ -->
-<script>
-var lastScrollTop;
-navbar = document.getElementById('header');
-window.addEventListener('scroll',function(){
-var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-if(scrollTop > lastScrollTop){
-navbar.style.top='-80px';
-}
-else{
-navbar.style.top='0';
-}
-lastScrollTop = scrollTop;
-});
-// Snackbar for user status switcher
-$('#snackbar-user-status label').click(function() { 
-	Snackbar.show({
-		text: 'Your status has been changed!',
-		pos: 'bottom-center',
-		showAction: false,
-		actionText: "Dismiss",
-		duration: 3000,
-		textColor: '#fff',
-		backgroundColor: '#383838'
-	}); 
-}); 
-</script>
-
-
-<!-- Google Autocomplete -->
-<script>
-	function initAutocomplete() {
-		 var options = {
-		  types: ['(cities)'],
-		  // componentRestrictions: {country: "us"}
-		 };
-
-		 var input = document.getElementById('autocomplete-input');
-		 var autocomplete = new google.maps.places.Autocomplete(input, options);
-	}
-
-	// Autocomplete adjustment for homepage
-	if ($('.intro-banner-search-form')[0]) {
-	    setTimeout(function(){ 
-	        $(".pac-container").prependTo(".intro-search-field.with-autocomplete");
-	    }, 300);
-	}
-
-</script>
-
-<!-- Google API -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgeuuDfRlweIs7D6uo4wdIHVvJ0LonQ6g&libraries=places&callback=initAutocomplete"></script>
-
-    </body>
 </html>

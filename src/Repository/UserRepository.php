@@ -3,11 +3,14 @@
 namespace App\Repository;
 
 use App\Entity\User;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Data\SearchData;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
-use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use Knp\Component\Pager\PaginatorInterface;
+use Knp\Component\Pager\Pagination\PaginationInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 
 /**
  * @method User|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,9 +20,10 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry,PaginatorInterface $paginator)
     {
         parent::__construct($registry, User::class);
+        $this->paginator =$paginator;
     }
 
     /**
@@ -64,4 +68,42 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         ;
     }
     */
+    public function countuser()
+    {   $role = "ROLE_ADMIN";
+       return $this->createQueryBuilder('u')
+           ->select('COUNT(u)')
+           ->Where('u.exist = 1')
+           ->andWhere('u.roles NOT LIKE :role')
+           ->setParameter('role', '%' .$role. '%')
+           ->getQuery()
+           ->getSingleScalarResult();
+
+       
+    }
+    public function countuserBlocekd()
+    {   
+       return $this->createQueryBuilder('u')
+           ->select('COUNT(u)')
+           ->Where('u.exist = 1')
+           ->andWhere('u.blocked = true')
+           ->getQuery()
+           ->getSingleScalarResult();
+
+       
+    }
+    public function findAdmin()
+    {$role = "ROLE_ADMIN";
+       
+        return $this->createQueryBuilder('u')
+        ->select('u')
+        ->andWhere('u.roles LIKE :role')
+        ->setParameter('role', '%' .$role. '%')
+        ->getQuery()
+        ->getResult();
+        
+       
+
+    }
+   
+   
 }

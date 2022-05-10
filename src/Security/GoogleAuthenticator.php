@@ -4,21 +4,18 @@ namespace App\Security;
 use App\Entity\User; // your user entity
 use Doctrine\ORM\EntityManagerInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
-use KnpU\OAuth2ClientBundle\Secutity\Authenticator\SocialAuthenticator;
-use KnpU\OAuth2ClientBundle\Security\Authenticator\OAuth2Authenticator;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use KnpU\OAuth2ClientBundle\Security\Authenticator\SocialAuthenticator;
+use League\OAuth2\Client\Provider\GoogleUser;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
 use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
-use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
-use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
-use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
+
+use Symfony\Component\Security\core\User\UserProviderInterface;
 
 
-class GoogleAuthenticator extends OAuth2Authenticator
+
+ class GoogleAuthenticator 
 {
     private $clientRegistry;
     private $entityManager;
@@ -42,15 +39,19 @@ class GoogleAuthenticator extends OAuth2Authenticator
         return $this->fetchAccessToken($this->getGoogleClient()); 
     }
     public function getUser($credtials,UserProviderInterface $userProvider){
-         $googleUser=$this>getGoogleClient()
+      
+        /** @var GoogleUser  $googleUser */
+        $googleUser=$this>getGoogleClient()
          ->fetchUserFromToken($credtials);
+
          $email=$googleUser->getEmail();
+
          $user= $this->em->getRepository('App:User')
          ->findOneBy(['email'=>$email]);
          if(!$user){
              $user = new User();
              $user = setEmail($googleUser->getEmail());
-             $user = setNom($googleUser->getName());
+           //  $user = setNom($googleUser->getName());
              $this->persist($user);
              $this->flush();
 

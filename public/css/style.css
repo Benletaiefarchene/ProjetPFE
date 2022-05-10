@@ -752,19 +752,6 @@ a.header-notifications-button i {
 
 .status-icon,
 .notification-avatar:after,
-.user-avatar:after {
-	position: absolute;
-	content: "";
-	height: 12px;
-	width: 12px;
-	background-color: #c0c0c0;
-	bottom: 0;
-	right: 0;
-	display: block;
-	border: 2px solid #fff;
-	box-shadow: 0 2px 3px rgba(0,0,0,0.3);
-	border-radius: 50%;
-}
 
 .notification-avatar:after { width: 11px; height: 11px; }
 
@@ -839,7 +826,17 @@ ul.user-menu-small-nav li a:hover i { color: #66676b; }
 .user-details {
 	display: flex;
 }
-
+.user-details-1 {
+	display: flex;
+	margin-bottom: 15px;
+	margin-top: 10px;
+}
+.user-details-1 span {
+	display: block;
+	font-size: 14.7px;
+	color: #888;
+	font-weight: 500;
+}
 .user-name {
 	font-weight: 500;
 	color: #333;
@@ -2172,6 +2169,8 @@ em.mm-counter+a.mm-fullsubopen+span {
 #footer {
 	background-color: #303030;
 	color: #c0c0c0;
+	width: 128%;
+	margin-left: -191px;
 }
 
 #footer p { line-height: 26px; }
@@ -4508,12 +4507,26 @@ span.blog-item-tag {
 
 .job-listing .job-listing-company-logo {
 	flex: 1;
-	max-width: 55px;
+	max-width: 110px;
 	margin-right: 25px;
 	position: relative;
-	top: 3px;
+	top: 11px;
 }
-
+.photo-question  {
+	flex: 1;
+	max-width: 150px;
+	margin-right: 35px;
+	position: relative;
+	top: 0px;
+}
+.question{
+	flex: 1;
+	padding-top: 14px;
+}
+.img-question{
+	margin-top: -100px;
+	margin-left: 160px;
+}
 .job-listing .job-listing-company-logo img {
 	border-radius: 4px;
 	transform: translate3d(0,0,0);
@@ -10967,11 +10980,12 @@ img.mfp-img {
 	line-height: 28px;
 	overflow: hidden;
 }
-.filter{
+ .filter{
 	display: block;
 	position: sticky;
 	top: 20px;
-}
+	margin-bottom: 50px;
+} 
 a{
 	text-decoration: auto !important;
 }
@@ -10984,7 +10998,7 @@ a.headline-link:hover{
 	color: #9d9ea1 !important;
 }
 a:hover{
-	color: #f0f0f0 !important;
+	color: #2a41e8 !important;
 }
 .account-type input.account-type-radio ~ label:hover {
 	color: #289c41;

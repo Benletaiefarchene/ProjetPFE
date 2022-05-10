@@ -4,8 +4,15 @@ namespace App\Data;
 
 use App\Entity\Type;
 
+
 class SearchData
 {
+    /**
+     * Undocumented variable
+     *
+     * @var int
+     */
+    public $page=1;
     /**
      * @var String
      */

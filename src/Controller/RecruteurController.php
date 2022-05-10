@@ -3,23 +3,33 @@
 namespace App\Controller;
 use App\Entity\Type;
 use App\Entity\User;
+use App\Entity\Forum;
+use App\Form\ForumType;
+use App\Data\SearchData;
+use App\Entity\Candidat;
+use App\Form\SearchForm;
 use App\Entity\Recruteur;
 use App\Form\AddPostType;
+use App\Entity\Commentaire;
 use App\Entity\OffreEmploi;
 use App\Form\FormationType;
 use App\Form\RecruteurType;
 use App\Form\TypeOffreType;
+use App\Form\CommentaireType;
 use App\Entity\OffreFormation;
+use App\Repository\ForumRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\OffreEmploiRepository;
 use Symfony\Component\Form\FormInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Collections\ArrayCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
- /**
-     * @Route("/recruteur", name="recruteur_")
-     */
+
+ 
 class RecruteurController extends AbstractController
 {
     /**
@@ -47,7 +57,7 @@ class RecruteurController extends AbstractController
             $em->persist($offre);
             $em->flush();
 
-        return $this->redirectToRoute('recruteur_listpost');
+        return $this->redirectToRoute('listposthome');
          
         }
         
@@ -99,16 +109,23 @@ class RecruteurController extends AbstractController
     /**
      * @Route("/listPost", name="listpost")
      */
-    public function listpostAction(Request $request)
+    public function listpostAction(Request $request,OffreEmploiRepository $repository)
     {
        
-        $em=$this->getDoctrine()->getManager();
-        $posts=$em->getRepository(OffreEmploi::class)->findAll();
+      
         
-        
+        $data = new SearchData();
+        $form = $this->createForm(SearchForm::class , $data);
+        $form->handleRequest($request);
+       $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
+       $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
+        $posts=$repository->findSearch($data);
         
         return $this->render('recruteur/listPost.html.twig', array(
-            "posts" =>$posts
+            "posts" =>$posts,
+            "rec"=>$rec,
+            "can"=>$can,
+            'form'=>$form->createView()
         ));
        // return $this->redirectToRoute('list_post');
 
@@ -144,8 +161,11 @@ class RecruteurController extends AbstractController
             $Rec->setUser($this->getUser());
             $em->persist($Rec);
             $em->flush();
+            $ex=$this->getUser()->setExist(true);
+            $em->persist($ex);
+            $em->flush();
             $this->addFlash('info', 'Created Successfully !');
-            return $this->redirectToRoute('homee');
+            return $this->redirectToRoute('listposthome');
         }
         
         return $this->render('Recruteur/AddProfileRec.html.twig', [
@@ -282,4 +302,114 @@ class RecruteurController extends AbstractController
        //return $this->redirectToRoute('list_post');
 
     }
+    
+    /**
+     * 
+     * @Route("/addquestion/{id}", name="addquestion")
+     */
+    public function addQuestion(Request $request,$id){
+        // $this->denyAccessUnlessGranted('ROLE_CANDIDAT');
+        
+        $question= new Forum();
+        $em = $this->getDoctrine()->getManager();
+        $recruteur= $this->getDoctrine()->getRepository(Recruteur::class)->find($id);
+        $form= $this->createForm(ForumType ::class, $question );
+        $form->handleRequest($request);
+        $recruteur->setUser($this->getUser());
+      
+        if($form->isSubmitted() && $form->isValid())
+        {
+           
+            $question->setRecruteur($recruteur);
+            $em->persist($question);
+            $em->flush();
+          
+        }
+        
+        return $this->render('Recruteur/addquestion.html.twig', [
+            'question' => $form->createView(),
+        ]);
+        
+    }
+       /**
+     * @Route("/listQuestion", name="listQuestion")
+     * @IsGranted("ROLE_RECRUTEUR")
+     */
+ 
+        public function listQuestionAction(EntityManagerInterface $em, PaginatorInterface $paginator, Request $request,ForumRepository $repository)
+{
+    $dql   =  $repository->findAll();
+  
+
+        $pagination = $paginator->paginate(
+        $dql, /* query NOT result */
+        $request->query->getInt('page', 1), /*page number*/
+        6 /*limit per page*/
+    );
+
+    // parameters to template
+    return $this->render('recruteur/listquestion.html.twig', ['Form' => $pagination]);
+}
+      /**
+     * @Route("/detailedquestion/{id}", name="detailedquestion")
+     */
+    public function detailedQuestionAction($id, Request $request)
+    {
+        
+        $question= $this->getDoctrine()->getRepository(Forum::class)->find($id);
+        
+        $commentaire= new Commentaire;
+        $commentForm = $this->createForm(CommentaireType ::class, $commentaire );
+        $commentForm->handleRequest($request);
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $iduser= $user->getId();
+        $candidat= $this->getDoctrine()->getRepository(Candidat::class)->findOneBy(['User' => $user]);
+        $candidat->setUser($this->getUser());
+     
+        if($commentForm->isSubmitted() && $commentForm->isValid())
+        {
+            $parentid=$commentForm->get('parentid')->getData();
+          
+            $commentaire->setCreatedAt(new \DateTime('now'));
+            $commentaire->setCandidat($candidat);
+            $commentaire->setForum($question);
+            $em = $this->getDoctrine()->getManager();
+            if($parentid != null){
+            $parent=$em->getRepository(Commentaire::class)->find($parentid);
+            }
+            $commentaire->setParent($parent ?? null);
+
+
+
+            $em->persist($commentaire);
+            $em->flush();
+          
+        }
+      
+       
+        return $this->render('Recruteur/detailedquestion.html.twig',[
+            
+            'question'=>$question,
+            'commentForm'=>$commentForm->createView(),
+        ]   
+        );
+    }
+      /**
+     * @Route("/deletequestion/{id}", name="deletequestion")
+     */
+    public function deleteCommentAction(Request $request,$id)
+    {
+        
+       
+        $em= $this->getDoctrine()->getManager();
+        $comment=$em->getRepository(Commentaire::class)->find($id);
+        $em->remove($comment);
+        $em->flush();
+        return $this->redirectToRoute('recruteur_listQuestion');
+    }
+     
+       
+      
+        
+  
 }

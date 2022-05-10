@@ -9,12 +9,14 @@
 		<!-- User Menu -->
 		<div
 			class="header-widget">
-
+							{% for can in can %}
+							
+							{% if app.token.user.id == can.user.id %}
 			<!-- Messages -->
 			<div class="header-notifications user-menu">
 				<div class="header-notifications-trigger">
 					<a href="#">
-						<div class="user-avatar status-online"><img src={{ asset('images/user-avatar-small-01.jpg')}} alt=""></div>
+						<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.photo ) }}" alt=""></div>
 					</a>
 				</div>
 
@@ -28,7 +30,7 @@
 
 						<!-- User Name / Avatar -->
 						<div class="user-details">
-							<div class="user-avatar status-online"><img src={{ asset('images/user-avatar-small-01.jpg')}} alt=""></div>
+							<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.photo ) }}" alt=""></div>
 							<div class="user-name">
 								Tom Smith
 								<span>Freelancer</span>
@@ -64,7 +66,8 @@
 
 				</div>
 			</div>
-
+			{% endif %}
+					{% endfor %}
 		</div>
 		<!-- User Menu / End -->
 	{% elseif is_granted('ROLE_RECRUTEUR') %}
@@ -72,13 +75,17 @@
 		<!-- User Menu -->
 		<div
 			class="header-widget">
-
+					{% for rec in rec %}
+							
+							{% if app.token.user.id == rec.user.id %}
 			<!-- Messages -->
 			<div class="header-notifications user-menu">
 				<div class="header-notifications-trigger">
+				
 					<a href="#">
-						<div class="user-avatar status-online"><img src={{ asset('images/user-avatar-small-01.jpg')}} alt=""></div>
+						<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ rec.photo ) }}" alt=""></div>
 					</a>
+					
 				</div>
 
 				<!-- Dropdown -->
@@ -91,7 +98,9 @@
 
 						<!-- User Name / Avatar -->
 						<div class="user-details">
-							<div class="user-avatar status-online"><img src={{ asset('images/user-avatar-small-01.jpg')}} alt=""></div>
+						
+							<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ rec.photo ) }}" alt=""></div>
+						
 							<div class="user-name">
 								{{app.token.user.nom}}
 								<span></span>
@@ -120,11 +129,23 @@
 
 				</div>
 			</div>
-
+			{% endif %}
+					{% endfor %}
 		</div>
+		{% elseif is_granted('ROLE_ADMIN') %}
 		<!-- User Menu / End -->
 		{% else %}
-
+		<div
+			class="header-widget">
+			<div class="connect" style="margin-right: -120px;">
+				<a href="{{ path('app_login') }}" class="connect">
+					<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-12" style="width: 115px;">Connexion<i class="icon-material-outline-arrow-right-alt"></i>
+					</button>
+				</a>
+			</div>
+	
+	
+		</div>
 	{% endif %}
 {% endblock %}
 {% block body %}
@@ -133,10 +154,10 @@
 					================================================== -->
 	<div class="container">
 		<div class="row"></br>
-
+	
 		<div class="col-md-6 col-lg-4">
 		
-				{{ form_start(form, {attr:{class:'filter'} } ) }}
+				{{ form_start(form , {attr:{class:'filter'} } ) }}
 
 
 			<div class="sidebar-container">
@@ -151,8 +172,8 @@
 						</div>
 
 					</div>
-				
-
+				{# {{dump(form)}} #}
+						
 
 					<!-- Job Types -->
 					
@@ -160,7 +181,9 @@
 
 						<div class="switches-list">
 							<div class="switch-container">
-								{{form_row(form.type)}}
+						
+								{{form_row(form.type )}}
+							
 							</div>
 
 
@@ -185,6 +208,8 @@
 
 </div>
 {{form_end(form)}}
+</br>
+</br></br>
 </div>
 <div class="col-xl-9 col-lg-8 content-left-offset">
 {% for posts in posts %}
@@ -192,9 +217,9 @@
 <div class="listings-container margin-top-35">
 
 	{% if is_granted('ROLE_CANDIDAT') %}
-		<a href="{{ path('candidat_detailedOff',{'id': posts.id}) }}" class="job-listing">
+		<a href="{{ path('detailedOff',{'id': posts.id}) }}" class="job-listing">
 		{% elseif is_granted('ROLE_RECRUTEUR') %}
-			<a href="{{ path('recruteur_detailedOff',{'id': posts.id}) }}" class="job-listing">
+			<a href="{{ path('detailedOff',{'id': posts.id}) }}" class="job-listing">
 			{% else %}
 				<a href="{{ path('detailedOff',{'id': posts.id}) }}" class="job-listing">
 				{% endif %}
@@ -206,7 +231,7 @@
 					class="job-listing-details">
 					<!-- Logo -->
 					<div class="job-listing-company-logo">
-						<img src="{{ asset('uploads/images/' ~ posts.recruteur.photo ) }}" alt="">
+						<img src="{{ asset ('uploads/images/' ~ posts.recruteur.photo ) }}" alt="">
 					</div>
 
 					<!-- Details -->
@@ -221,65 +246,63 @@
 					</div>
 
 
-					<div class="validorblock">
-						{% if date('now')|date('d-m-Y ') > posts.DateFinOffre|date('d-m-Y ') %}
-							<li>
-								<h4>
-									<span class="label label-success">Valide</span>
-								</h4>
-							</li>
-						{% elseif date('now')|date('d-m-Y ') < posts.DateFinOffre|date('d-m-Y ') %}
-							<li>
-								<h4>
-									<span class="label label-danger">block</span>
-								</h4>
-							</li>
-						{% endif %}
-					</div>
+				
 
 				</div>
 
 				<!-- Job Listing Footer -->
 				<div class="job-listing-footer">
 					<ul>
-						<li>
+							<li>
 							<i class="icon-material-outline-business"></i>
 							{{posts.recruteur.ville}}</li>
 
-						<li>
+							<li>
 							<i class="icon-material-outline-location-on"></i>
 							{{posts.recruteur.pays}}</li>
-						<li>
+							<li>
 							<i class="icon-material-outline-account-balance-wallet"></i>
 							{{posts.salaire}}
 							$</li>
+							{# <div class="validorblock" style="text-align: right;margin-top: -30px;;">
+								<li>
+									
+										{% if date('now')|date('d-m-Y ') > posts.DateFinOffre|date('d-m-Y ') %}
+											<li>
+												<h5>
+													<span class="label label-success">Valide</span>
+												</h5>
+											</li>
+										{% elseif date('now')|date('d-m-Y ') < posts.DateFinOffre|date('d-m-Y ') %}
+											<li>
+												<h5>
+													<span class="label label-danger">blocked</span>
+												</h5>
+											</li>
+										{% endif %}
+									
+								</li>
+					</div> #}
 
 					</ul>
 				</div>
 			</a>
+			{% endfor %}
+			
 
-			{# <!-- Pagination -->
-																										<div class="clearfix"></div>
-																										<div class="row">
-																											<div class="col-md-12">
-																												<!-- Pagination -->
-																												<div class="pagination-container margin-top-30 margin-bottom-60">
-																													<nav class="pagination">
-																														<ul>
-																															<li class="pagination-arrow"><a href="#"><i class="icon-material-outline-keyboard-arrow-left"></i></a></li>
-																															<li><a href="#">1</a></li>
-																															<li><a href="#" class="current-page">2</a></li>
-																															<li><a href="#">3</a></li>
-																															<li><a href="#">4</a></li>
-																															<li class="pagination-arrow"><a href="#"><i class="icon-material-outline-keyboard-arrow-right"></i></a></li>
-																														</ul>
-																													</nav>
-																												</div>
-																											</div>
-																										</div>
-																										<!-- Pagination / End --> #}
+			<!-- Pagination -->
+					<div class="clearfix"></div>
+								<div class="row">
+						<div class="col-md-12">
+					<!-- Pagination -->
+				<div class="pagination-container margin-top-30 margin-bottom-60" style="text-align: center;">
+			 {{ knp_pagination_render(posts) }}
+				</div>
+			</div>
+		</div>
+	<!-- Pagination / End -->
 
 		</div>
 		{# {% endif %} #}
-	{% endfor %}
+	
 </div></div></div></div></div><!-- Dashboard Content / End -->{% endblock %}

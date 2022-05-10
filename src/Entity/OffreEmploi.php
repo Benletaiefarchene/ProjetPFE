@@ -67,6 +67,16 @@ class OffreEmploi
      */
     private $DateFinOffre;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $blocked;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $accepted;
+
     public function __construct()
     {
         $this->Candidat = new ArrayCollection();
@@ -195,6 +205,30 @@ class OffreEmploi
     public function setDateFinOffre(\DateTimeInterface $DateFinOffre): self
     {
         $this->DateFinOffre = $DateFinOffre;
+
+        return $this;
+    }
+
+    public function getBlocked(): ?bool
+    {
+        return $this->blocked;
+    }
+
+    public function setBlocked(bool $blocked): self
+    {
+        $this->blocked = $blocked;
+
+        return $this;
+    }
+
+    public function getAccepted(): ?bool
+    {
+        return $this->accepted;
+    }
+
+    public function setAccepted(bool $accepted): self
+    {
+        $this->accepted = $accepted;
 
         return $this;
     }

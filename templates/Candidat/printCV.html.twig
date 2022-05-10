@@ -1,6 +1,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<link rel="stylesheet" href={{ asset('css/style.css')}}>
  <styles>
   <style>
   
@@ -164,10 +165,10 @@ h4 {font-family:"Lato"; font-size: 0.9em; margin:0; font-style: italic; font-wei
          border: 1px solid black;
          background: #C0D8DE;
          border-radius: 1vw;
-         width: 18%;
+         width: 22%;
          height: 2.5vw;
          text-align: center;
-         margin: 0.1vw 5% 0.1vw 2%;
+         margin: 0.1vw 4% 0.1vw 0%;
          padding: 0.55vw 0.2vw 0.2vw 0.2vw;
          }
 		 .yearsFinish {
@@ -219,60 +220,53 @@ h4 {font-family:"Lato"; font-size: 0.9em; margin:0; font-style: italic; font-wei
 </styles>
 </head>
 <body>
- <div class="flexContainer"> 
+
+
+<div id="heading">
+ <div class="flexContainer"  > 
    
-   <div class="leftColumn"> <!--start of the container for the left column-->
-      <div class=leftRow> <!-- start of the container for the pic-->
+   <div class="leftColumn" > <!--start of the container for the left column-->
+      <div class="leftRow"> <!-- start of the container for the pic-->
         <img src="{{ asset('uploads/images/' ~ cv.CV.photo) }}" alt="ddp" width=100% >
     
-        <hr class="HeaderHr" id="leftHr">
-        <hr class="HeaderHr" id="rightHr">
+        
         <div class="over" id="dotContainer">
-           <span class="dot"></span> 
-           <span class="dot" id="middleOne"></span> 
-           <span class="dot"></span> 
+         
         </div>
      </div> <!-- end of leftRow1 (container for the pic) -->
-      <div class=leftRow> <!-- start of the triangle shape between the picture and bottom of left column -->
-        <div id='Cone'> </div>
-        
-        <div class="Triangle1" id='LeftTriangle'> </div>
-        <div class="Triangle2" id='LeftTriangle2'> </div>
-        <div class="Triangle1" id='RightTriangle'> </div>
-        <div class="Triangle2" id='RightTriangle2'> </div>
-      </div> <!-- end of leftRow2 (the triangle shape) -->
-      <div class=leftRow id="LeftBottom"> <!--left column bottom - contact details & skills -->
+     
+      <div class="leftRow" id="LeftBottom"> <!--left column bottom - contact details & skills -->
          <br>
          <h2 class="left"> CONTACT </h2> <hr>
          <span class="left">{{ cv.CV.email }}</span> <hr>
          <span class="left">{{ cv.CV.datenaissance|date('d-m-Y ') }} </span> <hr>
          <span class="left"> {{ cv.CV.pays }} , {{ cv.CV.ville }} </span> <hr> <br>
          
-        <h2 class="left"> SKILLS </h2>
+        <h2 class="left"> COMPETANCE </h2>
         {% for com in Competances %}
             <div class="skills"> 	{{ com.Competance }} </div>
            {% endfor %}
          
       
       </div>
-   </div> <!-- end of the container for the left column-->
- 
-   <div class="rightColumn"> <!--start of the container for the right column-->
+    <!-- end of the container for the left column-->
+ </div>
+        <div class="rightColumn"> <!--start of the container for the right column-->
     
-     <div class="rightRow" id="rightHeader"> <!-- Resume / About Me -->
-        <h1>     {{ cv.User.nom }} <br> 	{{ cv.User.prenom }} <br> </h1> 
+              <div class="rightRow" id="rightHeader"> <!-- Resume / About Me -->
+                      <h1>     {{ cv.User.nom }} <br> 	{{ cv.User.prenom }} <br> </h1> 
        
-     </div> <!-- End of Resume / About Me -->
+              </div> <!-- End of Resume / About Me -->
     
-     <div class="rightRow">
-       <h2 class="right"> EXPERIENCE </h2>
-     </div> <!-- work experience header -->
+            <div class="rightRow">
+                <h2 class="right"> EXPERIENCE </h2>
+            </div> <!-- work experience header -->
      {% for Exp in Experiences %}
         <div class="containerHl"> <!-- work experience container -->
-           <div class="yearsStart"> 
-              <h4> {{ Exp.Datedebut|date('d-m-Y ') }} </h4>
-           </div> <!-- years container -->
-           </br>
+            <div class="yearsStart"> 
+                <h4> {{ Exp.Datedebut|date('d-m-Y ') }} </h4>
+            </div> <!-- years container -->
+            </br>
             
            <div class="jobs">
               <h3> {{ Exp.Titre }} <h3>
@@ -295,10 +289,26 @@ h4 {font-family:"Lato"; font-size: 0.9em; margin:0; font-style: italic; font-wei
        
     
      {% endfor %}
+     
  </div> <!-- end of the flex container -->
+</div>
+<div class="print" style="max-width: 50%;margin-left: 230px;margin-top: 50px;margin-bottom: 70px;">
 
+								<button onclick="generatePDF()" class="button full-width button-sliding-icon ripple-effect margin-top-10">Print<i class="icon-material-outline-arrow-right-alt"></i>
+								</button>
+               
+							</div>
 <!-- made as a copy of a design by 'ResumeInventor' on https://graphicriver.net/item/modern-resume/23466102 --> 
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+function generatePDF () {
+  const element = document.getElementById("heading");
 
+  html2pdf()
+  .from(element)
+  .save("CV.pdf");
+}
+</script>
 
 </html>

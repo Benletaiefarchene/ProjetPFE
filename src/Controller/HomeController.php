@@ -8,18 +8,20 @@ use App\Entity\Type;
 use App\Data\SearchData;
 use App\Entity\Candidat;
 use App\Form\SearchForm;
+use App\Entity\Recruteur;
 use App\Entity\Competance;
 use App\Entity\Experience;
 use App\Entity\OffreEmploi;
 use App\Form\TypeOffreType;
 use App\Repository\OffreEmploiRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 
-class HomeController extends AbstractController
+class HomeController extends Controller
 {
     // /**
     //  * @Route("/home", name="homee")
@@ -51,50 +53,48 @@ class HomeController extends AbstractController
      */
     public function listposteAction(Request $request,OffreEmploiRepository $repository)
     {
+        
+        
         $data = new SearchData();
         $form = $this->createForm(SearchForm::class , $data);
         $form->handleRequest($request);
-       
+       $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
+       $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
         $posts=$repository->findSearch($data);
-      
-       
-        
-        
         
         return $this->render('recruteur/listPost.html.twig', array(
             "posts" =>$posts,
-         
+            "rec"=>$rec,
+            "can"=>$can,
             'form'=>$form->createView()
         ));
        // return $this->redirectToRoute('list_post');
 
     }
-     /**
-     * @Route("/listPostRec/{id}", name="listpostRec")
-     */
-    public function listpostAction(Request $request,$id)
-    {
-        $params = 
-        [
-           '0'=>'stage',
-           ]
-            
-       ;
-        $res=[
-            '0'=> $params,
-        ];
+    //  /**
+    //  * @Route("/listPostRec/{id}", name="listpostRec")
+    //  */
+    // public function listpostAction(Request $request,$id,OffreEmploiRepository $repository)
+    // {
+    //     $data = new SearchData();
+    //     $form = $this->createForm(SearchForm::class , $data);
+    //     $form->handleRequest($request);
+       
+    //     $posts=$repository->findSearch($data);
         
-        $em=$this->getDoctrine()->getManager();
-        $posts=$em->getRepository(Type::class)->findtypeRec($id);
-       // $posts=$em->getRepository(OffreEmploi::class)->findBy(array('titre'=> 'mobile'));
+    //     $em=$this->getDoctrine()->getManager();
+    //     $posts=$em->getRepository(Type::class)->findtypeRec($id);
+    //    // $posts=$em->getRepository(OffreEmploi::class)->findBy(array('titre'=> 'mobile'));
         
         
-        return $this->render('recruteur/listPost.html.twig', array(
-            "posts" =>$posts
-        ));
-       // return $this->redirectToRoute('list_post');
+    //     return $this->render('recruteur/listPost.html.twig', array(
+    //         "posts" =>$posts,
+    //         'form'=>$form->createView()
 
-    }
+    //     ));
+    //    // return $this->redirectToRoute('list_post');
+
+    // }
        /**
      * @Route("/Actualites", name="Actualites")
      */
@@ -111,6 +111,7 @@ class HomeController extends AbstractController
        // return $this->redirectToRoute('list_post');
 
     }
+  
      /**
      * 
      * @Route("/printCV/{id}", name="printCV")
@@ -120,21 +121,21 @@ class HomeController extends AbstractController
        
         // Configure Dompdf according to your needs
        
-        $pdfOptions = new Options();
-        $pdfOptions->set('defaultFont', 'Arial');
-        $pdfOptions->set('isRemoteEnabled', true);
+        // $pdfOptions = new Options();
+        // $pdfOptions->set('defaultFont', 'Arial');
+        // $pdfOptions->set('isRemoteEnabled', true);
          
-        // Instantiate Dompdf with our options
-        $dompdf = new Dompdf($pdfOptions);
-        $dompdf->set_base_path("css");
-        $contxt = stream_context_create([
-            'ssl' => [
-                'verify_peer' => FALSE,
-                'verify_peer_name' => FALSE,
-                'allow_self_signed'=> TRUE
-            ]
-        ]);
-        $dompdf->setHttpContext($contxt);
+        // // Instantiate Dompdf with our options
+        // $dompdf = new Dompdf($pdfOptions);
+        // $dompdf->set_base_path("css");
+        // $contxt = stream_context_create([
+        //     'ssl' => [
+        //         'verify_peer' => FALSE,
+        //         'verify_peer_name' => FALSE,
+        //         'allow_self_signed'=> TRUE
+        //     ]
+        // ]);
+        // $dompdf->setHttpContext($contxt);
 
         $Candidat= $this->getDoctrine()->getRepository(Candidat::class)->find($id);
       
@@ -143,17 +144,17 @@ class HomeController extends AbstractController
         $Experience= $this->getDoctrine()->getRepository(Experience::class)->findExpById($id);
         // Retrieve the HTML generated in our twig file
 
-        $html = $this->renderView('Candidat/printCV.html.twig',[
+       return $this->render('Candidat/printCV.html.twig',[
             'cv'=> $Candidat,
             'Competances'=>$Competance,
             'Experiences'=>$Experience,
         ]);
         
-        // Load HTML to Dompdf
-       // $html = '<link type="text/css" media="dompdf" href="D:/xampp/htdocs/projetPFE/public/css/printCV.css" rel="stylesheet" />';
-       $html .= ob_get_contents();
-       $dompdf->loadHtml($html);
-       $dompdf->render();
+    //     // Load HTML to Dompdf
+    //    // $html = '<link type="text/css" media="dompdf" href="D:/xampp/htdocs/projetPFE/public/css/printCV.css" rel="stylesheet" />';
+    //    $html .= ob_get_contents();
+    //    $dompdf->loadHtml($html);
+    //    $dompdf->render();
        //$dompdf->set_base_path(" /public/css/printCV.css");
         // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
        // $dompdf->setPaper('A4', 'portrait');
@@ -161,14 +162,11 @@ class HomeController extends AbstractController
         // Render the HTML as PDF
         
 
-        // Output the generated PDF to Browser (force download)
-        $dompdf->stream("mypdf.pdf", [
-            "Attachment" => false
-        ]);
+        // // Output the generated PDF to Browser (force download)
+        // $dompdf->stream("mypdf.pdf", [
+        //     "Attachment" => false
+        // ]);
        
-     
-       
-        
     }
       /**
      * 

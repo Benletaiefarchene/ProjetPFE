@@ -22,7 +22,9 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
         if ($this->getUser()) {
+           
              return $this->render('registration/register.html.twig');
+           
         }
 
         // get the login error if there is one
@@ -82,8 +84,8 @@ class SecurityController extends AbstractController
                 //On envoi le Message
 
                 $message=(new \Swift_Message('Mot de passe oublié'))
-                ->setFrom ('archene24@gmail.com')
-                ->setTo ($user->getEmail())
+                ->setFrom ('archene9@gmail.com')
+                ->setTo ($donnees['email'])
                 ->setBody (
                     "<p>Bonjour,</p><p>Une demande de réinitialisation de mot de passe a été effectuée .
                     Veuillez cliquer sur  le lien suivant :".$url .'</p>','text/html'
@@ -110,7 +112,7 @@ class SecurityController extends AbstractController
             $this->addFlash('danger','Token Inconnu ');
             return $this->redirectToRoute('app_login');
         }
-
+      
         if($request->isMethod('POST')){
 
             $user->setResetToken(null);
@@ -119,7 +121,7 @@ class SecurityController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-
+            
             $this->addFlash('message','Mot de passe modifié avec succés');
             return $this->redirectToRoute('app_login');
         }else {

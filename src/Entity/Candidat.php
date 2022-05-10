@@ -45,11 +45,17 @@ class Candidat
      */
     private $User;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="candidat")
+     */
+    private $commentaires;
+
     public function __construct()
     {
         $this->offreEmplois = new ArrayCollection();
         $this->offreFormations = new ArrayCollection();
         $this->forums = new ArrayCollection();
+        $this->commentaires = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -158,6 +164,36 @@ class Candidat
     public function setUser(?User $User): self
     {
         $this->User = $User;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commentaire>
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires[] = $commentaire;
+            $commentaire->setCandidat($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getCandidat() === $this) {
+                $commentaire->setCandidat(null);
+            }
+        }
 
         return $this;
     }

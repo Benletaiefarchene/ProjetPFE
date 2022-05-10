@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Add Profile
+{% endblock %}
+
+{% block body %}
+
+
+	<!-- Dashboard Content
+			================================================== -->
+	<div class="dashboard-content-container" data-simplebar>
+		<div
+			class="dashboard-content-inner">
+
+			<!-- Dashboard Headline -->
+			<div class="dashboard-headline">
+				<h3>ADD QUESTION</h3>
+
+				<!-- Breadcrumbs -->
+				<nav id="breadcrumbs" class="dark">
+					<ul>
+						<li>
+							<a href="#">Home</a>
+						</li>
+						<li>add question</li>
+					</ul>
+				</nav>
+			</div>
+
+			<!-- Row -->
+			<div
+				class="row">
+
+				<!-- Dashboard Box -->
+				<div class="col-xl-6" style="margin-left:270px;">
+					<div
+						class="dashboard-box margin-top-0">
+
+						<!-- Headline -->
+						<div class="headline">
+							<h3>
+								<i class="icon-feather-folder-plus"></i>
+								ask a question</h3>
+						</div>
+
+
+						{{ form_start(question) }}
+
+						<div class="content with-padding padding-bottom-12"style="margin-left:100px;">
+							<div class="row">
+
+							
+								<div class="col-xl-10">
+									<div class="submit-field">
+
+										{{ form_widget(question.question,{'attr':{'type':'text','class':'form-control','placeholder':'question...'}}) }}
+
+									</div>
+								</div>
+
+							
+							</div>
+							
+							
+							
+							
+						
+							<div class="col-xl-10 ">
+								<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-10 margin-bottom-25">Add Profile<i class="icon-material-outline-arrow-right-alt"></i>
+								</button>
+							</div>
+							{{ form_end(question) }}
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+
+
+		</div>
+		<!-- Row / End -->
+
+
+	</div>
+</div>
+<!-- Dashboard Content / End -->{% endblock %}

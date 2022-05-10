@@ -3,8 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Forum;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\Data\SearchData;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\PaginatorInterface;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Forum|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,9 +17,10 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ForumRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry,PaginatorInterface $paginator)
     {
         parent::__construct($registry, Forum::class);
+        $this->paginator =$paginator;
     }
 
     // /**
@@ -47,4 +51,21 @@ class ForumRepository extends ServiceEntityRepository
         ;
     }
     */
+    public function findQuestion(SearchData $search):PaginationInterface
+    {
+        $query=$this
+        
+        ->createQueryBuilder('o');
+       
+        
+
+       $query= $query->getQuery();
+       //  dd($this->paginator->paginate($query, 1, 15));
+       return $this->paginator->paginate(
+           $query, /* query NOT result */
+           $search->page, /*page number*/
+           5 /*limit per page*/
+       );
+
+    }
 }

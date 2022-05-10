@@ -1,0 +1,77 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block body %}
+
+
+
+
+	<!-- Page Content
+					================================================== -->
+<div class="container">
+	<div class="row"></br>
+	
+        <div class="col-xl-8 col-lg-10 ">
+            {% for offre in offre %}
+
+                <div class="listings-container margin-top-35">
+
+				        <div class="job-listing-details">
+					
+					        {# <div class="job-listing-company-logo">
+						        <img src="{{ asset('uploads/images/' ~ posts.recruteur.photo ) }}" alt="">
+					        </div> #}
+
+					<!-- Details -->
+					        <div class="job-listing-description">
+
+						        <h4 class="job-listing-company">{{offre.titre	}}
+
+							    <span class="verified-badge" title="Verified Employer" data-tippy-placement="top"></span>
+						        </h4>
+						        <h3 class="job-listing-title">{{offre.description}}</h3>
+						        <p class="job-listing-text">{{offre.recruteur.user.nom}}</p>
+					        </div>
+                            </br>
+                             
+				
+
+				</div>
+   <div >
+					
+							
+                             {% if offre.blocked == true %}
+											
+                                        <a href="{{ path('admin_blockedOffre',{'id': offre.id}) }}" class="button full-width button-sliding-icon ripple-effect margin-top-10">Unblocked<i class="icon-material-outline-arrow-right-alt"></i></a>
+                                    {% else %}
+                                        <a href="{{ path('admin_blockedOffre',{'id': offre.id}) }}" class="button full-width button-sliding-icon ripple-effect margin-top-10">Blocked<i class="icon-material-outline-arrow-right-alt"></i></a>
+                                    {% endif %}
+                           
+							
+						
+					        </div>
+				
+			
+			{% endfor %}
+			
+
+                            <!-- Pagination -->
+                                    <div class="clearfix"></div>
+                                                <div class="row">
+                                        <div class="col-md-12">
+                                    <!-- Pagination -->
+                                <div class="pagination-container margin-top-30 margin-bottom-60" style="text-align: center;">
+                            {{ knp_pagination_render(offre) }}
+                                </div>
+                            </div>
+                        </div>
+                    <!-- Pagination / End -->
+
+		</div>
+		
+	</div></div></div></div>
+    </div>
+</div><!-- Dashboard Content / End -->
+
+
+
+{% endblock %}
