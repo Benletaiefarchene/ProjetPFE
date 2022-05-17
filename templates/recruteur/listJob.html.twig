@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}List Offre
+{% endblock %}
+
+
+{% block body %}
+</br></br>
+
+	<!-- Page Content
+					================================================== -->
+	<div class="container">
+		<div class="row"></br>
+	
+		
+</div>
+<div class="col-xl-9 col-lg-8 content-left-offset">
+{% for off in off %}
+{# {% if posts.type[0] == "télétravail" %} #}
+<div class="listings-container margin-top-35">
+
+	{% if is_granted('ROLE_CANDIDAT') %}
+		<a href="{{ path('listCondidature',{'id': off.id}) }}" class="job-listing">
+		{% elseif is_granted('ROLE_RECRUTEUR') %}
+			<a href="{{ path('listCondidature',{'id': off.id}) }}" class="job-listing">
+			{% else %}
+				<a href="{{ path('listCondidature',{'id': off.id}) }}" class="job-listing">
+				{% endif %}
+				<!-- Job Listing -->
+
+
+				<!-- Job Listing Details -->
+				<div
+					class="job-listing-details">
+					<!-- Logo -->
+					<div class="job-listing-company-logo">
+						<img src="{{ asset ('uploads/images/' ~ off.recruteur.photo ) }}" alt="">
+					</div>
+
+					<!-- Details -->
+					<div class="job-listing-description">
+
+						<h4 class="job-listing-company">{{off.recruteur.user.nom	}}
+
+							<span class="verified-badge" title="Verified Employer" data-tippy-placement="top"></span>
+						</h4>
+						<h3 class="job-listing-title">{{off.titre}}</h3>
+						<p class="job-listing-text">{{off.description}}</p>
+					</div>
+
+
+				
+
+				</div>
+
+				<!-- Job Listing Footer -->
+				<div class="job-listing-footer">
+					<ul>
+							<li>
+							<i class="icon-material-outline-business"></i>
+							{{off.recruteur.ville}}</li>
+
+							<li>
+							<i class="icon-material-outline-location-on"></i>
+							{{off.recruteur.pays}}</li>
+							<li>
+							<i class="icon-material-outline-account-balance-wallet"></i>
+							{{off.salaire}}
+							$</li>
+							{# <div class="validorblock" style="text-align: right;margin-top: -30px;;">
+								<li>
+									
+										{% if date('now')|date('d-m-Y ') > posts.DateFinOffre|date('d-m-Y ') %}
+											<li>
+												<h5>
+													<span class="label label-success">Valide</span>
+												</h5>
+											</li>
+										{% elseif date('now')|date('d-m-Y ') < posts.DateFinOffre|date('d-m-Y ') %}
+											<li>
+												<h5>
+													<span class="label label-danger">blocked</span>
+												</h5>
+											</li>
+										{% endif %}
+									
+								</li>
+					</div> #}
+
+					</ul>
+				</div>
+			</a>
+			{% endfor %}
+			
+
+			{# <!-- Pagination -->
+					<div class="clearfix"></div>
+								<div class="row">
+						<div class="col-md-12">
+					<!-- Pagination -->
+				<div class="pagination-container margin-top-30 margin-bottom-60" style="text-align: center;">
+			 {{ knp_pagination_render(posts) }}
+				</div>
+			</div>
+		</div>
+	<!-- Pagination / End --> #}
+
+		</div>
+		{# {% endif %} #}
+	
+</div></div></div></div></div><!-- Dashboard Content / End -->{% endblock %}

@@ -16,7 +16,11 @@
 			<div class="header-notifications user-menu">
 				<div class="header-notifications-trigger">
 					<a href="#">
-						<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.photo ) }}" alt=""></div>
+						<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.CV.photo ) }}" alt=""></div>
+							<div class="user-name">
+								{{app.token.user.nom}}
+								<span></span>
+							</div>
 					</a>
 				</div>
 
@@ -24,38 +28,18 @@
 				<div
 					class="header-notifications-dropdown">
 
-					<!-- User Status -->
-					<div
-						class="user-status">
-
-						<!-- User Name / Avatar -->
-						<div class="user-details">
-							<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.photo ) }}" alt=""></div>
-							<div class="user-name">
-								Tom Smith
-								<span>Freelancer</span>
-							</div>
-						</div>
-
-						<!-- User Status Switcher -->
-						<div class="status-switch" id="snackbar-user-status">
-							<label class="user-online current-status">Online</label>
-							<label class="user-invisible">Invisible</label>
-							<!-- Status Indicator -->
-							<span class="status-indicator" aria-hidden="true"></span>
-						</div>
-					</div>
+				
 
 					<ul class="user-menu-small-nav">
+					
 						<li>
-							<a href="dashboard.html">
-								<i class="icon-material-outline-dashboard"></i>
-								Dashboard</a>
-						</li>
-						<li>
-							<a href="dashboard-settings.html">
+								
+							
+						
+							<a href="{{path('detailedCV',{'id': can.id})}}">
 								<i class="icon-material-outline-settings"></i>
 								Settings</a>
+								
 						</li>
 						<li>
 							<a href="{{path('app_logout')}}">
@@ -110,13 +94,9 @@
 					</div>
 
 					<ul class="user-menu-small-nav">
+					
 						<li>
-							<a href="dashboard.html">
-								<i class="icon-material-outline-dashboard"></i>
-								Dashboard</a>
-						</li>
-						<li>
-							<a href="dashboard-settings.html">
+							<a href="{{path('detailedRec',{'id': rec.id})}}">
 								<i class="icon-material-outline-settings"></i>
 								Settings</a>
 						</li>
@@ -147,8 +127,12 @@
 	
 		</div>
 	{% endif %}
+	</br>
+	</br>
 {% endblock %}
+
 {% block body %}
+</br></br>
 
 	<!-- Page Content
 					================================================== -->
@@ -156,7 +140,7 @@
 		<div class="row"></br>
 	
 		<div class="col-md-6 col-lg-4">
-		
+		</br></br>
 				{{ form_start(form , {attr:{class:'filter'} } ) }}
 
 

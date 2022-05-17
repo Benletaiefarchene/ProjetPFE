@@ -9,7 +9,7 @@
        </br>
        </br>
           
-       
+      
     <div class="single-page-header freelancer-header" data-background-image="images/single-freelancer.jpg">
 	<div class="container">
 		<div class="row">
@@ -35,14 +35,28 @@
 								<li> langue_preferee : {{ Rec.languepreferee }}</li>
 								{% for rec in Rec %}
 
-									<li>
-									{{dump(rec.OffreEmploi)}}
-									</li>
+								
 
 								{% endfor %}
 							</ul>
 						</div>
+						
 					</div>
+					<div class="right-side">
+			<div class="col-xl-8">
+				{# <button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-10">Add Profile<i class="icon-material-outline-arrow-right-alt"></i>
+				</button> #}
+				  {% if is_granted('ROLE_RECRUTEUR') %}
+				<a
+							href="{{ path('editProfileRec',{'id': Rec.id}) }}" class="button full-width button-sliding-icon ripple-effect margin-top-10">Edit Profil<i class="icon-material-outline-arrow-right-alt"></i></a>
+								<a
+							href="{{ path('editPassRec',{'id': Rec.id}) }}" class="button full-width button-sliding-icon ripple-effect margin-top-10">Edit Password<i class="icon-material-outline-arrow-right-alt"></i></a>
+							
+			  {% elseif is_granted('ROLE_CANDIDAT') %}
+                    <br>
+			  {% endif %}
+			</div>
+		</div>
 				</div>
 			</div>
 		</div>

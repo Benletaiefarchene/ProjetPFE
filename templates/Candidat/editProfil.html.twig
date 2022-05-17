@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Profile
+{% endblock %}
+
+{% block body %}
+
+
+	<!-- Dashboard Content
+				================================================== -->
+	<div class="dashboard-content-container" data-simplebar>
+		<div
+			class="dashboard-content-inner">
+
+			<!-- Dashboard Headline -->
+			<div class="dashboard-headline">
+				<h3>EDIT PROFILE</h3>
+
+				<!-- Breadcrumbs -->
+				<nav id="breadcrumbs" class="dark">
+					<ul>
+						<li>
+							<a href="#">Home</a>
+						</li>
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li>Edit Profile</li>
+					</ul>
+				</nav>
+			</div>
+
+			<!-- Row -->
+			<div
+				class="row">
+
+				<!-- Dashboard Box -->
+				<div class="col-xl-12">
+					<div
+						class="dashboard-box margin-top-0">
+
+						<!-- Headline -->
+						<div class="headline">
+							<h3>
+								<i class="icon-feather-folder-plus"></i>
+								Profile Form</h3>
+						</div>
+
+
+			
+						{{ form_start(user) }}
+						<div class="content with-padding padding-bottom-10">
+							<div class="row">
+
+								<div class="col-xl-4">
+									<div class="submit-field">
+										{{ form_label(user.nom, null, {
+                                            'label': 'nom :',
+                                            'label_attr': {'class': 'uploadButton-button ripple-effect'}
+                                            }) }}
+										{{ form_widget(user.nom,{'attr':{'type':'text','class':'form-control','placeholder':'email...' ,'text-align':'center'}}) }}
+									</div>
+								</div>
+								<div class="col-xl-4">
+									<div class="submit-field">
+										{{ form_label(user.prenom, null, {
+                                            'label': 'prenom :',
+                                            'label_attr': {'class': 'uploadButton-button ripple-effect'}
+                                            }) }}
+										{{ form_widget(user.prenom,{'attr':{'type':'text','class':'form-control','placeholder':'email...' ,'text-align':'center'}}) }}
+									</div>
+								</div>
+								<div class="col-xl-4">
+									<div class="submit-field">
+										{{ form_label(user.email, null, {
+                                            'label': 'email :',
+                                            'label_attr': {'class': 'uploadButton-button ripple-effect'}
+                                            }) }}
+										{{ form_widget(user.email,{'attr':{'type':'text','class':'form-control','placeholder':'email...' ,'text-align':'center'}}) }}
+
+									</div>
+								</div>
+								
+						<div class="col-xl-12">
+							<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-10">Edit Profile<i class="icon-material-outline-arrow-right-alt"></i>
+							</button>
+						</div>
+						{{ form_end(user) }}
+					
+
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+
+
+	</div>
+	<!-- Row / End -->
+
+
+</div></div><!-- Dashboard Content / End -->{% endblock %}

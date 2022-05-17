@@ -113,17 +113,17 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
             if($token->getUser()->getExist() == false){
                 if($token->getUser()->getRoles()[0] == $can){
 
-                    return new RedirectResponse($this->urlGenerator->generate('candidat_addcv'));
+                    return new RedirectResponse($this->urlGenerator->generate('addcv'));
                 }else{
-                    return new RedirectResponse($this->urlGenerator->generate('recruteur_addpofile'));
+                    return new RedirectResponse($this->urlGenerator->generate('addpofile'));
                 }
             }else{
                 if ($token->getUser()->getRoles()[0]=='ROLE_CANDIDAT') {
-                    return new RedirectResponse($this->urlGenerator->generate('candidat_listpost'));
+                    return new RedirectResponse($this->urlGenerator->generate('listpost'));
                 }else if ($token->getUser()->getRoles()[0]=='ROLE_RECRUTEUR'){
-                    return new RedirectResponse($this->urlGenerator->generate('recruteur_listpost'));
+                    return new RedirectResponse($this->urlGenerator->generate('listpost'));
                 }else if ($token->getUser()->getRoles()[0]=='ROLE_ADMIN'){
-                    return new RedirectResponse($this->urlGenerator->generate('admin_count'));
+                    return new RedirectResponse($this->urlGenerator->generate('count'));
                 }
             }
         

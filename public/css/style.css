@@ -276,7 +276,9 @@ a:focus,
 a:hover { text-decoration: none; color: #333;}
 img { max-width: 100%; }
 
-
+a:focus{
+	color: #FFFFFF !important;
+}
 /* ---------------------------------- */
 /* Header
 ------------------------------------- */
@@ -335,7 +337,7 @@ header.fullwidth .container {
 	width: auto;
 	display: inline-block;
 	position: absolute;
-	right: 25px;
+	right: -95px;
 	background-color: #fff;
 	flex: 1;
 }
@@ -1330,6 +1332,7 @@ body #navigation ul ul ul { margin-top: 0; }
     top: 0;
     width: 100%;
     z-index: 1000;
+	height: 22%;
 }
 
 #wrapper.wrapper-with-transparent-header #header .right-side { background-color: transparent; }
@@ -2169,8 +2172,8 @@ em.mm-counter+a.mm-fullsubopen+span {
 #footer {
 	background-color: #303030;
 	color: #c0c0c0;
-	width: 128%;
-	margin-left: -191px;
+	width: 100%;
+	margin-left: 0px;
 }
 
 #footer p { line-height: 26px; }
@@ -10998,7 +11001,7 @@ a.headline-link:hover{
 	color: #9d9ea1 !important;
 }
 a:hover{
-	color: #2a41e8 !important;
+	color: #bfbfbf !important;
 }
 .account-type input.account-type-radio ~ label:hover {
 	color: #289c41;

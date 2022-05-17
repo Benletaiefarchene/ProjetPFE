@@ -1,0 +1,179 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Offre Emploi
+{% endblock %}
+
+{% block body %}
+
+</br></br></br></br><!-- Titlebar
+	================================================== --><div class="single-page-header" data-background-image="images/single-job.jpg"><div class="container"><div class="row">
+<div class="col-md-12">
+	<div class="single-page-header-inner">
+		<div class="left-side">
+			<div class="header-image">
+				<a href="single-company-profile.html"><img src="{{ asset('uploads/images/' ~ off.recruteur.photo) }}" alt=""></a>
+			</div>
+			<div class="header-details">
+
+				<h3>{{ off.titre }}
+				</h3>
+				<h5>{{ off.recruteur.User.nom }}
+					{{  off.recruteur.User.prenom }}</h5>
+				<ul>
+					<li>
+						<i class="icon-material-outline-business"></i>
+						{{  off.recruteur.ville }}
+					</li>
+				</a>
+			</li>
+
+			<li>
+				<i class="icon-material-outline-location-on"></i>
+				{{  off.recruteur.pays }}</li>
+			<li>
+				<h6>
+					<i class="icon-material-outline-access-time"></i>
+					{{ off.dateOffre|date('d-m-Y ')}}</h6>
+			</li>
+			{% if date('now')|date('d-m-Y ') > off.DateFinOffre|date('d-m-Y ') %}
+				<li>
+					<span class="label label-success">Valide</span>
+				</li>
+			{% elseif date('now')|date('d-m-Y ') < off.DateFinOffre|date('d-m-Y ') %}
+				<li>
+					<span class="label label-danger">block</span>
+				</li>
+			{% endif %}
+
+		</ul>
+
+
+	</div>
+</div>
+<div class="right-side">
+	<div class="salary-box">
+		<div class="salary-type">
+			<h3>
+				<center>Salary</center>
+			</h3>
+		</div>
+		<div class="salary-amount">{{ off.salaire }}
+			$</div>
+	</div>
+</div></div></div></div></div></div><!-- Page Content
+	================================================== --><div class="container"><divclass="row"><!-- Content --><div class="col-xl-8 col-lg-8 content-right-offset"><div class="single-page-section"><h3 class="margin-bottom-25">Job Description</h3><p>{{off.description}}</p></div>{% for can in can %}<div class="listings-container margin-top-35">
+
+{% if is_granted('ROLE_CANDIDAT') %}
+	<a href="{{ path('detailedOff',{'id': can.id}) }}" class="job-listing">
+	{% elseif is_granted('ROLE_RECRUTEUR') %}
+		<a href="{{ path('detailedOff',{'id': can.id}) }}" class="job-listing">
+		{% else %}
+			<a href="{{ path('detailedOff',{'id': can.id}) }}" class="job-listing">
+			{% endif %}
+			<!-- Job Listing -->
+
+
+			<!-- Job Listing Details -->
+			<div
+				class="job-listing-details">
+				<!-- Logo -->
+				<div class="job-listing-company-logo">
+					<embed src="{{ asset ('uploads/images/' ~ can.cv ) }}" width="100" height="150" alt=""/>
+
+				</div>
+
+				<!-- Details -->
+				<div class="job-listing-description" style="margin-top: 59px;">
+
+					<h4 class="job-listing-company">{{can.createdAt|date('d-m-Y ')	}}
+					</h4>
+
+				</div>
+			</div>
+		</a>
+
+	{% endfor %}
+</div></div><!-- Sidebar --><div class="col-xl-4 col-lg-4">
+<div class="sidebar-container">
+
+	<a href="{{path('detailedOff',{'id':off.id})}}" class="apply-now-button popup-with-zoom-anim">Apply Now
+	</a>
+
+	<!-- Sidebar Widget -->
+	<div class="sidebar-widget">
+		<div class="job-overview">
+			<div class="job-overview-headline">Job Summary</div>
+			<div class="job-overview-inner">
+				<ul>
+					<li>
+						<i class="icon-material-outline-location-on"></i>
+						<span>Location</span>
+						<h5>{{  off.recruteur.ville }},
+							{{  off.recruteur.pays }}</h5>
+					</li>
+					<li>
+						<i class="icon-material-outline-business-center"></i>
+						<span>Job Type</span>
+						<h5>{{ off.type.type }}</h5>
+					</li>
+					<li>
+						<i class="icon-material-outline-local-atm"></i>
+						<span>Salary</span>
+						<h5>{{ off.salaire }}
+							$</h5>
+					</li>
+					<li>
+						<i class="icon-material-outline-access-time"></i>
+						<span>Date Posted</span>
+						<h5>{{off.dateOffre|date('d-m-Y ')}}</h5>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+
+</div></div></div></div><!-- Page Content
+	================================================== --><div class="container"><div class="row"></div></div><!-- Spacer --><div class="margin-top-15"></div><!-- Spacer / End-->{# <div id="small-dialog" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
+	
+		<!--Tabs -->
+		<div class="sign-in-form">
+	
+			<ul class="popup-tabs-nav">
+				<li><a href="#tab">Apply Now</a></li>
+			</ul>
+	
+			<div class="popup-tabs-container">
+	
+				<!-- Tab -->
+				<div class="popup-tab-content" id="tab">
+					
+					<!-- Welcome Text -->
+					<div class="welcome-text">
+						<h3>Attach File </h3>
+					</div>
+						
+					<!-- Form -->
+					<form method="post" id="apply-now-form">
+	
+					{{form_start(Offre)}}
+						<div class="uploadButton">
+							<div class="uploadButton S ">
+													{{ form_label(Offre.cv, null, {
+	                                           			'label': 'Upload File',
+	                                            		'label_attr': {'class': 'uploadButton-button ripple-effect'}
+	                                           		 }) }}
+													{{ form_widget(Offre.cv,{'attr':{'type':'file','accept':'pdf/*','class':'uploadButton-input'}}) }}
+							</div>
+							<span class="uploadButton-file-name">Upload your CV / resume relevant file. <br> Max. file size: 50 MB.</span>
+						</div>
+					{{form_end(Offre)}}
+					</form>
+					
+					{# <!-- Button -->
+					<button class="button margin-top-35 full-width button-sliding-icon ripple-effect" type="submit" form="apply-now-form">Apply Now <i class="icon-material-outline-arrow-right-alt"></i></button> #}{# 
+				</div>
+	
+			</div>
+		</div>
+	</div>  #}<!-- Apply for a job popup / End -->{% endblock %}

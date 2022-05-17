@@ -1203,8 +1203,10 @@ $(document).ready(function(){
 	$('.blog-carousel').slick({
 		infinite: false,
 		slidesToShow: 3,
+		//autoplay:true,
+		//autoplayspeed:1000,
 		slidesToScroll: 1,
-		dots: false,
+		dots: true,
 		arrows: true,
 		responsive: [
 			{

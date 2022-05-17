@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\News;
 use App\Entity\User;
+use App\Form\NewsType;
 use App\Entity\Candidat;
 use App\Entity\Recruteur;
 use App\Form\BlockedType;
@@ -289,7 +291,45 @@ class AdminController extends AbstractController
            
         );
     }   
+      /**
+     * @Route("/addNews", name="addNews")
+     */
+    public function addNews(Request $request){
+        $em=$this->getDoctrine()->getManager();
+        $news= new News();
+        $user=$this->getUser()->getId();
+        $admin= $this->getDoctrine()->getRepository(Administrateur::class)->findOneBy(['User' => $user]);
+      
+        $form= $this->createForm(NewsType ::class, $news );
+        $form->handleRequest($request);
         
+
+        if($form->isSubmitted() && $form->isValid())
+        {
+            $file= $news->getPhoto();
+            $filename = md5(uniqid()).'.'.$file->guessExtension();
+            try{
+                $file->move(
+                    $this->getParameter('images_directory'),
+                    $filename
+                );
+            }catch(FileException $e){
+
+            }
+            $news->setPhoto($filename);
+            $news->setAdmin($admin);
+            $em->persist($news);
+            $em->flush();
+
+       
+         
+        }
+        
+        return $this->render('Admin/addnews.html.twig',[
+            "news"=>$form->createView(),
+        ] );
+        
+    }   
         
        
 }

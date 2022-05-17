@@ -82,7 +82,7 @@
 		<div class="col-xl-4 col-lg-4">
 			<div class="sidebar-container">
 
-				<button type="submit" class="apply-now-button">Apply Now </button>
+				<a href="{{path('detailedOff',{'id':off.id})}}" class="apply-now-button popup-with-zoom-anim">Apply Now </a>
 					
 				<!-- Sidebar Widget -->
 				<div class="sidebar-widget">
@@ -138,6 +138,52 @@
 
 	<!-- Spacer -->
 	<div class="margin-top-15"></div>
-	<!-- Spacer / End-->           
+	<!-- Spacer / End-->    
+{# <div id="small-dialog" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
+
+	<!--Tabs -->
+	<div class="sign-in-form">
+
+		<ul class="popup-tabs-nav">
+			<li><a href="#tab">Apply Now</a></li>
+		</ul>
+
+		<div class="popup-tabs-container">
+
+			<!-- Tab -->
+			<div class="popup-tab-content" id="tab">
+				
+				<!-- Welcome Text -->
+				<div class="welcome-text">
+					<h3>Attach File </h3>
+				</div>
+					
+				<!-- Form -->
+				<form method="post" id="apply-now-form">
+
+				{{form_start(Offre)}}
+					<div class="uploadButton">
+						<div class="uploadButton S ">
+												{{ form_label(Offre.cv, null, {
+                                           			'label': 'Upload File',
+                                            		'label_attr': {'class': 'uploadButton-button ripple-effect'}
+                                           		 }) }}
+												{{ form_widget(Offre.cv,{'attr':{'type':'file','accept':'pdf/*','class':'uploadButton-input'}}) }}
+						</div>
+						<span class="uploadButton-file-name">Upload your CV / resume relevant file. <br> Max. file size: 50 MB.</span>
+					</div>
+				{{form_end(Offre)}}
+				</form>
+				
+				{# <!-- Button -->
+				<button class="button margin-top-35 full-width button-sliding-icon ripple-effect" type="submit" form="apply-now-form">Apply Now <i class="icon-material-outline-arrow-right-alt"></i></button> #}
+{# 
+			</div>
+
+		</div>
+	</div>
+</div>  #}
+<!-- Apply for a job popup / End -->
+       
 {% endblock %}
 

@@ -48,33 +48,67 @@
 
 
 						{{ form_start(Rec) }}
-
+						{{form_start(user)}}
 						<div class="content with-padding padding-bottom-10">
 							<div class="row">
 
 								<div class="col-xl-4">
 									<div class="submit-field">
-										{{ form_widget(Rec.eamil,{'attr':{'type':'text','class':'form-control','placeholder':'email...' ,'text-align':'center'}}) }}
+										{{ form_label(user.nom, null, {
+                                            'label': 'nom :',
+                                            'label_attr': {'class': 'uploadButton-button ripple-effect'}
+                                            }) }}
+										{{ form_widget(user.nom,{'attr':{'type':'text','class':'form-control','placeholder':'nom...' ,'text-align':'center'}}) }}
+
+									</div>
+								</div>
+								<div class="col-xl-4">
+									<div class="submit-field">
+										{{ form_label(user.prenom, null, {
+                                            'label': 'prenom :',
+                                            'label_attr': {'class': 'uploadButton-button ripple-effect'}
+                                            }) }}
+										{{ form_widget(user.prenom,{'attr':{'type':'text','class':'form-control','placeholder':'prenom...' ,'text-align':'center'}}) }}
+
+									</div>
+								</div>
+								<div class="col-xl-4">
+									<div class="submit-field">
+									{{ form_label(user.email, null, {
+                                            'label': 'email :',
+                                            'label_attr': {'class': 'uploadButton-button ripple-effect'}
+                                            }) }}
+										{{ form_widget(user.email,{'attr':{'type':'text','class':'form-control','placeholder':'email...' ,'text-align':'center'}}) }}
 
 									</div>
 								</div>
 
-								<div class="col-xl-4">
+								<div class="col-xl-6">
 									<div class="submit-field">
-
+										{{ form_label(Rec.pays, null, {
+                                            'label': 'pays :',
+                                            'label_attr': {'class': 'uploadButton-button ripple-effect'}
+                                            }) }}
 										{{ form_widget(Rec.pays,{'attr':{'type':'text','class':'form-control','placeholder':'pays...'}}) }}
 
 									</div>
 								</div>
-								<div class="col-xl-4">
+								<div class="col-xl-6">
 									<div class="submit-field">
-
+										{{ form_label(Rec.ville, null, {
+                                            'label': 'ville :',
+                                            'label_attr': {'class': 'uploadButton-button ripple-effect'}
+                                            }) }}
 										{{ form_widget(Rec.ville,{'attr':{'type':'text','class':'form-control','placeholder':'ville...'}}) }}
 
 									</div>
 								</div>
 								<div class="col-xl-6">
 									<div class="submit-field">
+										{{ form_label(Rec.diplome, null, {
+                                            'label': 'diplome :',
+                                            'label_attr': {'class': 'uploadButton-button ripple-effect'}
+                                            }) }}
 
 										{{ form_widget(Rec.diplome,{'attr':{'type':'text','class':'form-control','placeholder':'diplome...'}}) }}
 
@@ -83,8 +117,10 @@
 								</div>
 								<div class="col-xl-6">
 									<div class="submit-field">
-
-
+									{{ form_label(Rec.langue_preferee, null, {
+                                            'label': 'langue_preferee :',
+                                            'label_attr': {'class': 'uploadButton-button ripple-effect'}
+                                            }) }}
 										{{ form_widget(Rec.langue_preferee,{'attr':{'type':'text','class':'form-control','placeholder':'langue_preferee...'}}) }}
 
 
@@ -103,12 +139,9 @@
                                            			 }) }}
 											{{ form_widget(Rec.photo,{'attr':{'type':'file','accept':'image/*','class':'uploadButton-input'}}) }}
 
-
 										</div>
 									</div>
 								</div>
-
-
 							</div>
 
 						</div>
@@ -118,6 +151,7 @@
 							</button>
 						</div>
 						{{ form_end(Rec) }}
+						{{ form_end(user) }}
 					</div>
 				</div>
 

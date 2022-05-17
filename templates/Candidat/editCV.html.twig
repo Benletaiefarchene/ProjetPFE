@@ -72,11 +72,11 @@
 								</div>
 								<div class="col-xl-4">
 									<div class="submit-field">
-										{{ form_label(cv.email, null, {
+										{{ form_label(user.email, null, {
                                             'label': 'email :',
                                             'label_attr': {'class': 'uploadButton-button ripple-effect'}
                                             }) }}
-										{{ form_widget(cv.email,{'attr':{'type':'text','class':'form-control','placeholder':'email...' ,'text-align':'center'}}) }}
+										{{ form_widget(user.email,{'attr':{'name':'email','type':'text','class':'form-control','placeholder':'email...' ,'text-align':'center'}}) }}
 
 									</div>
 								</div>

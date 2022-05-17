@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
+use App\Entity\News;
 use App\Entity\Type;
 use App\Data\SearchData;
 use App\Entity\Candidat;
@@ -101,15 +102,27 @@ class HomeController extends Controller
     public function ActualitespostAction(Request $request)
     {
         $em=$this->getDoctrine()->getManager();
-        $posts=$em->getRepository(OffreEmploi::class)->findActualites();
+        $news=$em->getRepository(News::class)->findAll();
        // $posts=$em->getRepository(OffreEmploi::class)->findBy(array('titre'=> 'mobile'));
         
         
         return $this->render('home/Actualites.html.twig', array(
-            "posts" =>$posts
+            "news" =>$news
         ));
        // return $this->redirectToRoute('list_post');
 
+    }
+          /**
+     * @Route("/About", name="About")
+     */
+    public function AboutAction(Request $request)
+    {
+       
+        
+        
+        return $this->render('home/About.html.twig')
+        ;
+       
     }
   
      /**

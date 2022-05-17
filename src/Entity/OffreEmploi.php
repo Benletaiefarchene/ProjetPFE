@@ -77,9 +77,15 @@ class OffreEmploi
      */
     private $accepted;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Candidature::class, mappedBy="job")
+     */
+    private $candidatures;
+
     public function __construct()
     {
         $this->Candidat = new ArrayCollection();
+        $this->candidatures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -229,6 +235,36 @@ class OffreEmploi
     public function setAccepted(bool $accepted): self
     {
         $this->accepted = $accepted;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Candidature>
+     */
+    public function getCandidatures(): Collection
+    {
+        return $this->candidatures;
+    }
+
+    public function addCandidature(Candidature $candidature): self
+    {
+        if (!$this->candidatures->contains($candidature)) {
+            $this->candidatures[] = $candidature;
+            $candidature->setJob($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidature(Candidature $candidature): self
+    {
+        if ($this->candidatures->removeElement($candidature)) {
+            // set the owning side to null (unless already changed)
+            if ($candidature->getJob() === $this) {
+                $candidature->setJob(null);
+            }
+        }
 
         return $this;
     }

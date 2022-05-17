@@ -13,10 +13,12 @@ use App\Entity\Recruteur;
 use App\Entity\Competance;
 use App\Entity\Experience;
 
+use App\Form\UserPassType;
 use App\Entity\OffreEmploi;
 use App\Form\CompetanceType;
 use App\Services\QrcodeService;
 use App\Repository\CVRepository;
+use Symfony\Component\Form\FormError;
 use App\Repository\OffreEmploiRepository;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,9 +27,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Collections\ArrayCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
    
 class CandidatController extends AbstractController
+
 {
+   
     /**
      * IsGranted("ROLE_CANDIDAT)
      * @Route("/addcv", name="addcv")
@@ -141,19 +146,23 @@ class CandidatController extends AbstractController
     
     /**
      * IsGranted("ROLE_CANDIDAT)
-     * @Route("/editProfile/{id}", name="editProfile")
+     * @Route("/editCV/{id}", name="editCV")
      */
-    public function editProfileAction(Request $request , $id){
+    public function editCVAction(Request $request , $id){
         $this->denyAccessUnlessGranted('ROLE_CANDIDAT');
         $em=$this->getDoctrine()->getManager();
-        $p= $em->getRepository(CV::class)->find($id);
-        $user=$em->getRepository(User::class)->find($id);
+        $candidat=$em->getRepository(Candidat::class)->find($id);
+        $idcv=$candidat->getCV()->getId();
+        $iduser=$candidat->getUser()->getId();
+        
+        $p= $em->getRepository(CV::class)->find($idcv);
+        $user=$em->getRepository(User::class)->find($iduser);
         $form1=$this->createForm(UserType::class,$user);
         $form1->handleRequest($request);
         $form=$this->createForm(CVType::class,$p);
         $form->handleRequest($request);
         
-       
+       $email=$form1->get('email')->getViewData();
         if($form->isSubmitted() && $form1->isSubmitted() ){
             $file = $p->getPhoto();
             $filename= md5(uniqid()) . '.' . $file->guessExtension();
@@ -165,8 +174,9 @@ class CandidatController extends AbstractController
             $filename1= md5(uniqid()) . '.' . $file1->guessExtension();
             $file1->move($this->getParameter('images_directory'), $filename1);
             $p->setVideo($filename1);
-         
+            $p->setEmail($email);
             $em= $this->getDoctrine()->getManager();
+
             $em->persist($p);
             $em->flush();
             $em->persist($user);
@@ -174,9 +184,98 @@ class CandidatController extends AbstractController
            // return $this->redirectToRoute('detailed');
 
         }
-        return $this->render('Candidat/editProfile.html.twig', array(
+        return $this->render('Candidat/editCV.html.twig', array(
             "user"=>$form1->createView(),
             "cv"=> $form->createView()
+        ));
+
+    }
+       /**
+     * IsGranted("ROLE_CANDIDAT)
+     * @Route("/editProfil/{id}", name="editProfil")
+     */
+    public function editProfileAction(Request $request , $id){
+        $this->denyAccessUnlessGranted('ROLE_CANDIDAT');
+        $em=$this->getDoctrine()->getManager();
+        $candidat=$em->getRepository(Candidat::class)->find($id);
+        $iduser=$candidat->getUser()->getId();
+        $user=$em->getRepository(User::class)->find($iduser);
+        $form1=$this->createForm(UserType::class,$user);
+        $form1->handleRequest($request);
+        
+        
+       
+        if($form1->isSubmitted() && $form1->isSubmitted() ){
+          
+            $em= $this->getDoctrine()->getManager();
+          
+            $em->persist($user);
+            $em->flush();
+           // return $this->redirectToRoute('detailed');
+
+        }
+        return $this->render('Candidat/editProfil.html.twig', array(
+            "user"=>$form1->createView(),
+          
+        ));
+
+    }
+       /**
+     * IsGranted("ROLE_CANDIDAT)
+     * @Route("/editPass/{id}", name="editPass")
+     */
+    public function editPassAction(Request $request , $id,UserPasswordEncoderInterface $userPasswordEncoder){
+        $this->denyAccessUnlessGranted('ROLE_CANDIDAT');
+        $em=$this->getDoctrine()->getManager();
+        $candidat=$em->getRepository(Candidat::class)->find($id);
+        $iduser=$candidat->getUser()->getId();
+        $user=$em->getRepository(User::class)->find($iduser);
+        $form1=$this->createForm(UserPassType::class);
+        $form1->handleRequest($request);
+        $OldPassword=$form1->get('OldPassword')->getViewData();
+     
+        $u=$user->getPassword();
+
+        if($form1->isSubmitted() && $form1->isSubmitted() ){
+            
+            if(!password_verify($form1->get('OldPassword')->getViewData(), $user->getPassword()))
+            {
+               
+                $form1->get('OldPassword')->addError(new FormError("Le mot de passe renseigné ne correspond pas à votre mot de passe actuel"));
+            }
+            else{
+                $NewPassword=    $userPasswordEncoder->encodePassword(
+                    $user,
+                     $form1->get('NewPassword')->getViewData()
+                 )
+                ;
+                $em= $this->getDoctrine()->getManager();
+                if( $form1->get('NewPassword')->getViewData()== $form1->get('ConfPassword')->getViewData()){
+            
+                $user->setPassword( $NewPassword);
+                $em->persist($user);
+                $em->flush();
+
+                }else{
+                $form1->get('ConfPassword')->addError(new FormError("Le nouveau mot de passe  ne correspond pas au mot de passe de confirmation "));
+                }
+
+            
+            }
+           
+            
+           
+               
+            
+                
+            // $em->persist($user);
+            // $em->flush();
+           // return $this->redirectToRoute('detailed');
+
+        }
+        return $this->render('Candidat/editPass.html.twig', array(
+            "user"=>$form1->createView(),
+          
         ));
 
     }

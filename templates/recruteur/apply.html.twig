@@ -1,0 +1,30 @@
+
+{% extends "base.html.twig" %}
+
+{% block title %}Offre Emploi{% endblock %}
+
+{% block body %}
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+ {{form_start(Offre)}}
+					<div class="uploadButton">
+						<div class="uploadButton S ">
+												{{ form_label(Offre.cv, null, {
+                                           			'label': 'Upload File',
+                                            		'label_attr': {'class': 'uploadButton-button ripple-effect'}
+                                           		 }) }}
+												{{ form_widget(Offre.cv,{'attr':{'type':'file','accept':'pdf/*','class':'uploadButton-input'}}) }}
+						</div>
+						<span class="uploadButton-file-name">Upload your CV / resume relevant file. <br> Max. file size: 50 MB.</span>
+					</div>
+				{{form_end(Offre)}}
+{% endblock %}

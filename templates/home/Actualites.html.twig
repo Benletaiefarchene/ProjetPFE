@@ -1,79 +1,58 @@
-
 {% extends 'base.html.twig' %}
 
 {% block title %}News
 {% endblock %}
 
 {% block body %}
-<div class="section gray margin-top-45 padding-top-65 padding-bottom-75">
-	<div class="container">
-		<div class="row">
-			<div class="col-xl-12">
-				
-				<!-- Section Headline -->
-				<div class="section-headline margin-top-0 margin-bottom-35">
-					<h3>News Jobs</h3>
-					<a href="{{ path('listposthome') }}" class="headline-link">Browse All Jobs</a>
+	<div class="section white padding-top-0 padding-bottom-60 full-width-carousel-fix">
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-12">
+
+					<!-- Section Headline -->
+					<div class="section-headline margin-top-0 margin-bottom-35">
+						<h3>News Jobs</h3>
+						<a href="{{ path('listposthome') }}" class="headline-link">Browse All Jobs</a>
+					</div>
+
+					<!-- Jobs Container -->
+
+
 				</div>
-				
-				<!-- Jobs Container -->
-				<div class="listings-container compact-list-layout margin-top-35">
-					
-					
-                    {% for posts in posts %}
-					<!-- Job Listing -->
-				    {% if is_granted('ROLE_CANDIDAT') %}
-							<a href="{{ path('candidat_detailedOff',{'id': posts.id}) }}" class="job-listing">
-							{% elseif is_granted('ROLE_RECRUTEUR') %}
-								<a href="{{ path('recruteur_detailedOff',{'id': posts.id}) }}" class="job-listing">
-							{% else %}	
-							<a href="{{ path('detailedOff',{'id': posts.id}) }}" class="job-listing">
-								{% endif %}
-						<!-- Job Listing Details -->
-						<div class="job-listing-details">
 
-							<!-- Logo -->
-							<div class="job-listing-company-logo">
-								<img src="{{ asset('uploads/images/' ~ posts.recruteur.photo ) }}" alt="" >
-							</div>
+				<!-- Job Listing -->
 
-							<!-- Details -->
-							<div class="job-listing-description">
-								<h4 class="job-listing-company">{{posts.recruteur.user.nom	}}
 
-											<span class="verified-badge" title="Verified Employer" data-tippy-placement="top"></span>
-										</h4>
-										<h3 class="job-listing-title">{{posts.titre}}</h3>
-
-								<!-- Job Listing Footer -->
-								<div class="job-listing-footer">
-									<ul>
-										<li><i class="icon-material-outline-business"></i> {{posts.recruteur.ville}}</li>
-										<li><i class="icon-material-outline-location-on"></i> {{posts.recruteur.pays}}</li>
-                                        <li>
-											<i class="icon-material-outline-account-balance-wallet"></i>
-											{{posts.salaire}}
-											$</li>
-										<li><i class="icon-material-outline-business-center"></i> Full Time</li>
-										<li><i class="icon-material-outline-access-time"></i> {{posts.dateOffre|date('d-m-Y ')}}</li>
-									</ul>
+				<div class="col-xl-12">
+					<div class="blog-carousel">
+						{% for news in news %}
+							<a href="{{ path('detailedOff',{'id': news.id}) }}" class="blog-compact-item-container">
+								<div class="blog-compact-item">
+									<img src="{{ asset('uploads/images/' ~ news.photo ) }}" alt="">
+									<span class="blog-item-tag">Tips</span>
+										<div class="blog-compact-item-content">
+											<ul class="blog-post-tags">
+												<li>20 May 2018</li>
+											</ul>
+											<h4 class="job-listing-company">{{news.titre	}}</h4>
+											<h3 class="job-listing-title">{{news.description}}</h3>
+										</div>
 								</div>
-							</div>
+							</a>
+						{% endfor %}
+					</div>
 
-							<!-- Apply Button -->
-							<span class="list-apply-button ripple-effect">Apply Now</span>
-						</div>
-					</a>
-                    </a>
-                    </a>
-					<!-- Job Listing -->
-				    {% endfor %}
+
+							<!-- Job Listing -->
+						
 				</div>
-				<!-- Jobs Container / End -->
+					<!-- Jobs Container / End -->
 
+				
 			</div>
 		</div>
 	</div>
-</div>
-<!-- Featured Jobs / End -->
+	<!-- Featured Jobs / End -->
+
+
 {% endblock %}

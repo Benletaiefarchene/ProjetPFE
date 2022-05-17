@@ -13,7 +13,7 @@ class RecruteurType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('eamil')
+            
             ->add('pays')
             ->add('photo',FileType::class , array('data_class'=>null))
             ->add('ville')

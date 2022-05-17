@@ -4,17 +4,21 @@ namespace App\Controller;
 use App\Entity\Type;
 use App\Entity\User;
 use App\Entity\Forum;
+use App\Form\UserType;
 use App\Form\ForumType;
 use App\Data\SearchData;
 use App\Entity\Candidat;
 use App\Form\SearchForm;
 use App\Entity\Recruteur;
 use App\Form\AddPostType;
+use App\Form\UserPassType;
+use App\Entity\Candidature;
 use App\Entity\Commentaire;
 use App\Entity\OffreEmploi;
 use App\Form\FormationType;
 use App\Form\RecruteurType;
 use App\Form\TypeOffreType;
+use App\Form\CandidatureType;
 use App\Form\CommentaireType;
 use App\Entity\OffreFormation;
 use App\Repository\ForumRepository;
@@ -28,6 +32,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Collections\ArrayCollection;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
  
 class RecruteurController extends AbstractController
@@ -51,7 +56,7 @@ class RecruteurController extends AbstractController
           
             $type=$request->request->get('co');
             $offre->setType($types[$type-1]);
-           $te= $offre->setDateOffre(new \DateTime('now')); 
+           $offre->setDateOffre(new \DateTime('now')); 
           
             $offre->setRecruteur($recruteur);
             $em->persist($offre);
@@ -70,14 +75,59 @@ class RecruteurController extends AbstractController
      /**
      * @Route("/detailedOffre/{id}", name="detailedOff")
      */
-    public function detailedOffreAction($id)
+    public function detailedOffreAction(Request $request,$id)
     {
         
         $Off= $this->getDoctrine()->getRepository(OffreEmploi::class)->find($id);
-      
-     //  dd($Off);
+     
+
+
         return $this->render('Recruteur/detailedOffre.html.twig',[
            
+            'off'=>$Off
+        ]   
+        );
+    }
+      /**
+     * @Route("/ApplyOffre/{id}", name="ApplyOffre")
+     */
+    public function ApplyOffreAction(Request $request,$id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $candidature = new Candidature();
+        $Off= $this->getDoctrine()->getRepository(OffreEmploi::class)->find($id);
+        $form= $this->createForm(CandidatureType ::class, $candidature );
+        $form->handleRequest($request);
+        $user=$this->getUser()->getId();
+        $candidat=$this->getDoctrine()->getRepository(Candidat::class)->findBy(array('User' => $user));
+       $can=$candidat["0"];
+       $date=new \DateTime('now');
+    
+        if($form->isSubmitted()&& $form->isValid()){
+            $file= $candidature->getCv();
+            $filename = md5(uniqid()).'.'.$file->guessExtension();
+            try{
+                $file->move(
+                    $this->getParameter('images_directory'),
+                    $filename
+                );
+            }catch(FileException $e){
+
+            }
+            $candidature->setCv($filename);
+            $candidature->setCandidat($can);
+            $candidature->setCreatedAt($date);
+            $candidature->setJob($Off);
+            $em->persist($candidature);
+            $em->flush();
+
+
+        }
+
+
+
+        return $this->render('Recruteur/apply.html.twig',[
+            'Offre' => $form->createView(),
             'off'=>$Off
         ]   
         );
@@ -127,6 +177,49 @@ class RecruteurController extends AbstractController
             "can"=>$can,
             'form'=>$form->createView()
         ));
+       // return $this->redirectToRoute('list_post');
+
+    }
+    /**
+     * @Route("/listOffre", name="listOffre")
+     */
+    public function listOffreAction(Request $request,OffreEmploiRepository $repository)
+    {
+       
+      
+        $user=$this->getUser()->getId();
+        $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findOneBy(array('User' => $user));
+        $recc=$rec->getId();
+       $off=$this->getDoctrine()->getRepository(OffreEmploi::class)->findBy(array('recruteur' => $recc));
+      
+        
+        
+        return $this->render('recruteur/listJob.html.twig', array(
+        
+            "off"=>$off,
+           
+        ));
+       // return $this->redirectToRoute('list_post');
+
+    }
+     /**
+     * @Route("/listCondidature/{id}", name="listCondidature")
+     */
+    public function listCondidatureAction(Request $request,OffreEmploiRepository $repository,$id)
+    {
+       
+      
+        $Off= $this->getDoctrine()->getRepository(OffreEmploi::class)->find($id);
+        $recc=$Off->getId();
+        $candidature=$this->getDoctrine()->getRepository(Candidature::class)->findBy(array('job' => $recc));
+        
+
+
+        return $this->render('Recruteur/listCondidature.html.twig',[
+            'can'=>$candidature,
+            'off'=>$Off
+        ]   
+        );
        // return $this->redirectToRoute('list_post');
 
     }
@@ -189,31 +282,96 @@ class RecruteurController extends AbstractController
         );
     }
      /**
-     * @Route("/editProfileRec/{id}", name="editProfile")
+     * @Route("/editProfileRec/{id}", name="editProfileRec")
      */
     public function editProfileAction(Request $request , $id){
-
-        $Rec= $this->getDoctrine()->getRepository(Recruteur::class)->find($id);
-        $Rec->setUser($this->getUser());
+        $em=$this->getDoctrine()->getManager();
+        $Rec= $em->getRepository(Recruteur::class)->find($id);
         
+        $iduser=$Rec->getUser()->getId();
+        $user=$em->getRepository(User::class)->find($iduser);
         $form=$this->createForm(RecruteurType::class,$Rec);
         $form->handleRequest($request);
+        $form1=$this->createForm(UserType::class,$user);
+        $form1->handleRequest($request);
        
+        $email=$form1->get('email')->getViewData();
         if($form->isSubmitted()){
             $file = $Rec->getPhoto();
             $filename= md5(uniqid()) . '.' . $file->guessExtension();
             $file->move($this->getParameter('images_directory'), $filename);
             $Rec->setPhoto($filename);
-          
-            $em= $this->getDoctrine()->getManager();
+            $Rec->setEmail($email);
+           
             $em->persist($Rec);
+            $em->flush();
+            $em->persist($user);
             $em->flush();
             //return $this->redirectToRoute('detailed'{$id});
 
         }
         return $this->render('Recruteur/editProfileRec.html.twig', array(
-            
+            "user"=>$form1->createView(),
             "Rec"=> $form->createView()
+        ));
+ 
+    }
+          /**
+     * IsGranted("ROLE_RECRUTEUR)
+     * @Route("/editPassRec/{id}", name="editPassRec")
+     */
+    public function editPassRecAction(Request $request , $id,UserPasswordEncoderInterface $userPasswordEncoder){
+        
+        $em=$this->getDoctrine()->getManager();
+        $candidat=$em->getRepository(Recruteur::class)->find($id);
+        $iduser=$candidat->getUser()->getId();
+        $user=$em->getRepository(User::class)->find($iduser);
+        $form1=$this->createForm(UserPassType::class);
+        $form1->handleRequest($request);
+        $OldPassword=$form1->get('OldPassword')->getViewData();
+     
+        $u=$user->getPassword();
+
+        if($form1->isSubmitted() && $form1->isSubmitted() ){
+            
+            if(!password_verify($form1->get('OldPassword')->getViewData(), $user->getPassword()))
+            {
+               
+                $form1->get('OldPassword')->addError(new FormError("Le mot de passe renseigné ne correspond pas à votre mot de passe actuel"));
+            }
+            else{
+                $NewPassword=    $userPasswordEncoder->encodePassword(
+                    $user,
+                     $form1->get('NewPassword')->getViewData()
+                 )
+                ;
+                $em= $this->getDoctrine()->getManager();
+                if( $form1->get('NewPassword')->getViewData()== $form1->get('ConfPassword')->getViewData()){
+            
+                $user->setPassword( $NewPassword);
+                $em->persist($user);
+                $em->flush();
+
+                }else{
+                $form1->get('ConfPassword')->addError(new FormError("Le nouveau mot de passe  ne correspond pas au mot de passe de confirmation "));
+                }
+
+            
+            }
+           
+            
+           
+               
+            
+                
+            // $em->persist($user);
+            // $em->flush();
+           // return $this->redirectToRoute('detailed');
+
+        }
+        return $this->render('Candidat/editPass.html.twig', array(
+            "user"=>$form1->createView(),
+          
         ));
 
     }
@@ -394,8 +552,32 @@ class RecruteurController extends AbstractController
         ]   
         );
     }
+    /**
+     * @Route("/editQuestion/{id}", name="editQuestion")
+     */
+    public function editQuestionAction(Request $request , $id){
+
+        $question= $this->getDoctrine()->getRepository(Forum::class)->find($id);
+        
+        $form=$this->createForm(ForumType::class,$question);
+        $form->handleRequest($request);
+       
+        if($form->isSubmitted()){
+          
+            $em= $this->getDoctrine()->getManager();
+            $em->persist($question);
+            $em->flush();
+         //  return $this->redirectToRoute(path('recruteur_detailedOff','id'== $id));
+           
+        }
+        return $this->render('Recruteur/editQuestion.html.twig', array(
+            
+            "question"=> $form->createView()
+        ));
+
+    }
       /**
-     * @Route("/deletequestion/{id}", name="deletequestion")
+     * @Route("/deleteCommentaire/{id}", name="deleteCommentaire")
      */
     public function deleteCommentAction(Request $request,$id)
     {
@@ -405,7 +587,7 @@ class RecruteurController extends AbstractController
         $comment=$em->getRepository(Commentaire::class)->find($id);
         $em->remove($comment);
         $em->flush();
-        return $this->redirectToRoute('recruteur_listQuestion');
+        return $this->redirectToRoute('listQuestion');
     }
      
        

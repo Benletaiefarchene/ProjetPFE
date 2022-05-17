@@ -22,7 +22,16 @@
             <div class="col-md-12" style="text-align: center;">
 				
 				<h2>{{ question.question }} </h2>
-							
+			{% if is_granted('ROLE_RECRUTEUR') %}
+					 {% if app.User.id == question.recruteur.User.id %}	
+					 <div class="col-xl-6" style="margin-top: 70px;margin-left: 270px;">
+							<a href="{{ path('editQuestion',{'id': question.id}) }}"  class="button full-width button-sliding-icon ripple-effect margin-top-10">Edit Question<i class="icon-material-outline-arrow-right-alt"></i>
+							</a>
+					</div>	
+					{% else %}
+					</br>
+						{% endif %}
+						{% endif %}
 			</div>
 		</div>
 	</div>
@@ -36,7 +45,7 @@
 		
 		<!-- Content -->
 		<div class="col-xl-8 col-lg-8 content-right-offset">
-
+			
 			<div class="single-page-section" >
 				<h3 class="margin-bottom-25">Add Comment</h3>
 				 <div class="single-page-section"id="Ajout_Commentaire">
@@ -49,9 +58,14 @@
 				 <div class="single-page-section">
                 
                     {% for comment in question.commentaires %}
+					   
+					
+					
                     {% if comment.parent == null %}
                    <div class="user-details">
-                    	<div class="user-avatar"><img src="{{ asset('uploads/images/' ~ comment.Candidat.CV.photo) }}" alt=""></div>
+				   		{% if  comment.candidat != null %}
+				   
+                    		<div class="user-avatar"><img src="{{ asset('uploads/images/' ~ comment.Candidat.CV.photo) }}" alt=""></div>
                     
                      
                                     <div class="user-name">
@@ -60,7 +74,7 @@
                                          <div>  <p><a href="#Ajout_Commentaire" data-reply data-id="{{comment.id}}">Repondre</a></p></div>
                                       {% if app.user.id == comment.Candidat.User.id %} 
                                      
-                                        <div>  <p><a href="{{ path('recruteur_deletequestion',{'id': comment.id}) }}" >Delete</a></p></div>
+                                        <div>  <p><a href="{{ path('deleteCommentaire',{'id': comment.id}) }}" >Delete</a></p></div>
                                       {% else %}
                                      
                                         {% endif %}
@@ -68,7 +82,27 @@
                                    
                       
                       
-                    </div>
+                    		</div>
+						{% else %}
+						<div class="user-avatar"><img src="{{ asset('uploads/images/' ~ comment.recruteur.photo) }}" alt=""></div>
+                    
+                     
+                                    <div class="user-name">
+						                {{comment.recruteur.User.nom}}    {{comment.createdat|date('d-m-Y H:i')}}
+                                        <span>{{comment.content}}</span>
+                                         <div>  <p><a href="#Ajout_Commentaire" data-reply data-id="{{comment.id}}">Repondre</a></p></div>
+                                      {% if app.user.id == comment.Candidat.User.id %} 
+                                     
+                                        <div>  <p><a href="{{ path('deleteCommentaire',{'id': comment.id}) }}" >Delete</a></p></div>
+                                      {% else %}
+                                     
+                                        {% endif %}
+									</div>
+                                   
+                      
+                      
+                    		</div>
+					{% endif %}
                     <div class="reply" style="padding: 10px 39px 24px;">  {% for reply in comment.replies %}
                     <div class="user-details-1">
                     	<div class="user-avatar"><img src="{{ asset('uploads/images/' ~ reply.Candidat.CV.photo) }}" alt=""></div>

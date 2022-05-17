@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Profile
+{% endblock %}
+
+{% block body %}
+
+
+	<!-- Dashboard Content
+					================================================== -->
+	<div class="dashboard-content-container" data-simplebar>
+		<div
+			class="dashboard-content-inner">
+
+			<!-- Dashboard Headline -->
+			<div class="dashboard-headline">
+				<h3>EDIT PASSWORD</h3>
+
+				<!-- Breadcrumbs -->
+				<nav id="breadcrumbs" class="dark">
+					<ul>
+						<li>
+							<a href="#">Home</a>
+						</li>
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li>Edit Password</li>
+					</ul>
+				</nav>
+			</div>
+</br>
+</br>
+</br>
+</br>
+			<!-- Row -->
+			<div
+				class="row">
+
+				<!-- Dashboard Box -->
+				<div class="col-xl-12">
+					
+
+						<!-- Headline -->
+						
+
+
+						{{ form_start(user) }}
+						<div class="content with-padding padding-bottom-10">
+							<div class="row">
+
+								<div class="col-xl-4">
+									<div class="submit-field">
+										{{ form_label(user.OldPassword, null, {
+                                            'label': 'OldPassword :',
+                                            'label_attr': {'class': 'uploadButton-button ripple-effect'}
+                                            }) }}
+										{{ form_widget(user.OldPassword,{'attr':{'type':'text','class':'form-control','placeholder':'OldPassword...' ,'text-align':'center'}}) }}
+									</div>
+								</div>
+								<div class="col-xl-4">
+									<div class="submit-field">
+										{{ form_label(user.NewPassword, null, {
+                                            'label': 'NewPassword :',
+                                            'label_attr': {'class': 'uploadButton-button ripple-effect'}
+                                            }) }}
+										{{ form_widget(user.NewPassword,{'attr':{'type':'text','class':'form-control','placeholder':'NewPassword...' ,'text-align':'center'}}) }}
+									</div>
+								</div>
+								<div class="col-xl-4">
+									<div class="submit-field">
+										{{ form_label(user.ConfPassword, null, {
+                                            'label': 'ConfPassword :',
+                                            'label_attr': {'class': 'uploadButton-button ripple-effect'}
+                                            }) }}
+										{{ form_widget(user.ConfPassword,{'attr':{'type':'text','class':'form-control','placeholder':'ConfPassword...' ,'text-align':'center'}}) }}
+									</div>
+								</div>
+
+
+								<div class="col-xl-12">
+									<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-10">Edit Profile<i class="icon-material-outline-arrow-right-alt"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+						{{ form_end(user) }}
+
+					</div>
+				
+
+
+			</div>
+		</div>
+
+
+	</div>
+	<!-- Row / End -->
+
+
+</div></div><!-- Dashboard Content / End -->{% endblock %}
