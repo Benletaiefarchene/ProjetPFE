@@ -116,7 +116,7 @@ class OffreEmploiRepository extends ServiceEntityRepository
         return $this->paginator->paginate(
             $query, /* query NOT result */
             $search->page, /*page number*/
-            5 /*limit per page*/
+            4 /*limit per page*/
         );
 
      }

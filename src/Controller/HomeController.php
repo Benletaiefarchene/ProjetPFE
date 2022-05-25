@@ -14,6 +14,7 @@ use App\Entity\Competance;
 use App\Entity\Experience;
 use App\Entity\OffreEmploi;
 use App\Form\TypeOffreType;
+use App\Service\PdfService;
 use App\Repository\OffreEmploiRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -103,11 +104,15 @@ class HomeController extends Controller
     {
         $em=$this->getDoctrine()->getManager();
         $news=$em->getRepository(News::class)->findAll();
+        $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
+        $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
        // $posts=$em->getRepository(OffreEmploi::class)->findBy(array('titre'=> 'mobile'));
         
         
         return $this->render('home/Actualites.html.twig', array(
-            "news" =>$news
+            "news" =>$news,
+            "rec"=>$rec,
+            "can"=>$can,
         ));
        // return $this->redirectToRoute('list_post');
 
@@ -210,6 +215,24 @@ class HomeController extends Controller
        
         
     }
+     /**
+     * @Route("/detailedNews/{id}", name="detailedNews")
+     */
+    public function detailedNewsAction($id)
+    {
+        
+        $new= $this->getDoctrine()->getRepository(News::class)->find($id);
+        $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
+        $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
+       
+        return $this->render('home/detailedNews.html.twig',[
+            'new'=> $new,
+            "rec"=>$rec,
+            "can"=>$can,
+         
+        ]   
+        );
+    }
     // public function search(OffreEmploiRepository $repository){
         
     //     $data = new SearchData();
@@ -221,4 +244,25 @@ class HomeController extends Controller
     //     ]);
 
     // }
+      /**
+     * @Route("/test/{id}", name="test")
+     */
+    public function testAction($id)
+    {
+        
+    
+       
+        $Candidat= $this->getDoctrine()->getRepository(Candidat::class)->find($id);
+      
+        $Competance= $this->getDoctrine()->getRepository(Competance::class)->findComById($id);
+    
+        $Experience= $this->getDoctrine()->getRepository(Experience::class)->findExpById($id);
+        // Retrieve the HTML generated in our twig file
+        return $this->render('test.html.twig',[
+            'cv'=> $Candidat,
+            'Competances'=>$Competance,
+            'Experiences'=>$Experience,
+        ]);
+      
+    }
 }

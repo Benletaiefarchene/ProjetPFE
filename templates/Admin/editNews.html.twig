@@ -1,0 +1,107 @@
+{% extends 'dashboard.html.twig' %}
+
+{% block title %}Edit Profile
+{% endblock %}
+
+{% block body %}
+
+
+	<!-- Dashboard Content
+				================================================== -->
+	<div class="dashboard-content-container" data-simplebar>
+		<div
+			class="dashboard-content-inner">
+
+			<!-- Dashboard Headline -->
+			<div class="dashboard-headline">
+				<h3>EDIT ADMIN</h3>
+
+				<!-- Breadcrumbs -->
+				<nav id="breadcrumbs" class="dark">
+					<ul>
+						<li>
+							<a href="#">Home</a>
+						</li>
+						<li>
+							<a href="#">Dashboard</a>
+						</li>
+						<li>Edit Admin</li>
+					</ul>
+				</nav>
+			</div>
+
+			<!-- Row -->
+			<div
+				class="row">
+
+				<!-- Dashboard Box -->
+				<div class="col-xl-12">
+					<div
+						class="dashboard-box margin-top-0">
+
+						<!-- Headline -->
+						<div class="headline">
+							<h3>
+								<i class="icon-feather-folder-plus"></i>
+								Profile Form</h3>
+						</div>
+
+
+						
+						{{ form_start(news) }}
+						<div class="content with-padding padding-bottom-10">
+							<div class="row">
+
+								<div class="col-xl-4">
+									<div class="submit-field">
+										{{ form_label(news.Titre, null, {
+                                            'label': 'Titre :',
+                                            'label_attr': {'class': 'uploadButton-button ripple-effect'}
+                                            }) }}
+										{{ form_widget(news.Titre,{'attr':{'type':'text','class':'form-control','placeholder':'Titre...' ,'text-align':'center'}}) }}
+									</div>
+								</div>
+								<div class="col-xl-4">
+									<div class="submit-field">
+										{{ form_label(news.description, null, {
+                                            'label': 'Description :',
+                                            'label_attr': {'class': 'uploadButton-button ripple-effect'}
+                                            }) }}
+										{{ form_widget(news.description,{'attr':{'type':'text','class':'form-control','placeholder':'description...' ,'text-align':'center'}}) }}
+									</div>
+								</div>
+								<div class="col-xl-4">
+								    <div class="uploadButton S ">
+													{{ form_label(news.photo, null, {
+                                           			'label': 'Upload photo',
+                                            		'label_attr': {'class': 'uploadButton-button ripple-effect'}
+                                           		 }) }}
+													{{ form_widget(news.photo,{'attr':{'type':'file','accept':'image/*','class':'uploadButton-input'}}) }}
+
+                                    </div>
+								</div>
+								
+								
+								
+							</div>
+							
+						<div class="col-xl-12">
+							<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-10">Edit News<i class="icon-material-outline-arrow-right-alt"></i>
+							</button>
+						</div>
+						{{ form_end(news) }}
+						
+
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+
+
+	</div>
+	<!-- Row / End -->
+
+
+</div></div><!-- Dashboard Content / End -->{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'dashboard.html.twig' %}
+{% block body %}
+	<div class="container">
+		<div class="row"></br>
+		<div class="col-xl-6 col-lg-4 ">
+			{% for news in news %}
+				{# {% if posts.type[0] == "télétravail" %} #}
+				<div class="listings-container margin-top-35">
+
+						<!-- Job Listing Details -->
+						<div class="job-listing-details"> <!-- Logo -->
+																<div class="job-listing-company-logo">
+																	<img src="{{ asset('uploads/images/' ~ news.photo ) }}" alt="">
+																</div>
+
+							<!-- Details -->
+							<div class="job-listing-description"> <h4 class="job-listing-company">{{news.Titre	}}
+
+								<span class="verified-badge" title="Verified Employer" data-tippy-placement="top"></span>
+							</h4>
+							<h4 class="job-listing-company">{{news.description }}
+
+								<span class="verified-badge" title="Verified Employer" data-tippy-placement="top"></span>
+							</h4>
+							
+							</div>
+
+						</div>
+						<div class="right-side">
+							<a href="{{ path('admin_editNews',{'id': news.id}) }}" class="button full-width button-sliding-icon ripple-effect margin-top-10">Edit<i class="icon-material-outline-arrow-right-alt"></i>
+								</a>
+						</div>
+				</div>
+
+				{# </a> #}
+			{% endfor %}
+
+			{# 
+						<!-- Pagination -->
+								<div class="clearfix"></div>
+											<div class="row">
+									<div class="col-md-12">
+								{# <!-- Pagination -->
+							<div class="pagination-container margin-top-30 margin-bottom-60" style="text-align: center;">
+						 {{ knp_pagination_render(user) }}
+							</div> 
+						</div>
+					</div>
+				<!-- Pagination / End --> 
+			#}
+		</div>
+		{# {% endif %} #}
+
+	</div>
+</div>{% endblock %}

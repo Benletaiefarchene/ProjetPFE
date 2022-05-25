@@ -13,7 +13,7 @@
 <!-- CSS
 ================================================== -->
 <link rel="stylesheet" href={{ asset('css/style.css')}}>
-<link rel="stylesheet" href="css/colors/blue.css">
+<link rel="stylesheet" href={{ asset('css/colors/blue.css')}}>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -48,7 +48,7 @@
 							
 						</li>
 
-						<li><a href="#">Job offer</a>
+						<li><a href="#" class="current">Job offer</a>
 							<ul class="dropdown-nav">
 								
 								<li><a href="http://127.0.0.1:8000/listPosthome?q=&type%5B%5D=1&min=&max=&_token=tXdUxYvDEnrDBv0uoOyUW1YMZq_fRqucCESknfhcc2I">Recrutement</a></li>
@@ -57,8 +57,8 @@
 								<li><a href="http://127.0.0.1:8000/listPosthome?q=&type%5B%5D=4&min=&max=&_token=tXdUxYvDEnrDBv0uoOyUW1YMZq_fRqucCESknfhcc2I">Stage</a></li>
 							</ul>
 						</li>
-
-						<li><a href="#">Training</a>
+					
+						<li><a href="#" class="current">Training</a>
 							<ul class="dropdown-nav">
 								<li><a href="#">Find a Freelancer</a>
 									<ul class="dropdown-nav">
@@ -73,46 +73,7 @@
 								<li><a href="dashboard-post-a-task.html">Post a Task</a></li>
 							</ul>
 						</li>
-						
-
-						<li><a href="#">Dashboard</a>
-							<ul class="dropdown-nav">
-								<li><a href="dashboard.html">Dashboard</a></li>
-								<li><a href="dashboard-messages.html">Messages</a></li>
-								<li><a href="dashboard-bookmarks.html">Bookmarks</a></li>
-								<li><a href="dashboard-reviews.html">Reviews</a></li>
-								<li><a href="dashboard-manage-jobs.html">Jobs</a>
-									<ul class="dropdown-nav">
-										<li><a href="dashboard-manage-jobs.html">Manage Jobs</a></li>
-										<li><a href="dashboard-manage-candidates.html">Manage Candidates</a></li>
-										<li><a href="dashboard-post-a-job.html">Post a Job</a></li>
-									</ul>
-								</li>
-								<li><a href="dashboard-manage-tasks.html">Tasks</a>
-									<ul class="dropdown-nav">
-										<li><a href="dashboard-manage-tasks.html">Manage Tasks</a></li>
-										<li><a href="dashboard-manage-bidders.html">Manage Bidders</a></li>
-										<li><a href="dashboard-my-active-bids.html">My Active Bids</a></li>
-										<li><a href="dashboard-post-a-task.html">Post a Task</a></li>
-									</ul>
-								</li>
-								<li><a href="dashboard-settings.html">Settings</a></li>
-							</ul>
-						</li>
-
-						<li><a href="#">Pages</a>
-							<ul class="dropdown-nav">
-								<li><a href="pages-blog.html">Blog</a></li>
-								<li><a href="pages-pricing-plans.html">Pricing Plans</a></li>
-								<li><a href="pages-checkout-page.html">Checkout Page</a></li>
-								<li><a href="pages-invoice-template.html">Invoice Template</a></li>
-								<li><a href="pages-user-interface-elements.html">User Interface Elements</a></li>
-								<li><a href="pages-icons-cheatsheet.html">Icons Cheatsheet</a></li>
-								<li><a href="pages-login.html">Login & Register</a></li>
-								<li><a href="pages-404.html">404 Page</a></li>
-								<li><a href="pages-contact.html">Contact</a></li>
-							</ul>
-						</li>
+							<li><a href="{{path('listQuestion')}}" class="current"> List Forum</a></li>
 						<li><a href="{{ path('app_contact') }}" class="current">Contact</a>
 						<li><a href="{{ path('About') }}" class="current">About</a>
 							
@@ -124,7 +85,6 @@
 				
 			</div>
 			<!-- Left Side Content / End -->
-
 
 			<!-- Right Side Content / End -->
 			<div class="right-side">
@@ -265,6 +225,7 @@
 				</div>
 				<!--  User Notifications / End -->
 {% block header %}{% endblock %}
+
 				<!-- Mobile Navigation Button -->
 				<span class="mmenu-trigger">
 					<button class="hamburger hamburger--collapse" type="button">
@@ -290,10 +251,56 @@
 </br>
 </br>
 </br>
-</br>
 
+
+	{% if is_granted('ROLE_RECRUTEUR') %}
+	</br></br>
+
+	<div class="col-md-4 col-lg-3">
+	<div class="dashboard-container">
+</br></br>
+	<!-- Dashboard Sidebar
+	================================================== -->
+
+	<div class="dashboard-sidebar">
+		
+			<div class="dashboard-nav-container">
+
+				
+				
+				<!-- Navigation -->
+				<div class="dashboard-nav">
+				</br>
+					<div class="dashboard-nav-inner">
+
+						<ul data-submenu-title="Start" >
+					
+							<li ><a href="{{ path('listOffre') }}"><i class="icon-material-outline-dashboard"></i> My Posts</a></li>
+							<li ><a href="{{ path('MyQuestion') }}"><i class="icon-material-outline-dashboard"></i> My Forums</a></li>
+							<li><a href="{{ path('addPost',{'id':app.user.id}) }}"><i class="icon-material-outline-add"></i> Add Post </a></li>
+						
+							<li><a href="{{path('listpost')}}"><i class="icon-material-outline-check-circle"></i> List Posts</a></li>
+								<li><a href="{{path('addquestion',{'id':app.user.id})}}"><i class="icon-material-outline-add"></i> Add Forum</a></li>
+								<li><a href="{{path('listQuestion')}}"><i class="icon-material-outline-add"></i> List Forum</a></li>
+						</ul>
+						
+
+						
+					</div>
+				</div>
+				<!-- Navigation / End -->
+
+			</div>
+		
+	</div>
+
+
+</div>
+
+</div>
+	<!-- Dashboard Sidebar / End -->
+	{% endif %}
 <!-- Header Container / End -->
-
 
 
         {% block body %}{% endblock %}

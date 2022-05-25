@@ -2,7 +2,134 @@
 
 {% block title %}News
 {% endblock %}
+{% block header %}
+			{% if is_granted('ROLE_CANDIDAT') %}
 
+
+					<!-- User Menu -->
+				<div class="header-widget">
+					{% for can in can %}
+							
+						{% if app.token.user.id == can.user.id %}
+							<!-- Messages -->
+						<div class="header-notifications user-menu">
+							<div class="header-notifications-trigger">
+								<a href="#">
+									<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.CV.photo ) }}" alt=""></div>
+										
+								</a>
+							</div>
+						
+							<!-- Dropdown -->
+								<div class="header-notifications-dropdown">
+									<ul class="user-menu-small-nav">
+									<div class="user-status">
+
+								<!-- User Name / Avatar -->
+								<div class="user-details">
+									<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.CV.photo ) }}" alt=""></div>
+									<div class="user-name">
+											
+											<span>{{app.token.user.nom}}</span>
+										</div>
+								</div>
+								</div>
+									
+										<li>
+											<a href="{{path('detailedCV',{'id': can.id})}}">
+												<i class="icon-material-outline-settings"></i>
+												Settings</a>
+												
+										</li>
+										<li>
+											<a href="{{path('app_logout')}}">
+												<i class="icon-material-outline-power-settings-new"></i>
+												Logout</a>
+										</li>
+									</ul>
+
+								</div>
+						</div>
+					
+			{% endif %}
+					{% endfor %}
+		</div>
+		<!-- User Menu / End -->
+	{% elseif is_granted('ROLE_RECRUTEUR') %}
+
+		<!-- User Menu -->
+		<div class="header-widget">
+			{% for rec in rec %}
+							
+				{% if app.token.user.id == rec.user.id %}
+			<!-- Messages -->
+			<div class="header-notifications user-menu">
+						<div class="header-notifications-trigger">
+						
+							<a href="#">
+								<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ rec.photo ) }}" alt=""></div>
+							</a>
+							
+						</div>
+					
+				<!-- Dropdown -->
+				<div class="header-notifications-dropdown">
+
+					<!-- User Status -->
+					<div
+						class="user-status">
+
+						<!-- User Name / Avatar -->
+						<div class="user-details">
+						
+							<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ rec.photo ) }}" alt=""></div>
+						
+							<div class="user-name">
+								{{app.token.user.nom}}
+								<span></span>
+							</div>
+						</div>
+
+					</div>
+
+					<ul class="user-menu-small-nav">
+					
+						<li>
+							<a href="{{path('detailedRec',{'id': rec.id})}}">
+								<i class="icon-material-outline-settings"></i>
+								Settings</a>
+						</li>
+						<li>
+							<a href="{{path('app_logout')}}">
+								<i class="icon-material-outline-power-settings-new"></i>
+								Logout</a>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+			{% endif %}
+					{% endfor %}
+		</div>
+		{% elseif is_granted('ROLE_ADMIN') %}
+		<!-- User Menu / End -->
+		{% else %}
+		<div
+			class="header-widget">
+			<div class="connect" style="margin-right: -70px;">
+				<a href="{{ path('app_login') }}" class="connect">
+					<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-12" style="width: 120px;">Connexion<i class="icon-material-outline-arrow-right-alt"></i>
+					</button>
+				</a>
+			</div>
+	
+	
+		</div>
+	{% endif %}
+	
+	</br>
+	</br>
+{% endblock %}
 {% block body %}
 	<div class="section white padding-top-0 padding-bottom-60 full-width-carousel-fix">
 		<div class="container">
@@ -26,16 +153,14 @@
 				<div class="col-xl-12">
 					<div class="blog-carousel">
 						{% for news in news %}
-							<a href="{{ path('detailedOff',{'id': news.id}) }}" class="blog-compact-item-container">
+							<a href="{{ path('detailedNews',{'id': news.id}) }}" class="blog-compact-item-container">
 								<div class="blog-compact-item">
 									<img src="{{ asset('uploads/images/' ~ news.photo ) }}" alt="">
-									<span class="blog-item-tag">Tips</span>
+									
 										<div class="blog-compact-item-content">
-											<ul class="blog-post-tags">
-												<li>20 May 2018</li>
-											</ul>
-											<h4 class="job-listing-company">{{news.titre	}}</h4>
-											<h3 class="job-listing-title">{{news.description}}</h3>
+										
+											<h2 class="job-listing-company">{{news.titre	}}</h2>
+											<span class="job-listing-title">{{news.createdAt|date('d-m-Y ')}}</span>
 										</div>
 								</div>
 							</a>

@@ -330,6 +330,9 @@
             "./config/packages/sensio_framework_extra.yaml"
         ]
     },
+    "spipu/html2pdf": {
+        "version": "v5.2.5"
+    },
     "swiftmailer/swiftmailer": {
         "version": "v6.3.0"
     },
@@ -715,6 +718,9 @@
     },
     "symfonycasts/verify-email-bundle": {
         "version": "v1.8.0"
+    },
+    "tecnickcom/tcpdf": {
+        "version": "6.4.4"
     },
     "theseer/tokenizer": {
         "version": "1.2.1"

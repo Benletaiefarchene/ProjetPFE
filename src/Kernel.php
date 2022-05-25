@@ -2,6 +2,7 @@
 
 namespace App;
 
+use HWI\Bundle\OAuthBundle\HWIOAuthBundle;
 use Knp\Bundle\PaginatorBundle\KnpPaginatorBundle;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\Config\Loader\LoaderInterface;
@@ -18,6 +19,7 @@ class Kernel extends BaseKernel
 
     public function registerBundles(): iterable
     {
+       
         $contents = require $this->getProjectDir().'/config/bundles.php';
         foreach ($contents as $class => $envs) {
             if ($envs[$this->environment] ?? $envs['all'] ?? false) {

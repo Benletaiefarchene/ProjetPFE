@@ -330,8 +330,151 @@ class AdminController extends AbstractController
         ] );
         
     }   
+       /**
+     * @Route("/ListNews", name="ListNews")
+     */
+    public function ListNewsAction(Request $request)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $news=$em->getRepository(News::class)->findAll();
+       // $posts=$em->getRepository(OffreEmploi::class)->findBy(array('titre'=> 'mobile'));
+        
+        
+        return $this->render('Admin/ListNews.html.twig', array(
+            "news" =>$news
+        ));
+       // return $this->redirectToRoute('list_post');
+
+    }
+    /**
+     * IsGranted("ROLE_ADMIN)
+     * @Route("/editNews/{id}", name="editNews")
+     */
+    public function editNewsAction(Request $request , $id){
+        
+        $em=$this->getDoctrine()->getManager();
+        $News=$em->getRepository(News::class)->find($id);
+        $form=$this->createForm(NewsType::class,$News);
+        $form->handleRequest($request);
+       
         
        
+        if($form->isSubmitted() && $form->isSubmitted() ){
+         
+         
+            $em= $this->getDoctrine()->getManager();
+            
+            $em->persist($News);
+            $em->flush();
+           // return $this->redirectToRoute('detailed');
+
+        }
+        return $this->render('Admin/editNews.html.twig', array(
+            "news"=>$form->createView(),
+            
+        ));
+
+    }     
+       /**
+     * @Route("/detailedAdmin/{id}", name="detailedAdmin")
+     */
+    public function showdetailedAction($id)
+    {
+        
+        $admin= $this->getDoctrine()->getRepository(Administrateur::class)->find($id);
+        
+       
+        return $this->render('Admin/detailedAdmin.html.twig',[
+            'admin'=> $admin,
+         
+        ]   
+        );
+    }
+     /**
+     * @Route("/editProfileAdmin/{id}", name="editProfileAdmin")
+     */
+    public function editProfileAction(Request $request , $id){
+        $em=$this->getDoctrine()->getManager();
+        $admin= $em->getRepository(Administrateur::class)->find($id);
+        
+        $iduser=$admin->getUser()->getId();
+        $user=$em->getRepository(User::class)->find($iduser);
+        $form=$this->createForm(AdminType::class,$admin);
+        $form->handleRequest($request);
+        $form1=$this->createForm(UserType::class,$user);
+        $form1->handleRequest($request);
+       
+        $email=$form1->get('email')->getViewData();
+        if($form->isSubmitted()){
+            $file = $Rec->getPhoto();
+            $filename= md5(uniqid()) . '.' . $file->guessExtension();
+            $file->move($this->getParameter('images_directory'), $filename);
+            $Rec->setPhoto($filename);
+            $Rec->setEamil($email);
+           
+            $em->persist($Rec);
+            $em->flush();
+            $em->persist($user);
+            $em->flush();
+            //return $this->redirectToRoute('detailed'{$id});
+
+        }
+        return $this->render('Recruteur/editProfileRec.html.twig', array(
+            "user"=>$form1->createView(),
+            "Rec"=> $form->createView()
+        ));
+ 
+    }
+     /**
+     * IsGranted("ROLE_RECRUTEUR)
+     * @Route("/editPassRec/{id}", name="editPassRec")
+     */
+    public function editPassRecAction(Request $request , $id,UserPasswordEncoderInterface $userPasswordEncoder){
+        
+        $em=$this->getDoctrine()->getManager();
+        $candidat=$em->getRepository(Recruteur::class)->find($id);
+        $iduser=$candidat->getUser()->getId();
+        $user=$em->getRepository(User::class)->find($iduser);
+        $form1=$this->createForm(UserPassType::class);
+        $form1->handleRequest($request);
+        $OldPassword=$form1->get('OldPassword')->getViewData();
+     
+        $u=$user->getPassword();
+
+        if($form1->isSubmitted() && $form1->isSubmitted() ){
+            
+            if(!password_verify($form1->get('OldPassword')->getViewData(), $user->getPassword()))
+            {
+               
+                $form1->get('OldPassword')->addError(new FormError("Le mot de passe renseigné ne correspond pas à votre mot de passe actuel"));
+            }
+            else{
+                $NewPassword=    $userPasswordEncoder->encodePassword(
+                    $user,
+                     $form1->get('NewPassword')->getViewData()
+                 )
+                ;
+                $em= $this->getDoctrine()->getManager();
+                if( $form1->get('NewPassword')->getViewData()== $form1->get('ConfPassword')->getViewData()){
+            
+                $user->setPassword( $NewPassword);
+                $em->persist($user);
+                $em->flush();
+
+                }else{
+                $form1->get('ConfPassword')->addError(new FormError("Le nouveau mot de passe  ne correspond pas au mot de passe de confirmation "));
+                }
+
+            }
+           
+      
+        }
+        return $this->render('Candidat/editPass.html.twig', array(
+            "user"=>$form1->createView(),
+          
+        ));
+
+    }  
 }
 
 

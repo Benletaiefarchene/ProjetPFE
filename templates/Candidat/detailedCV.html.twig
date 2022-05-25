@@ -2,10 +2,139 @@
 
 {% block title %}Profile
 {% endblock %}
+	{% block header %}
+			{% if is_granted('ROLE_CANDIDAT') %}
 
+
+					<!-- User Menu -->
+				<div class="header-widget">
+					{% for can in can %}
+							
+						{% if app.token.user.id == can.user.id %}
+							<!-- Messages -->
+						<div class="header-notifications user-menu">
+							<div class="header-notifications-trigger">
+								<a href="#">
+									<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.CV.photo ) }}" alt=""></div>
+										
+								</a>
+							</div>
+						
+							<!-- Dropdown -->
+								<div class="header-notifications-dropdown">
+									<ul class="user-menu-small-nav">
+									<div class="user-status">
+
+								<!-- User Name / Avatar -->
+								<div class="user-details">
+									<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.CV.photo ) }}" alt=""></div>
+									<div class="user-name">
+											
+											<span>{{app.token.user.nom}}</span>
+										</div>
+								</div>
+								</div>
+									
+										<li>
+											<a href="{{path('detailedCV',{'id': can.id})}}">
+												<i class="icon-material-outline-settings"></i>
+												Settings</a>
+												
+										</li>
+										<li>
+											<a href="{{path('app_logout')}}">
+												<i class="icon-material-outline-power-settings-new"></i>
+												Logout</a>
+										</li>
+									</ul>
+
+								</div>
+						</div>
+					
+			{% endif %}
+					{% endfor %}
+		</div>
+		<!-- User Menu / End -->
+	{% elseif is_granted('ROLE_RECRUTEUR') %}
+
+		<!-- User Menu -->
+		<div class="header-widget">
+			{% for rec in rec %}
+							
+				{% if app.token.user.id == rec.user.id %}
+			<!-- Messages -->
+			<div class="header-notifications user-menu">
+						<div class="header-notifications-trigger">
+						
+							<a href="#">
+								<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ rec.photo ) }}" alt=""></div>
+							</a>
+							
+						</div>
+					
+				<!-- Dropdown -->
+				<div class="header-notifications-dropdown">
+
+					<!-- User Status -->
+					<div
+						class="user-status">
+
+						<!-- User Name / Avatar -->
+						<div class="user-details">
+						
+							<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ rec.photo ) }}" alt=""></div>
+						
+							<div class="user-name">
+								{{app.token.user.nom}}
+								<span></span>
+							</div>
+						</div>
+
+					</div>
+
+					<ul class="user-menu-small-nav">
+					
+						<li>
+							<a href="{{path('detailedRec',{'id': rec.id})}}">
+								<i class="icon-material-outline-settings"></i>
+								Settings</a>
+						</li>
+						<li>
+							<a href="{{path('app_logout')}}">
+								<i class="icon-material-outline-power-settings-new"></i>
+								Logout</a>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+			{% endif %}
+					{% endfor %}
+		</div>
+		{% elseif is_granted('ROLE_ADMIN') %}
+		<!-- User Menu / End -->
+		{% else %}
+		<div
+			class="header-widget">
+			<div class="connect" style="margin-right: -70px;">
+				<a href="{{ path('app_login') }}" class="connect">
+					<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-12" style="width: 120px;">Connexion<i class="icon-material-outline-arrow-right-alt"></i>
+					</button>
+				</a>
+			</div>
+	
+	
+		</div>
+	{% endif %}
+	
+	</br>
+	</br>
+{% endblock %}
 {% block body %}
 
-</br></br></br></br><div class="single-page-header freelancer-header" data-background-image="images/single-freelancer.jpg"><div class="container"><div class="row">
+</br></br></br></br>
+
+<div class="single-page-header freelancer-header" data-background-image="images/single-freelancer.jpg"><div class="container"><div class="row">
 <div class="col-md-12">
 	<div class="single-page-header-inner">
 		<div class="left-side">
@@ -38,66 +167,55 @@
 
 				</ul>
 			</div>
-			<div class="right-side">
-			<div class="col-xl-8">
-				{# <button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-10">Add Profile<i class="icon-material-outline-arrow-right-alt"></i>
-				</button> #}
-				  {% if is_granted('ROLE_CANDIDAT') %}
-				<a
-							href="{{ path('editProfil',{'id': cv.id}) }}" class="button full-width button-sliding-icon ripple-effect margin-top-10">Edit Profil<i class="icon-material-outline-arrow-right-alt"></i></a>
-								<a
-							href="{{ path('editPass',{'id': cv.id}) }}" class="button full-width button-sliding-icon ripple-effect margin-top-10">Edit Password<i class="icon-material-outline-arrow-right-alt"></i></a>
-								<a
-							href="{{ path('editCV',{'id': cv.id}) }}" class="button full-width button-sliding-icon ripple-effect margin-top-10">Edit CV<i class="icon-material-outline-arrow-right-alt"></i></a>
-							
-							<a
-							href="{{ path('prCV',{'id': cv.id}) }}" class="button full-width button-sliding-icon ripple-effect margin-top-10">Print<i class="icon-material-outline-arrow-right-alt"></i></a>
-			  {% elseif is_granted('ROLE_RECRUTEUR') %}
-                    <br>
-			  {% endif %}
-			</div>
-		</div>
+		
 		</div>
 	
 	</div>
 		
-</div></div></div></div><!-- Page Content
-		================================================== --><div class="container"><div class="row"><div class="col-xl-4 col-lg-4 content-right-offset">
+</div></div></div>
+
+</div><!-- Page Content
+		================================================== -->
+	 {% if is_granted('ROLE_CANDIDAT') %}
+	 <hr>
+	 <div style="text-align:center;">
+		<nav id="navigation" >
+					<ul id="responsive" >
+
+						<li><a 	href="{{ path('editProfil',{'id': cv.id}) }}" class="current">Edit Profil</a>
+							
+						</li>
+						<li><a href="{{ path('editPass',{'id': cv.id}) }}"  class="current">Edit Password</a>
+							
+						</li>
+						
+							<li><a href="{{ path('editCV',{'id': cv.id}) }}" class="current"> Edit CV</a></li>
+						<li><a href="{{ path('prCV',{'id': cv.id}) }}" class="current">Print</a>
+						<li><a href="{{ path('listOffPostuler') }}" class="current">List Postuer</a>
+							
+						</li>
+					</ul>
+				</nav>
+				</div>
+				 <hr>
+					  {% elseif is_granted('ROLE_RECRUTEUR') %}
+                    <br>
+			  {% endif %}
+			  
+		<div class="container">
+		<div class="row">
+		<div class="col-xl-4 col-lg-4 content-right-offset">
 
 
 <div class="boxed-list margin-bottom-60">
 	<div class="boxed-list-headline">
 		<h3>
 			<i class="icon-material-outline-thumb-up"></i>
-			Competance</h3>
+			Experience</h3>
 	</div>
 </div>
-
-{% for com in Competances %}
-	<div class="sidebar-widget">
-
-		<div class="boxed-list-headline">
-			<tr>
-				<td>
-					<h3 class="margin-bottom-25">Competance :
-						{{ com.Competance }}</h3>
-				</td>
-			</tr>
-		</div>
-	</div>
-{% endfor %}</div><div class="col-xl-4 col-lg-4">
-<div class="sidebar-container">
-
-	<div class="boxed-list margin-bottom-60">
-		<div class="boxed-list-headline">
-			<h3>
-				<i class="icon-material-outline-business"></i>
-				Experience</h3>
-		</div>
-
-	</div>
 	{% for Exp in Experiences %}
-		<div class="sidebar-widget">
+<div class="sidebar-widget">
 
 			<div class="boxed-list-headline">
 
@@ -133,6 +251,33 @@
 
 
 		</div>
+{% endfor %}
+</div>
+<div class="col-xl-4 col-lg-4">
+<div class="sidebar-container">
+
+	<div class="boxed-list margin-bottom-60">
+		<div class="boxed-list-headline">
+			<h3>
+				<i class="icon-material-outline-business"></i>
+				 Competance</h3>
+		</div>
+
+	</div>
+	{% for com in Competances %}
+
+	<div class="sidebar-widget">
+
+		<div class="boxed-list-headline">
+			<tr>
+				<td>
+					<h3 class="margin-bottom-25">Competance :
+						{{ com.Competance }}</h3>
+				</td>
+			</tr>
+		</div>
+	</div>
+		
 	{% endfor %}
 
 

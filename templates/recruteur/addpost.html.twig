@@ -2,7 +2,134 @@
 
 {% block title %}Add Post
 {% endblock %}
+	{% block header %}
+			{% if is_granted('ROLE_CANDIDAT') %}
 
+
+					<!-- User Menu -->
+				<div class="header-widget">
+					{% for can in can %}
+							
+						{% if app.token.user.id == can.user.id %}
+							<!-- Messages -->
+						<div class="header-notifications user-menu">
+							<div class="header-notifications-trigger">
+								<a href="#">
+									<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.CV.photo ) }}" alt=""></div>
+										
+								</a>
+							</div>
+						
+							<!-- Dropdown -->
+								<div class="header-notifications-dropdown">
+									<ul class="user-menu-small-nav">
+									<div class="user-status">
+
+								<!-- User Name / Avatar -->
+								<div class="user-details">
+									<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.CV.photo ) }}" alt=""></div>
+									<div class="user-name">
+											
+											<span>{{app.token.user.nom}}</span>
+										</div>
+								</div>
+								</div>
+									
+										<li>
+											<a href="{{path('detailedCV',{'id': can.id})}}">
+												<i class="icon-material-outline-settings"></i>
+												Settings</a>
+												
+										</li>
+										<li>
+											<a href="{{path('app_logout')}}">
+												<i class="icon-material-outline-power-settings-new"></i>
+												Logout</a>
+										</li>
+									</ul>
+
+								</div>
+						</div>
+					
+			{% endif %}
+					{% endfor %}
+		</div>
+		<!-- User Menu / End -->
+	{% elseif is_granted('ROLE_RECRUTEUR') %}
+
+		<!-- User Menu -->
+		<div class="header-widget">
+			{% for rec in rec %}
+							
+				{% if app.token.user.id == rec.user.id %}
+			<!-- Messages -->
+			<div class="header-notifications user-menu">
+						<div class="header-notifications-trigger">
+						
+							<a href="#">
+								<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ rec.photo ) }}" alt=""></div>
+							</a>
+							
+						</div>
+					
+				<!-- Dropdown -->
+				<div class="header-notifications-dropdown">
+
+					<!-- User Status -->
+					<div
+						class="user-status">
+
+						<!-- User Name / Avatar -->
+						<div class="user-details">
+						
+							<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ rec.photo ) }}" alt=""></div>
+						
+							<div class="user-name">
+								{{app.token.user.nom}}
+								<span></span>
+							</div>
+						</div>
+
+					</div>
+
+					<ul class="user-menu-small-nav">
+					
+						<li>
+							<a href="{{path('detailedRec',{'id': rec.id})}}">
+								<i class="icon-material-outline-settings"></i>
+								Settings</a>
+						</li>
+						<li>
+							<a href="{{path('app_logout')}}">
+								<i class="icon-material-outline-power-settings-new"></i>
+								Logout</a>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+			{% endif %}
+					{% endfor %}
+		</div>
+		{% elseif is_granted('ROLE_ADMIN') %}
+		<!-- User Menu / End -->
+		{% else %}
+		<div
+			class="header-widget">
+			<div class="connect" style="margin-right: -70px;">
+				<a href="{{ path('app_login') }}" class="connect">
+					<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-12" style="width: 120px;">Connexion<i class="icon-material-outline-arrow-right-alt"></i>
+					</button>
+				</a>
+			</div>
+	
+	
+		</div>
+	{% endif %}
+	
+	</br>
+	</br>
+{% endblock %}
 {% block body %}
 
 
@@ -82,20 +209,22 @@
 										</select>
 									</div>
 								</div>
+								<div class="col-xl-6">
+									<div class="submit-field">
+									{{ form_label(Offre.DateFinOffre, null, {
+                                            'label': 'Date Fin Offre',
+                                            'label_attr': {'class': 'uploadButton-button ripple-effect'}
+                                            }) }}
+									{{ form_widget(Offre.DateFinOffre,{'attr':{'type':'date','class':'form-control','placeholder':'date_naissance...'}}) }}
+									</div>
+								</div>
 								<script>
                             function myFunction() {
                                 var x = document.getElementById("co").value;
                                     // document.getElementById("demo").innerHTML = x;
                                 }
                         </script>
-								{# 							
-																										 <div class="col-xl-6 col-md-6">
-																											
-																											{{form_widget(types.type) }}
-																
-																										</div> 
-																											 #}
-
+							
 
 								<div class="col-xl-6">
 									<div class="submit-field">

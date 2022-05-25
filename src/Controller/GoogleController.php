@@ -1,6 +1,8 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Form\RegistrationFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
@@ -14,15 +16,18 @@ class GoogleController extends AbstractController
      * Link to this controller to start the "connect" process
      *
      * @Route("/connect/google", name="connect_google_start")
+     * @param ClientRegistry $clientRegistry
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse ;
      */
-    public function connectAction(ClientRegistry $clientRegistry)
-    {
-        // on Symfony 3.3 or lower, $clientRegistry = $this->get('knpu.oauth2.registry');
-
-        // will redirect to Facebook!
+    public function connectAction(ClientRegistry $clientRegistry,Request $request )
+    {    
+        
+     
         return $clientRegistry
-            ->getClient('google') // key used in config/packages/knpu_oauth2_client.yaml
-            ->redirect();
+            ->getClient('google')
+            ->redirect([], [
+                'prompt' => 'consent',
+            ]);
     }
 
     /**
@@ -36,14 +41,17 @@ class GoogleController extends AbstractController
      */
     public function connectCheckAction(Request $request, ClientRegistry $clientRegistry)
     {
-       
+        
         if(!$this->getUser()){
+            
             
             return new JsonResponse(array('status'=>false , 'message'=>"user not found!"));
             
         }else{
-            
-            return $this->redirectToRoute('listposthome');
+            if($this->getUser()->getExist()==1){
+                return $this->redirectToRoute('listposthome');
+            }else
+                return $this->redirectToRoute('listposthome');
         }
     }
 }

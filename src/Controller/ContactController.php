@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Candidat;
+use App\Entity\Recruteur;
 use App\Form\ContactType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +19,8 @@ class ContactController extends AbstractController
     {
         $form=$this->createForm(ContactType::class);
         $form->handleRequest($request);
-
+        $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
+        $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
         if($form->isSubmitted() && $form->isValid()){
             $contact = $form->getData();
            
@@ -38,6 +41,8 @@ class ContactController extends AbstractController
         }
         return $this->render('contact/Contact.html.twig', [
             'contactForm' => $form->createView(),
+            "rec"=>$rec,
+            "can"=>$can,
         ]);
     }
 }

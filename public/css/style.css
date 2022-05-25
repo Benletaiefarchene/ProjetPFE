@@ -277,7 +277,7 @@ a:hover { text-decoration: none; color: #333;}
 img { max-width: 100%; }
 
 a:focus{
-	color: #FFFFFF !important;
+	color: #ababab !important;
 }
 /* ---------------------------------- */
 /* Header
@@ -300,7 +300,7 @@ a:focus{
 }
 
 #header {
-	position: relative;
+	position: absolute;
 	z-index: 999;
 	padding: 0;
 	box-shadow: 0 0 18px 0 rgba(0, 0, 0, 0.12);
@@ -1336,7 +1336,7 @@ body #navigation ul ul ul { margin-top: 0; }
 }
 
 #wrapper.wrapper-with-transparent-header #header .right-side { background-color: transparent; }
-#header { transition: background 0.3s; }
+#header { transition: background 0.3s; width: 100%; }
 #wrapper { padding-top: 82px; }
 #wrapper.wrapper-with-transparent-header { padding-top: 0 !important;}
 
@@ -10545,6 +10545,22 @@ img.mfp-img {
 	margin-left: 5px;
    }
 }
+hr {
+    border: none;
+    border-top: 3px double #333;
+    color: #333;
+    overflow: visible;
+    text-align: center;
+    height: 5px;
+}
+
+hr:after {
+    background: #fff;
+    content: '§';
+    padding: 0 4px;
+    position: relative;
+    top: -13px;
+}
 
 
 .mfp-ie7 .mfp-img {
@@ -15669,3 +15685,56 @@ ul.dashboard-box-list > li:hover {
 	.padding-left-90 { padding-left: 90px !important; }
 	.padding-left-95 { padding-left: 95px !important; }
 	.padding-left-100 { padding-left: 100px !important; }
+
+.social-btn .btn {
+		border: none;
+        margin: 10px 3px 0;
+        opacity: 1;
+	}
+    .social-btn .btn:hover {
+        opacity: 0.9;
+    }
+	.social-btn .btn-primary {
+        background: #507cc0;
+		padding: 12px 182px 22px;
+		font-size: 17px;
+		margin-bottom: 8px;
+		height: 50px;
+    }
+	.social-btn .btn-info {
+		background: #64ccf1;
+	}
+	.social-btn .btn-danger {
+		background: #df4930;
+		padding: 12px 190px 9px;
+		font-size: 17px;
+		
+	}
+	
+	
+.btns {
+	display: inline-block;
+    
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+	}
+.btn-google {
+color: #545454;
+background-color: #ffffff;
+box-shadow: 0 1px 2px 1px #ddd
+}

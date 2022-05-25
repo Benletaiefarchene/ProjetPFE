@@ -1,0 +1,241 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}News
+{% endblock %}
+	{% block header %}
+			{% if is_granted('ROLE_CANDIDAT') %}
+
+
+					<!-- User Menu -->
+				<div class="header-widget">
+					{% for can in can %}
+							
+						{% if app.token.user.id == can.user.id %}
+							<!-- Messages -->
+						<div class="header-notifications user-menu">
+							<div class="header-notifications-trigger">
+								<a href="#">
+									<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.CV.photo ) }}" alt=""></div>
+										
+								</a>
+							</div>
+						
+							<!-- Dropdown -->
+								<div class="header-notifications-dropdown">
+									<ul class="user-menu-small-nav">
+									<div class="user-status">
+
+								<!-- User Name / Avatar -->
+								<div class="user-details">
+									<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.CV.photo ) }}" alt=""></div>
+									<div class="user-name">
+											
+											<span>{{app.token.user.nom}}</span>
+										</div>
+								</div>
+								</div>
+									
+										<li>
+											<a href="{{path('detailedCV',{'id': can.id})}}">
+												<i class="icon-material-outline-settings"></i>
+												Settings</a>
+												
+										</li>
+										<li>
+											<a href="{{path('app_logout')}}">
+												<i class="icon-material-outline-power-settings-new"></i>
+												Logout</a>
+										</li>
+									</ul>
+
+								</div>
+						</div>
+					
+			{% endif %}
+					{% endfor %}
+		</div>
+		<!-- User Menu / End -->
+	{% elseif is_granted('ROLE_RECRUTEUR') %}
+
+		<!-- User Menu -->
+		<div class="header-widget">
+			{% for rec in rec %}
+							
+				{% if app.token.user.id == rec.user.id %}
+			<!-- Messages -->
+			<div class="header-notifications user-menu">
+						<div class="header-notifications-trigger">
+						
+							<a href="#">
+								<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ rec.photo ) }}" alt=""></div>
+							</a>
+							
+						</div>
+					
+				<!-- Dropdown -->
+				<div class="header-notifications-dropdown">
+
+					<!-- User Status -->
+					<div
+						class="user-status">
+
+						<!-- User Name / Avatar -->
+						<div class="user-details">
+						
+							<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ rec.photo ) }}" alt=""></div>
+						
+							<div class="user-name">
+								{{app.token.user.nom}}
+								<span></span>
+							</div>
+						</div>
+
+					</div>
+
+					<ul class="user-menu-small-nav">
+					
+						<li>
+							<a href="{{path('detailedRec',{'id': rec.id})}}">
+								<i class="icon-material-outline-settings"></i>
+								Settings</a>
+						</li>
+						<li>
+							<a href="{{path('app_logout')}}">
+								<i class="icon-material-outline-power-settings-new"></i>
+								Logout</a>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+			{% endif %}
+					{% endfor %}
+		</div>
+		{% elseif is_granted('ROLE_ADMIN') %}
+		<!-- User Menu / End -->
+		{% else %}
+		<div
+			class="header-widget">
+			<div class="connect" style="margin-right: -70px;">
+				<a href="{{ path('app_login') }}" class="connect">
+					<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-12" style="width: 120px;">Connexion<i class="icon-material-outline-arrow-right-alt"></i>
+					</button>
+				</a>
+			</div>
+	
+	
+		</div>
+	{% endif %}
+	
+	</br>
+	</br>
+{% endblock %}
+{% block body %}
+	<div class="section white padding-top-0 padding-bottom-60 full-width-carousel-fix">
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-12">
+
+					<!-- Section Headline -->
+					<div class="section-headline margin-top-0 margin-bottom-35">
+						<h3>List Jobs</h3>
+					
+					</div>
+					<!-- Jobs Container -->
+				</div>
+
+				<!-- Job Listing -->
+
+                
+                <div class="col-xl-12 col-lg-12 content-left-offset">
+                    {% for cand in cand %}
+                        {# {% if posts.type[0] == "télétravail" %} #}
+                    <div class="listings-container margin-top-35">
+
+	                    {% if is_granted('ROLE_CANDIDAT') %}
+                            <a href="{{ path('detailedOff',{'id': cand.job.id}) }}" class="job-listing">
+                                {% elseif is_granted('ROLE_RECRUTEUR') %}
+                                    <a href="{{ path('detailedOff',{'id': cand.job.id}) }}" class="job-listing">
+                                {% else %}
+                                    <a href="{{ path('detailedOff',{'id': cand.job.id}) }}" class="job-listing">
+                                {% endif %}
+                                    <!-- Job Listing -->
+
+
+				                    <!-- Job Listing Details -->
+                                <div class="job-listing-details">
+                                    <!-- Logo -->
+                                    <div class="job-listing-company-logo">
+                                        <img src="{{ asset ('uploads/images/' ~ cand.job.recruteur.photo ) }}" alt="">
+                                    </div>
+
+                                    <!-- Details -->
+                                    <div class="job-listing-description">
+
+                                        <h4 class="job-listing-company">{{cand.job.recruteur.user.nom	}}
+
+                                        <span class="verified-badge" title="Verified Employer" data-tippy-placement="top"></span>
+                                        </h4>
+                                        <h3 class="job-listing-title">{{cand.job.titre}}</h3>
+                                        <p class="job-listing-text">{{cand.job.description}}</p>
+
+                                    </div>
+                                    <div class="">
+                                        {% if cand.etat == -1 %}
+                                            <span class="label label-warning">En Attente</span>
+                                        {% elseif cand.etat == 0 %}
+                                            <span class="label label-danger">Rejeter</span>
+                                        {% elseif cand.etat == 1 %}
+                                            <span class="label label-success">Pré-sélectionner</span>
+                                        {% endif %}
+                                    </div>
+
+                    
+
+                                </div>
+
+                                <!-- Job Listing Footer -->
+                                <div class="job-listing-footer">
+                                    <ul>
+                                            <li>
+                                            <i class="icon-material-outline-business"></i>
+                                            {{cand.job.recruteur.ville}}</li>
+
+                                            <li>
+                                            <i class="icon-material-outline-location-on"></i>
+                                            {{cand.job.recruteur.pays}}</li>
+                                            <li>
+                                            <i class="icon-material-outline-account-balance-wallet"></i>
+                                            {{cand.job.salaire}}
+                                            $</li>
+                                        
+                                        <li style="margin-left: 700px;">
+                                            <i class="icon-material-outline-account-balance-wallet"></i>
+                                            {{cand.createdAt|date('d-m-Y ')}}
+                                            </li>
+                                    </ul>
+                                </div>
+			                </a>
+                    
+                        </div>
+                        {% endfor %}
+                    </div>
+			        
+       
+               
+			            <!-- Pagination -->
+					  
+						<div class="row">
+						    <div class="col-md-12">
+					        <!-- Pagination -->
+				                <div class="pagination-container margin-top-30 margin-bottom-60" style="text-align: center;">
+			                        {{ knp_pagination_render(Form) }}
+				                </div>
+			                </div>
+		                </div>
+                  
+	                    <!-- Pagination / End --> 
+            </div>
+        </div> 
+    </div> 
+{% endblock %}

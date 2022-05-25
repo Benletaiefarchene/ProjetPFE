@@ -42,6 +42,11 @@ class Candidature
      */
     private $createdAt;
 
+    /**
+     * @ORM\Column(type="integer", options={"default" : -1})
+     */
+    private $etat;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -93,6 +98,18 @@ class Candidature
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getEtat(): ?int
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(int $etat): self
+    {
+        $this->etat = $etat;
 
         return $this;
     }

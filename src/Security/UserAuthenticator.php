@@ -123,7 +123,7 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
                 }else if ($token->getUser()->getRoles()[0]=='ROLE_RECRUTEUR'){
                     return new RedirectResponse($this->urlGenerator->generate('listpost'));
                 }else if ($token->getUser()->getRoles()[0]=='ROLE_ADMIN'){
-                    return new RedirectResponse($this->urlGenerator->generate('count'));
+                    return new RedirectResponse($this->urlGenerator->generate('admin_count'));
                 }
             }
         

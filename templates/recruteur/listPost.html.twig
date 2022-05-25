@@ -1,55 +1,57 @@
-{% extends 'base.html.twig' %}
 
+{% extends 'base.html.twig' %}
+	
 {% block title %}List Offre
 {% endblock %}
-{% block header %}
-	{% if is_granted('ROLE_CANDIDAT') %}
+	{% block header %}
+			{% if is_granted('ROLE_CANDIDAT') %}
 
 
-		<!-- User Menu -->
-		<div
-			class="header-widget">
-							{% for can in can %}
+					<!-- User Menu -->
+				<div class="header-widget">
+					{% for can in can %}
 							
-							{% if app.token.user.id == can.user.id %}
-			<!-- Messages -->
-			<div class="header-notifications user-menu">
-				<div class="header-notifications-trigger">
-					<a href="#">
-						<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.CV.photo ) }}" alt=""></div>
-							<div class="user-name">
-								{{app.token.user.nom}}
-								<span></span>
+						{% if app.token.user.id == can.user.id %}
+							<!-- Messages -->
+						<div class="header-notifications user-menu">
+							<div class="header-notifications-trigger">
+								<a href="#">
+									<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.CV.photo ) }}" alt=""></div>
+										
+								</a>
 							</div>
-					</a>
-				</div>
-
-				<!-- Dropdown -->
-				<div
-					class="header-notifications-dropdown">
-
-				
-
-					<ul class="user-menu-small-nav">
-					
-						<li>
-								
-							
 						
-							<a href="{{path('detailedCV',{'id': can.id})}}">
-								<i class="icon-material-outline-settings"></i>
-								Settings</a>
-								
-						</li>
-						<li>
-							<a href="{{path('app_logout')}}">
-								<i class="icon-material-outline-power-settings-new"></i>
-								Logout</a>
-						</li>
-					</ul>
+							<!-- Dropdown -->
+								<div class="header-notifications-dropdown">
+									<ul class="user-menu-small-nav">
+									<div class="user-status">
 
-				</div>
-			</div>
+								<!-- User Name / Avatar -->
+								<div class="user-details">
+									<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.CV.photo ) }}" alt=""></div>
+									<div class="user-name">
+											
+											<span>{{app.token.user.nom}}</span>
+										</div>
+								</div>
+								</div>
+									
+										<li>
+											<a href="{{path('detailedCV',{'id': can.id})}}">
+												<i class="icon-material-outline-settings"></i>
+												Settings</a>
+												
+										</li>
+										<li>
+											<a href="{{path('app_logout')}}">
+												<i class="icon-material-outline-power-settings-new"></i>
+												Logout</a>
+										</li>
+									</ul>
+
+								</div>
+						</div>
+					
 			{% endif %}
 					{% endfor %}
 		</div>
@@ -57,24 +59,22 @@
 	{% elseif is_granted('ROLE_RECRUTEUR') %}
 
 		<!-- User Menu -->
-		<div
-			class="header-widget">
-					{% for rec in rec %}
+		<div class="header-widget">
+			{% for rec in rec %}
 							
-							{% if app.token.user.id == rec.user.id %}
+				{% if app.token.user.id == rec.user.id %}
 			<!-- Messages -->
 			<div class="header-notifications user-menu">
-				<div class="header-notifications-trigger">
-				
-					<a href="#">
-						<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ rec.photo ) }}" alt=""></div>
-					</a>
+						<div class="header-notifications-trigger">
+						
+							<a href="#">
+								<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ rec.photo ) }}" alt=""></div>
+							</a>
+							
+						</div>
 					
-				</div>
-
 				<!-- Dropdown -->
-				<div
-					class="header-notifications-dropdown">
+				<div class="header-notifications-dropdown">
 
 					<!-- User Status -->
 					<div
@@ -117,9 +117,9 @@
 		{% else %}
 		<div
 			class="header-widget">
-			<div class="connect" style="margin-right: -120px;">
+			<div class="connect" style="margin-right: -70px;">
 				<a href="{{ path('app_login') }}" class="connect">
-					<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-12" style="width: 115px;">Connexion<i class="icon-material-outline-arrow-right-alt"></i>
+					<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-12" style="width: 120px;">Connexion<i class="icon-material-outline-arrow-right-alt"></i>
 					</button>
 				</a>
 			</div>
@@ -127,19 +127,20 @@
 	
 		</div>
 	{% endif %}
+	
 	</br>
 	</br>
 {% endblock %}
 
 {% block body %}
 </br></br>
-
+	{# {% if is_granted('ROLE_CANDIDAT') %} #}
 	<!-- Page Content
 					================================================== -->
 	<div class="container">
 		<div class="row"></br>
 	
-		<div class="col-md-6 col-lg-4">
+		<div class="col-md-4 col-lg-4">
 		</br></br>
 				{{ form_start(form , {attr:{class:'filter'} } ) }}
 
@@ -195,6 +196,8 @@
 </br>
 </br></br>
 </div>
+
+{# {% endif %} #}
 <div class="col-xl-9 col-lg-8 content-left-offset">
 {% for posts in posts %}
 {# {% if posts.type[0] == "télétravail" %} #}
@@ -271,22 +274,25 @@
 					</ul>
 				</div>
 			</a>
-			{% endfor %}
+			</div>
 			
-
+			{% endfor %}
+			</div>	</div>	</div>	</div>	</div>	
+			 {{ knp_pagination_render(posts) }}	
+</div>	
+</div>	</div>	</div>	
 			<!-- Pagination -->
-					<div class="clearfix"></div>
-								<div class="row">
-						<div class="col-md-12">
+	
+							
+						{# <div class="col-md-12">
 					<!-- Pagination -->
 				<div class="pagination-container margin-top-30 margin-bottom-60" style="text-align: center;">
-			 {{ knp_pagination_render(posts) }}
-				</div>
-			</div>
-		</div>
+			
+				</div> #}
+			
 	<!-- Pagination / End -->
-
-		</div>
+</div></div>
+		
 		{# {% endif %} #}
 	
-</div></div></div></div></div><!-- Dashboard Content / End -->{% endblock %}
+</div><!-- Dashboard Content / End -->{% endblock %}

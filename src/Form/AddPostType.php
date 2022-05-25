@@ -30,7 +30,10 @@ class AddPostType extends AbstractType
             ->add('titre')
             
             ->add('categorie')
-            ->add('salaire')
+            ->add('salaire')    
+            ->add('DateFinOffre',DateType::class, [
+                'widget' => 'single_text'
+            ])
             
         ;
     

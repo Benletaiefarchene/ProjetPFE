@@ -23,7 +23,7 @@ class Recruteur
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $eamil;
+    private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -83,14 +83,14 @@ class Recruteur
         return $this->id;
     }
 
-    public function getEamil(): ?string
+    public function getEmail(): ?string
     {
-        return $this->eamil;
+        return $this->email;
     }
 
-    public function setEamil(string $eamil): self
+    public function setEmail(string $email): self
     {
-        $this->eamil = $eamil;
+        $this->email = $email;
 
         return $this;
     }

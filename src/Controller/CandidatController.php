@@ -14,6 +14,7 @@ use App\Entity\Competance;
 use App\Entity\Experience;
 
 use App\Form\UserPassType;
+use App\Entity\Candidature;
 use App\Entity\OffreEmploi;
 use App\Form\CompetanceType;
 use App\Services\QrcodeService;
@@ -21,6 +22,7 @@ use App\Repository\CVRepository;
 use Symfony\Component\Form\FormError;
 use App\Repository\OffreEmploiRepository;
 use Symfony\Component\Form\FormInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -127,6 +129,8 @@ class CandidatController extends AbstractController
         $Candidat= $this->getDoctrine()->getRepository(Candidat::class)->find($id);
         $video=$Candidat->getCV()->getVideo();
         $qrCode = $qrcodeService->qrcode($video);
+        $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
+        $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
         
         $Competance= $this->getDoctrine()->getRepository(Competance::class)->findComById($id);
     
@@ -136,7 +140,9 @@ class CandidatController extends AbstractController
             'cv'=> $Candidat,
             'Competances'=>$Competance,
             'Experiences'=>$Experience,
-            'qrCode' => $qrCode
+            'qrCode' => $qrCode,
+            "rec"=>$rec,
+            "can"=>$can,
 
         ] 
             
@@ -161,7 +167,9 @@ class CandidatController extends AbstractController
         $form1->handleRequest($request);
         $form=$this->createForm(CVType::class,$p);
         $form->handleRequest($request);
-        
+        $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
+        $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
+
        $email=$form1->get('email')->getViewData();
         if($form->isSubmitted() && $form1->isSubmitted() ){
             $file = $p->getPhoto();
@@ -186,7 +194,9 @@ class CandidatController extends AbstractController
         }
         return $this->render('Candidat/editCV.html.twig', array(
             "user"=>$form1->createView(),
-            "cv"=> $form->createView()
+            "cv"=> $form->createView(),
+            "rec"=>$rec,
+            "can"=>$can,
         ));
 
     }
@@ -202,7 +212,8 @@ class CandidatController extends AbstractController
         $user=$em->getRepository(User::class)->find($iduser);
         $form1=$this->createForm(UserType::class,$user);
         $form1->handleRequest($request);
-        
+        $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
+        $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
         
        
         if($form1->isSubmitted() && $form1->isSubmitted() ){
@@ -216,6 +227,8 @@ class CandidatController extends AbstractController
         }
         return $this->render('Candidat/editProfil.html.twig', array(
             "user"=>$form1->createView(),
+            "rec"=>$rec,
+            "can"=>$can,
           
         ));
 
@@ -233,7 +246,8 @@ class CandidatController extends AbstractController
         $form1=$this->createForm(UserPassType::class);
         $form1->handleRequest($request);
         $OldPassword=$form1->get('OldPassword')->getViewData();
-     
+        $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
+        $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
         $u=$user->getPassword();
 
         if($form1->isSubmitted() && $form1->isSubmitted() ){
@@ -262,12 +276,6 @@ class CandidatController extends AbstractController
 
             
             }
-           
-            
-           
-               
-            
-                
             // $em->persist($user);
             // $em->flush();
            // return $this->redirectToRoute('detailed');
@@ -275,6 +283,8 @@ class CandidatController extends AbstractController
         }
         return $this->render('Candidat/editPass.html.twig', array(
             "user"=>$form1->createView(),
+            "rec"=>$rec,
+            "can"=>$can,
           
         ));
 
@@ -311,14 +321,48 @@ class CandidatController extends AbstractController
     {
         
         $Off= $this->getDoctrine()->getRepository(OffreEmploi::class)->find($id);
-      
+        $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
+        $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
        
         return $this->render('Recruteur/detailedOffre.html.twig',[
            
-            'off'=>$Off
+            'off'=>$Off,
+            "rec"=>$rec,
+            "can"=>$can,
         ]   
         );
     }
-  
+    /**
+     * @Route("/listOffPostuler", name="listOffPostuler")
+     */
+    public function listOffPostulerAction(Request $request, PaginatorInterface $paginator)
+    {
+       
+        $user=$this->getUser()->getId();
+        $candidat=$this->getDoctrine()->getRepository(Candidat::class)->findBy(array('User'=>$user));
+        $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
+        $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
+
+        $cand=$candidat["0"];
+        $id=$cand->getId();
+        $Candidature=$this->getDoctrine()->getRepository(Candidature::class)->findBy(array('candidat'=>$id));
+        
+        // $idoff=$Candidature[];
+        // $offre=$this->getDoctrine()->getRepository(OffreEmploi::class)->findBy(array('id'=>$idoff));
+        $pagination = $paginator->paginate(
+            $Candidature, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            3 /*limit per page*/
+        );
+        return $this->render('candidat/listOffPostuler.html.twig', array(
+            "cand" =>$Candidature,
+            'Form' => $pagination,
+            "rec"=>$rec,
+            "can"=>$can,
+           
+        ));
+      
+
+    }
    
 }

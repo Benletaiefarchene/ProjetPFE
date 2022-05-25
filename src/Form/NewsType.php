@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+
 use App\Entity\News;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,6 +17,7 @@ class NewsType extends AbstractType
             ->add('Titre')
             ->add('photo',FileType::class , array('data_class'=>null))
             ->add('description')
+            
           
         ;
     }

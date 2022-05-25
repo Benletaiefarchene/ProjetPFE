@@ -33,7 +33,7 @@ class User implements UserInterface
 
     /**
      * @var string The hashed password
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string" , nullable=true)
      */
     private $password;
      /**
@@ -46,7 +46,7 @@ class User implements UserInterface
     private $prenom;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean",options={"default" : 0})
      */
     private $exist;
 
@@ -61,7 +61,7 @@ class User implements UserInterface
     private $createdAt;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean",options={"default" : 0})
      */
     private $blocked;
 
@@ -138,7 +138,7 @@ class User implements UserInterface
     /**
      * @see UserInterface
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }
