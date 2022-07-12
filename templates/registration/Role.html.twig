@@ -1,0 +1,141 @@
+
+<html lang="en">
+<head>
+
+
+<title>{% trans %} Register {% endtrans %}
+</title>
+
+
+<!-- Scripts
+================================================== -->
+<script src={{ asset('js/competance.js')}}></script>
+<script src={{ asset('js/experiance.js')}}></script>
+<script src={{ asset('js/jquery-3.3.1.min.js')}}></script>
+<script src={{ asset('js/jquery-migrate-3.0.0.min.js')}}></script>
+<script src={{ asset('js/mmenu.min.js')}}></script>
+<script src={{ asset('js/tippy.all.min.js')}}></script>
+<script src={{ asset('js/simplebar.min.js')}}></script>
+<script src={{ asset('js/bootstrap-slider.min.js')}}></script>
+<script src={{ asset('js/bootstrap-select.min.js')}}></script>
+<script src={{ asset('js/snackbar.js')}}></script>
+<script src={{ asset('js/clipboard.min.js')}}></script>
+<script src={{ asset('js/counterup.min.js')}}></script>
+<script src={{ asset('js/magnific-popup.min.js')}}></script>
+<script src={{ asset('js/slick.min.js')}}></script>
+<script src={{ asset('js/custom.js')}}></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!-- CSS
+================================================== -->
+<link rel="stylesheet" href={{ asset('css/style.css')}}>
+<link rel="stylesheet" href={{ asset('css/colors/blue.css')}}>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>	
+
+
+{% block body %}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+
+<!-- Basic Page Needs
+================================================== -->
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!-- CSS
+================================================== -->
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/colors/blue.css">
+
+
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+<div id="titlebar" class="gradient">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+
+				<h2>{% trans %}Register {% endtrans %}</h2>
+
+				<!-- Breadcrumbs -->
+				<nav id="breadcrumbs" class="dark">
+					<ul>
+						<li><a href="#">{% trans %} Home {% endtrans %}</a></li>
+						<li>{% trans %} Register {% endtrans %}</li>
+					</ul>
+				</nav>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Page Content
+================================================== -->
+<div class="container">
+	<div class="row">
+		<div class="col-xl-5 offset-xl-3">
+
+			<div class="login-register-page">
+				<h2 style="text-align:center;">{% trans %} Choose account type: {% endtrans %}</h2>
+				</br>
+
+				<!-- Account Type -->
+				<div class="account-type">
+					<div>
+						<a href="{{path('app_register',{'role': "ROLE_CANDIDAT"})}}"  >
+						<label for="freelancer-radio" class="ripple-effect-dark"><i class="icon-material-outline-account-circle"></i>{% trans %} Appliant {% endtrans %}</label>
+                        </a>
+					</div>
+
+					<div>
+						<a href="{{path('app_register',{'role': "ROLE_RECRUTEUR"})}}">
+						<label for="employer-radio" class="ripple-effect-dark"><i class="icon-material-outline-business-center"></i>{% trans %} Employer {% endtrans %}</label>
+                        </a>
+					</div>
+				</div>
+			
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+</div>
+<!-- Wrapper / End -->
+
+<!-- Scripts
+================================================== -->
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/jquery-migrate-3.0.0.min.js"></script>
+<script src="js/mmenu.min.js"></script>
+<script src="js/tippy.all.min.js"></script>
+<script src="js/simplebar.min.js"></script>
+<script src="js/bootstrap-slider.min.js"></script>
+<script src="js/bootstrap-select.min.js"></script>
+<script src="js/snackbar.js"></script>
+<script src="js/clipboard.min.js"></script>
+<script src="js/counterup.min.js"></script>
+<script src="js/magnific-popup.min.js"></script>
+<script src="js/slick.min.js"></script>
+<script src="js/custom.js"></script>
+
+
+
+
+{% endblock %}

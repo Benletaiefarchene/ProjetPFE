@@ -1,0 +1,818 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="de" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="5SNnWSB" resname="Accept a Job Offer">
+        <source>Accept a Job Offer</source>
+        <target>Akzeptieren Sie ein Stellenangebot</target>
+      </trans-unit>
+      <trans-unit id="iXE7nJw" resname="Accept">
+        <source>Accept</source>
+        <target>Annehmen</target>
+      </trans-unit>
+      <trans-unit id="javvbu7" resname="Unaccept">
+        <source>Unaccept</source>
+        <target>Ablehnen</target>
+      </trans-unit>
+      <trans-unit id="heFek0K" resname="Add Admin">
+        <source>Add Admin</source>
+        <target>Administrator hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="WgEDLdU" resname="Let's create new Admin">
+        <source>Let's create new Admin</source>
+        <target>Lassen Sie uns einen neuen Admin erstellen</target>
+      </trans-unit>
+      <trans-unit id="u3I07BJ" resname="Register">
+        <source>Register</source>
+        <target>Registrieren</target>
+      </trans-unit>
+      <trans-unit id="BnoxDRV" resname="Add News">
+        <source>Add News</source>
+        <target>Neuigkeiten hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="odSM2Z3" resname="Let's create a News">
+        <source>Let's create a News</source>
+        <target>Lassen Sie uns eine Nachricht erstellen</target>
+      </trans-unit>
+      <trans-unit id="U8BVeqQ" resname="Block a Job Offers">
+        <source>Block a Job Offers</source>
+        <target>Blockieren Sie ein Stellenangebot</target>
+      </trans-unit>
+      <trans-unit id="6TFWeD9" resname="Unblocked">
+        <source>Unblocked</source>
+        <target>Entsperrt</target>
+      </trans-unit>
+      <trans-unit id="GPKglH_" resname="Blocked">
+        <source>Blocked</source>
+        <target>Verstopft</target>
+      </trans-unit>
+      <trans-unit id="Pgfgdeh" resname="block a user">
+        <source>block a user</source>
+        <target>blockiere einen Benutzer</target>
+      </trans-unit>
+      <trans-unit id=".sKsD0z" resname="Edit Profile">
+        <source>Edit Profile</source>
+        <target>Profil bearbeiten</target>
+      </trans-unit>
+      <trans-unit id="jCryCnD" resname="EDIT ADMIN">
+        <source>EDIT ADMIN</source>
+        <target>ADMIN BEARBEITEN</target>
+      </trans-unit>
+      <trans-unit id="OnhpU4i" resname="Home">
+        <source>Home</source>
+        <target>Willkommen</target>
+      </trans-unit>
+      <trans-unit id="Z7aWRoY" resname="Dashboard">
+        <source>Dashboard</source>
+        <target>Armaturenbrett</target>
+      </trans-unit>
+      <trans-unit id="rcD7c4g" resname="Edit Admin">
+        <source>Edit Admin</source>
+        <target>Administrator bearbeiten</target>
+      </trans-unit>
+      <trans-unit id="sH3hhUH" resname="Profile Form">
+        <source>Profile Form</source>
+        <target>Profilformular</target>
+      </trans-unit>
+      <trans-unit id="bVSUjmh" resname="Edit News">
+        <source>Edit News</source>
+        <target>Nachrichten bearbeiten</target>
+      </trans-unit>
+      <trans-unit id="1xY5wMZ" resname="EDIT NEWS">
+        <source>EDIT NEWS</source>
+        <target>NACHRICHTEN BEARBEITEN</target>
+      </trans-unit>
+      <trans-unit id="JWGCfqd" resname="News Form">
+        <source>News Form</source>
+        <target>News-Formular</target>
+      </trans-unit>
+      <trans-unit id="mja1m4Q" resname="Hello ,">
+        <source>Hello ,</source>
+        <target>Hallo ,</target>
+      </trans-unit>
+      <trans-unit id="LnO0mhB" resname="We are glad to see you again!">
+        <source>We are glad to see you again!</source>
+        <target>Wir freuen uns, Sie wiederzusehen!</target>
+      </trans-unit>
+      <trans-unit id="94mBMOV" resname="All users">
+        <source>All users</source>
+        <target>Alle Nutzer</target>
+      </trans-unit>
+      <trans-unit id="qvckQ_L" resname="Users Blocked">
+        <source>Users Blocked</source>
+        <target>Benutzer blockiert</target>
+      </trans-unit>
+      <trans-unit id="nwDydFF" resname="All Job Offers">
+        <source>All Job Offers</source>
+        <target>Alle Stellenangebote</target>
+      </trans-unit>
+      <trans-unit id="87rVzsS" resname="Job Offers Accepted">
+        <source>Job Offers Accepted</source>
+        <target>Stellenangebote angenommen</target>
+      </trans-unit>
+      <trans-unit id="bIcZiXY" resname="This Month Views">
+        <source>This Month Views</source>
+        <target>Ansichten dieses Monats</target>
+      </trans-unit>
+      <trans-unit id="42Ud50A" resname="Employers">
+        <source>Employers</source>
+        <target>Arbeitgeber</target>
+      </trans-unit>
+      <trans-unit id="KLBKUzE" resname="Appliants">
+        <source>Appliants</source>
+        <target>Bewerber</target>
+      </trans-unit>
+      <trans-unit id="VcgHmsl" resname="987">
+        <source>987</source>
+        <target>__987</target>
+      </trans-unit>
+      <trans-unit id="aaIKe0r" resname="List News">
+        <source>List News</source>
+        <target>Neuigkeiten auflisten</target>
+      </trans-unit>
+      <trans-unit id="RkxP.QG" resname="Edit">
+        <source>Edit</source>
+        <target>Bearbeiten</target>
+      </trans-unit>
+      <trans-unit id="L3dmip3" resname="Message">
+        <source>Message</source>
+        <target>Nachricht</target>
+      </trans-unit>
+      <trans-unit id="GD.HBK1" resname="Let's send a Message">
+        <source>Let's send a Message</source>
+        <target>Lassen Sie uns eine Nachricht senden</target>
+      </trans-unit>
+      <trans-unit id="9vRoj.I" resname="Send">
+        <source>Send</source>
+        <target>Senden</target>
+      </trans-unit>
+      <trans-unit id="aXUvIxO" resname="News">
+        <source>News</source>
+        <target>Nachrichten</target>
+      </trans-unit>
+      <trans-unit id="igl_ldS" resname="Job offer">
+        <source>Job offer</source>
+        <target>Jobangebot</target>
+      </trans-unit>
+      <trans-unit id="I.j2jXk" resname="All Job Offre">
+        <source>All Job Offre</source>
+        <target>Alle Stellenangebote</target>
+      </trans-unit>
+      <trans-unit id="k5btjyl" resname="Recruitment">
+        <source>Recruitment</source>
+        <target>Rekrutierung</target>
+      </trans-unit>
+      <trans-unit id="z_H8XvJ" resname="Free-lance">
+        <source>Free-lance</source>
+        <target>Freiberuflich</target>
+      </trans-unit>
+      <trans-unit id="9_phIkx" resname="Telework">
+        <source>Telework</source>
+        <target>Telearbeit</target>
+      </trans-unit>
+      <trans-unit id="ypro6bX" resname="Traineeship">
+        <source>Traineeship</source>
+        <target>Praktikum</target>
+      </trans-unit>
+      <trans-unit id="ymehsSI" resname="List Forum">
+        <source>List Forum</source>
+        <target>Forum auflisten</target>
+      </trans-unit>
+      <trans-unit id="K1w9JnI" resname="Contact">
+        <source>Contact</source>
+        <target>Kontakt</target>
+      </trans-unit>
+      <trans-unit id="Tvyg0Qx" resname="About">
+        <source>About</source>
+        <target>Um</target>
+      </trans-unit>
+      <trans-unit id="3WkOIrH" resname="My Posts">
+        <source>My Posts</source>
+        <target>Meine Posts</target>
+      </trans-unit>
+      <trans-unit id="6gbxfDv" resname="My Forums">
+        <source>My Forums</source>
+        <target>Meine Foren</target>
+      </trans-unit>
+      <trans-unit id="9H7sQ2_" resname="Add Job Offre">
+        <source>Add Job Offre</source>
+        <target>Stellenangebot hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="80gyIXE" resname="List Posts">
+        <source>List Posts</source>
+        <target>Beiträge auflisten</target>
+      </trans-unit>
+      <trans-unit id="6pyXxo0" resname="Add Forum">
+        <source>Add Forum</source>
+        <target>Forum hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="Bk0vnep" resname="Add CV">
+        <source>Add CV</source>
+        <target>Lebenslauf hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="NE5pwzz" resname="ADD CV">
+        <source>ADD CV</source>
+        <target>Lebenslauf hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="xe48iii" resname="add cv">
+        <source>add cv</source>
+        <target>Lebenslauf hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="vZcsxPF" resname="AND">
+        <source>AND</source>
+        <target>UND</target>
+      </trans-unit>
+      <trans-unit id="CeP0gYN" resname="Add Profile">
+        <source>Add Profile</source>
+        <target>Profil hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="1pajW90" resname="Profile">
+        <source>Profile</source>
+        <target>Profil</target>
+      </trans-unit>
+      <trans-unit id="dKiDoDe" resname="Settings">
+        <source>Settings</source>
+        <target>Einstellungen</target>
+      </trans-unit>
+      <trans-unit id="0FJ_Sz1" resname="Logout">
+        <source>Logout</source>
+        <target>Ausloggen</target>
+      </trans-unit>
+      <trans-unit id="nWMiwfT" resname="Login">
+        <source>Login</source>
+        <target>Anmeldung</target>
+      </trans-unit>
+      <trans-unit id="ID.kEXd" resname="preferred language :">
+        <source>preferred language :</source>
+        <target>Bevorzugte Sprache :</target>
+      </trans-unit>
+      <trans-unit id="PcD8cUX" resname="Edit Password">
+        <source>Edit Password</source>
+        <target>Passwort bearbeiten</target>
+      </trans-unit>
+      <trans-unit id="Ow1RbvK" resname="Edit CV">
+        <source>Edit CV</source>
+        <target>Lebenslauf bearbeiten</target>
+      </trans-unit>
+      <trans-unit id="3w.nmJj" resname="Print">
+        <source>Print</source>
+        <target>Drucken</target>
+      </trans-unit>
+      <trans-unit id="bzCIKtZ" resname="List Apply">
+        <source>List Apply</source>
+        <target>Liste Bewerben</target>
+      </trans-unit>
+      <trans-unit id="jqsPCd8" resname="Experience">
+        <source>Experience</source>
+        <target>Erfahrung</target>
+      </trans-unit>
+      <trans-unit id="4lGJIbW" resname="Title :">
+        <source>Title :</source>
+        <target>Titel :</target>
+      </trans-unit>
+      <trans-unit id="SRaEUcJ" resname="Venue :">
+        <source>Venue :</source>
+        <target>Veranstaltungsort :</target>
+      </trans-unit>
+      <trans-unit id="q5L0IgA" resname="Start date :">
+        <source>Start date :</source>
+        <target>Anfangsdatum :</target>
+      </trans-unit>
+      <trans-unit id="IyeYhK9" resname="End date :">
+        <source>End date :</source>
+        <target>Endtermin :</target>
+      </trans-unit>
+      <trans-unit id="mpsdAdk" resname="Diploma :">
+        <source>Diploma :</source>
+        <target>Diplom :</target>
+      </trans-unit>
+      <trans-unit id="Lc07R5s" resname="Description :">
+        <source>Description :</source>
+        <target>Beschreibung :</target>
+      </trans-unit>
+      <trans-unit id="bfG7GKW" resname="Skill">
+        <source>Skill</source>
+        <target>Können</target>
+      </trans-unit>
+      <trans-unit id="DwnLnCm" resname="Skill :">
+        <source>Skill :</source>
+        <target>Können :</target>
+      </trans-unit>
+      <trans-unit id="HB6ir6M" resname="EDIT PROFILE">
+        <source>EDIT PROFILE</source>
+        <target>PROFIL BEARBEITEN</target>
+      </trans-unit>
+      <trans-unit id="ZtD1I6N" resname="Skills">
+        <source>Skills</source>
+        <target>Fähigkeiten</target>
+      </trans-unit>
+      <trans-unit id="e7.itca" resname="Experiences">
+        <source>Experiences</source>
+        <target>Erfahrungen</target>
+      </trans-unit>
+      <trans-unit id="RqBbm1f" resname="EDIT PASSWORD">
+        <source>EDIT PASSWORD</source>
+        <target>PASSWORT BEARBEITEN</target>
+      </trans-unit>
+      <trans-unit id="lrX1jV0" resname="Edit Passwored">
+        <source>Edit Passwored</source>
+        <target>Passwort bearbeiten</target>
+      </trans-unit>
+      <trans-unit id="tC0ccBZ" resname="List Jobs">
+        <source>List Jobs</source>
+        <target>Jobs auflisten</target>
+      </trans-unit>
+      <trans-unit id="MxVRsN5" resname="Pending">
+        <source>Pending</source>
+        <target>Ausstehend</target>
+      </trans-unit>
+      <trans-unit id="SIRb.zN" resname="Dismiss">
+        <source>Dismiss</source>
+        <target>Zurückweisen</target>
+      </trans-unit>
+      <trans-unit id="S4x2R5u" resname="Pre-select">
+        <source>Pre-select</source>
+        <target>Vorwählen</target>
+      </trans-unit>
+      <trans-unit id="_C7LteU" resname="CONTACT">
+        <source>CONTACT</source>
+        <target>KONTAKT</target>
+      </trans-unit>
+      <trans-unit id="RjBR9Fa" resname="SKILLS">
+        <source>SKILLS</source>
+        <target>FÄHIGKEITEN</target>
+      </trans-unit>
+      <trans-unit id="APpr3TX" resname="EXPERIENCE">
+        <source>EXPERIENCE</source>
+        <target>ERFAHRUNG</target>
+      </trans-unit>
+      <trans-unit id="UggY1BE" resname="Any questions? Feel free to contact us!">
+        <source>Any questions? Feel free to contact us!</source>
+        <target>Irgendwelche Fragen? Fühlen Sie sich frei uns zu kontaktieren!</target>
+      </trans-unit>
+      <trans-unit id="FBbb95g" resname="dashbord">
+        <source>dashbord</source>
+        <target>Armaturenbrett</target>
+      </trans-unit>
+      <trans-unit id="2lwcQ6O" resname="Dashboard Navigation">
+        <source>Dashboard Navigation</source>
+        <target>Dashboard-Navigation</target>
+      </trans-unit>
+      <trans-unit id="tRLZfny" resname="User">
+        <source>User</source>
+        <target>Benutzer</target>
+      </trans-unit>
+      <trans-unit id="BR9Qa5D" resname="All Rights Reserved.">
+        <source>All Rights Reserved.</source>
+        <target>Alle Rechte vorbehalten.</target>
+      </trans-unit>
+      <trans-unit id="xsZ95Hn" resname="About the project">
+        <source>About the project</source>
+        <target>Über das Projekt</target>
+      </trans-unit>
+      <trans-unit id="LdI8Dfu" resname="Internisa is committed to respecting the privacy of its users.">
+        <source>Internisa is committed to respecting the privacy of its users.</source>
+        <target>Internisa verpflichtet sich, die Privatsphäre seiner Nutzer zu respektieren.</target>
+      </trans-unit>
+      <trans-unit id="8fTk_e1" resname="We strive to provide the user with a safe experience.">
+        <source>We strive to provide the user with a safe experience.</source>
+        <target>Wir bemühen uns, dem Benutzer ein sicheres Erlebnis zu bieten.</target>
+      </trans-unit>
+      <trans-unit id="_qJxMlu" resname="This Privacy Statement addresses the subject of collection">
+        <source>This Privacy Statement addresses the subject of collection</source>
+        <target>Diese Datenschutzerklärung befasst sich mit dem Thema Sammlung</target>
+      </trans-unit>
+      <trans-unit id="3veJfK1" resname="of online data as well as the policy of use">
+        <source>of online data as well as the policy of use</source>
+        <target>von Online-Daten sowie die Nutzungsrichtlinie</target>
+      </trans-unit>
+      <trans-unit id="_HpGxvc" resname="and practices that relate to the Internisa website.">
+        <source>and practices that relate to the Internisa website.</source>
+        <target>und Praktiken, die sich auf die Internisa-Website beziehen.</target>
+      </trans-unit>
+      <trans-unit id="fD6TFuh" resname="By creating an account on the Internisa website,">
+        <source>By creating an account on the Internisa website,</source>
+        <target>Indem Sie ein Konto auf der Website von Internisa erstellen,</target>
+      </trans-unit>
+      <trans-unit id="VkD.Bik" resname="you consent to the policies and practices described in this statement.">
+        <source>you consent to the policies and practices described in this statement.</source>
+        <target>Sie stimmen den in dieser Erklärung beschriebenen Richtlinien und Praktiken zu.</target>
+      </trans-unit>
+      <trans-unit id="0wMlpp_" resname="Collection and retention of information">
+        <source>Collection and retention of information</source>
+        <target>Erfassung und Aufbewahrung von Informationen</target>
+      </trans-unit>
+      <trans-unit id=".zm6xrt" resname="To provide you with access to Internisa's services, in certain sections of our websites, Internisa asks or may ask you to provide personal information, including your name, address, email address, credit card number, telephone number (if applicable ), your contact details and other information revealing your identity.">
+        <source>To provide you with access to Internisa's services, in certain sections of our websites, Internisa asks or may ask you to provide personal information, including your name, address, email address, credit card number, telephone number (if applicable ), your contact details and other information revealing your identity.</source>
+        <target>Um Ihnen Zugang zu den Diensten von Internisa zu verschaffen, bittet oder kann Internisa Sie in bestimmten Abschnitten unserer Websites bitten, persönliche Informationen anzugeben, einschließlich Ihres Namens, Ihrer Adresse, E-Mail-Adresse, Kreditkartennummer, Telefonnummer (falls zutreffend) und Ihrer Kontaktdaten und andere Informationen, die Ihre Identität preisgeben.</target>
+      </trans-unit>
+      <trans-unit id="qCXEsfY" resname="In addition, Internisa may collect information about you indirectly when you use some of our website's partner services. This information may be used to assess your potential interest in additional services offered by our partners.">
+        <source>In addition, Internisa may collect information about you indirectly when you use some of our website's partner services. This information may be used to assess your potential interest in additional services offered by our partners.</source>
+        <target>Darüber hinaus kann Internisa Informationen über Sie indirekt erfassen, wenn Sie einige der Partnerdienste unserer Website nutzen. Diese Informationen können verwendet werden, um Ihr potenzielles Interesse an zusätzlichen Dienstleistungen unserer Partner zu bewerten.</target>
+      </trans-unit>
+      <trans-unit id="g1QtPAZ" resname="We also collect or may collect certain information about your use of our site, such as the sections you visit and the services you use.">
+        <source>We also collect or may collect certain information about your use of our site, such as the sections you visit and the services you use.</source>
+        <target>Wir sammeln oder können auch bestimmte Informationen über Ihre Nutzung unserer Website sammeln, wie z. B. die von Ihnen besuchten Bereiche und die von Ihnen genutzten Dienste.</target>
+      </trans-unit>
+      <trans-unit id="BN2_KaL" resname="Use of information by Internisa">
+        <source>Use of information by Internisa</source>
+        <target>Nutzung von Informationen durch Internisa</target>
+      </trans-unit>
+      <trans-unit id="icOT_2U" resname="We use the information we collect on the Internisa website, whether personal, demographic, group or technical in nature, to administer and improve the Internisa website, to foster a positive user experience and to deliver our products and services effectively.">
+        <source>We use the information we collect on the Internisa website, whether personal, demographic, group or technical in nature, to administer and improve the Internisa website, to foster a positive user experience and to deliver our products and services effectively.</source>
+        <target>Wir verwenden die Informationen, die wir auf der Internisa-Website sammeln, unabhängig davon, ob sie persönlicher, demografischer, gruppenbezogener oder technischer Natur sind, um die Internisa-Website zu verwalten und zu verbessern, um eine positive Benutzererfahrung zu fördern und unsere Produkte und Dienstleistungen effektiv bereitzustellen.</target>
+      </trans-unit>
+      <trans-unit id="Hw72Kzd" resname="We may also use the information we collect to inform you of other products or services available from Internisa or its affiliates or to contact you for your opinion regarding current products and services or new products and services we could provide.">
+        <source>We may also use the information we collect to inform you of other products or services available from Internisa or its affiliates or to contact you for your opinion regarding current products and services or new products and services we could provide.</source>
+        <target>Wir können die von uns gesammelten Informationen auch verwenden, um Sie über andere Produkte oder Dienstleistungen von Internisa oder seinen verbundenen Unternehmen zu informieren oder Sie um Ihre Meinung zu aktuellen Produkten und Dienstleistungen oder neuen Produkten und Dienstleistungen, die wir anbieten könnten, zu bitten.</target>
+      </trans-unit>
+      <trans-unit id="8tsOCED" resname="We may use your contact information to send you emails or other communications about updates to the Internisa site, such as new opportunities in Internisa and additional announcements that may be of interest to you. The nature and frequency of these messages will vary depending on the information you provide to us.">
+        <source>We may use your contact information to send you emails or other communications about updates to the Internisa site, such as new opportunities in Internisa and additional announcements that may be of interest to you. The nature and frequency of these messages will vary depending on the information you provide to us.</source>
+        <target>Wir können Ihre Kontaktinformationen verwenden, um Ihnen E-Mails oder andere Mitteilungen über Aktualisierungen der Internisa-Website zu senden, wie z. B. neue Möglichkeiten bei Internisa und zusätzliche Ankündigungen, die für Sie von Interesse sein könnten. Die Art und Häufigkeit dieser Nachrichten hängt von den Informationen ab, die Sie uns zur Verfügung stellen.</target>
+      </trans-unit>
+      <trans-unit id="Yn3Mer." resname="The CVs">
+        <source>The CVs</source>
+        <target>Die Lebensläufe</target>
+      </trans-unit>
+      <trans-unit id="zPZU1ac" resname="Since Internisa is a career management site, we give you the option to save your CV in our database. There are two ways to do this:">
+        <source>Since Internisa is a career management site, we give you the option to save your CV in our database. There are two ways to do this:</source>
+        <target>Da Internisa eine Karrieremanagement-Website ist, bieten wir Ihnen die Möglichkeit, Ihren Lebenslauf in unserer Datenbank zu speichern. Dazu gibt es zwei Möglichkeiten:</target>
+      </trans-unit>
+      <trans-unit id="NdoWaLt" resname="You can store your CV in our database but not allow it to be viewed by potential employers. Not allowing your CV to be searchable means you can use it to apply for a job online, but employers and recruiters won't have access to find it using our CV search tool.">
+        <source>You can store your CV in our database but not allow it to be viewed by potential employers. Not allowing your CV to be searchable means you can use it to apply for a job online, but employers and recruiters won't have access to find it using our CV search tool.</source>
+        <target>Sie können Ihren Lebenslauf in unserer Datenbank speichern, aber nicht zulassen, dass er von potenziellen Arbeitgebern eingesehen wird. Wenn Sie nicht zulassen, dass Ihr Lebenslauf durchsuchbar ist, können Sie ihn verwenden, um sich online auf eine Stelle zu bewerben, aber Arbeitgeber und Personalvermittler haben keinen Zugriff, um ihn mit unserem Suchtool für Lebensläufe zu finden.</target>
+      </trans-unit>
+      <trans-unit id="QCGvbBZ" resname="If you make your resume searchable, all parties with access to our searchable resume database (or copies thereof) will be able to access your resume.">
+        <source>If you make your resume searchable, all parties with access to our searchable resume database (or copies thereof) will be able to access your resume.</source>
+        <target>Wenn Sie Ihren Lebenslauf durchsuchbar machen, können alle Parteien mit Zugriff auf unsere durchsuchbare Lebenslaufdatenbank (oder Kopien davon) auf Ihren Lebenslauf zugreifen.</target>
+      </trans-unit>
+      <trans-unit id="wxUG6_q" resname="We try to limit access to our database of resumes (or copies thereof) to employers only, but cannot guarantee that other parties will not gain access to this database.">
+        <source>We try to limit access to our database of resumes (or copies thereof) to employers only, but cannot guarantee that other parties will not gain access to this database.</source>
+        <target>Wir versuchen, den Zugriff auf unsere Datenbank mit Lebensläufen (oder Kopien davon) auf Arbeitgeber zu beschränken, können jedoch nicht garantieren, dass andere Parteien keinen Zugriff auf diese Datenbank erhalten.</target>
+      </trans-unit>
+      <trans-unit id="NqeY4.O" resname="Training">
+        <source>Training</source>
+        <target>Ausbildung</target>
+      </trans-unit>
+      <trans-unit id="Um4Ah8w" resname="Description">
+        <source>Description</source>
+        <target>Beschreibung</target>
+      </trans-unit>
+      <trans-unit id="CJusiUp" resname="Internisa , an ENI CBC Med">
+        <source>Internisa , an ENI CBC Med</source>
+        <target>Internisa , ein ENI CBC Med</target>
+      </trans-unit>
+      <trans-unit id="2fYU2Dg" resname="project for the">
+        <source>project for the</source>
+        <target>Projekt für die</target>
+      </trans-unit>
+      <trans-unit id="KH4Crz_" resname="professionalization of young">
+        <source>professionalization of young</source>
+        <target>Professionalisierung der Jugend</target>
+      </trans-unit>
+      <trans-unit id="JUU9RLY" resname="people and women.">
+        <source>people and women.</source>
+        <target>Menschen und Frauen.</target>
+      </trans-unit>
+      <trans-unit id="9TeyhDK" resname="JOIN US">
+        <source>JOIN US</source>
+        <target>BEGLEITEN SIE UNS</target>
+      </trans-unit>
+      <trans-unit id="U5ONNKE" resname="Search for the job">
+        <source>Search for the job</source>
+        <target>Suche nach dem Job</target>
+      </trans-unit>
+      <trans-unit id="ScJmuqq" resname="Search">
+        <source>Search</source>
+        <target>Suche</target>
+      </trans-unit>
+      <trans-unit id="Uu1loo4" resname="The Internisa Project">
+        <source>The Internisa Project</source>
+        <target>Das Internisa-Projekt</target>
+      </trans-unit>
+      <trans-unit id="YmPa6za" resname="it's a project that helps women with limited skills to find a job that suits them">
+        <source>it's a project that helps women with limited skills to find a job that suits them</source>
+        <target>es ist ein Projekt, das Frauen mit eingeschränkten Fähigkeiten hilft, einen Job zu finden, der zu ihnen passt</target>
+      </trans-unit>
+      <trans-unit id="P67O6PD" resname="so join us so that you can find the most comfortable job for you">
+        <source>so join us so that you can find the most comfortable job for you</source>
+        <target>also schließen Sie sich uns an, damit Sie den bequemsten Job für sich finden</target>
+      </trans-unit>
+      <trans-unit id="CW5CFUB" resname="Latest News">
+        <source>Latest News</source>
+        <target>Neuesten Nachrichten</target>
+      </trans-unit>
+      <trans-unit id="WMiiPvk" resname="View All News">
+        <source>View All News</source>
+        <target>Alle Nachrichten anzeigen</target>
+      </trans-unit>
+      <trans-unit id="CnzAj.C" resname="Add Training">
+        <source>Add Training</source>
+        <target>Training hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="8azSjbE" resname="ADD TRAINING">
+        <source>ADD TRAINING</source>
+        <target>TRAINING HINZUFÜGEN</target>
+      </trans-unit>
+      <trans-unit id="LfmApUM" resname="Job Submission Form">
+        <source>Job Submission Form</source>
+        <target>Stellenangebotsformular</target>
+      </trans-unit>
+      <trans-unit id="466w4iU" resname="Add Post">
+        <source>Add Post</source>
+        <target>Beitrag hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="e3cp8V6" resname="Post a Job">
+        <source>Post a Job</source>
+        <target>Einen Job veröffentlichen</target>
+      </trans-unit>
+      <trans-unit id="TgBBhmN" resname="ADD PROFILE">
+        <source>ADD PROFILE</source>
+        <target>PROFIL HINZUFÜGEN</target>
+      </trans-unit>
+      <trans-unit id="G1SP5yG" resname="add profile">
+        <source>add profile</source>
+        <target>Profil hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="BUCsT3Y" resname="Let's create your account!">
+        <source>Let's create your account!</source>
+        <target>Lassen Sie uns Ihr Konto erstellen!</target>
+      </trans-unit>
+      <trans-unit id="53.qk20" resname="Already have an account?">
+        <source>Already have an account?</source>
+        <target>Sie haben bereits ein Konto?</target>
+      </trans-unit>
+      <trans-unit id="kEI5.Hs" resname="Log In!">
+        <source>Log In!</source>
+        <target>Einloggen!</target>
+      </trans-unit>
+      <trans-unit id="gp5bKK8" resname="OR">
+        <source>OR</source>
+        <target>ODER</target>
+      </trans-unit>
+      <trans-unit id="I7sv8Ia" resname="Choose account type:">
+        <source>Choose account type:</source>
+        <target>Kontotyp wählen:</target>
+      </trans-unit>
+      <trans-unit id="n5HDbz_" resname="Appliant">
+        <source>Appliant</source>
+        <target>Bewerber</target>
+      </trans-unit>
+      <trans-unit id="VKO2TGf" resname="Employer">
+        <source>Employer</source>
+        <target>Arbeitgeber</target>
+      </trans-unit>
+      <trans-unit id="Mk5JK.7" resname="COMPETANCE">
+        <source>COMPETANCE</source>
+        <target>KOMPETENZ</target>
+      </trans-unit>
+      <trans-unit id="jD6i6nh" resname="Dash">
+        <source>Dash</source>
+        <target>Dash</target>
+      </trans-unit>
+      <trans-unit id="SKkw3Z7" resname="New contact">
+        <source>New contact</source>
+        <target>Neuer Kontakt</target>
+      </trans-unit>
+      <trans-unit id="e0iIBJR" resname="Last name">
+        <source>Last name</source>
+        <target>Nachname</target>
+      </trans-unit>
+      <trans-unit id="JVDZYuU" resname="E-mail">
+        <source>E-mail</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="I9YRpvb" resname="topic">
+        <source>topic</source>
+        <target>Thema</target>
+      </trans-unit>
+      <trans-unit id="HcfsX4r" resname="Add Question">
+        <source>Add Question</source>
+        <target>Frage hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="aSKXfZS" resname="ADD QUESTION">
+        <source>ADD QUESTION</source>
+        <target>FRAGE HINZUFÜGEN</target>
+      </trans-unit>
+      <trans-unit id="jinVgML" resname="add question">
+        <source>add question</source>
+        <target>Frage hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="LAXqlq0" resname="ask a question">
+        <source>ask a question</source>
+        <target>Stelle eine Frage</target>
+      </trans-unit>
+      <trans-unit id="4IwKqPV" resname="Days">
+        <source>Days</source>
+        <target>Tage</target>
+      </trans-unit>
+      <trans-unit id="k8kchR5" resname="Price">
+        <source>Price</source>
+        <target>Preis</target>
+      </trans-unit>
+      <trans-unit id="7d9DxtS" resname="Job Description">
+        <source>Job Description</source>
+        <target>Jobbeschreibung</target>
+      </trans-unit>
+      <trans-unit id="f0t3MSh" resname="Apply Now">
+        <source>Apply Now</source>
+        <target>Jetzt bewerben</target>
+      </trans-unit>
+      <trans-unit id="0Tu8K4v" resname="Job Summary">
+        <source>Job Summary</source>
+        <target>Jobübersicht</target>
+      </trans-unit>
+      <trans-unit id="FbYZdLJ" resname="Location">
+        <source>Location</source>
+        <target>Ort</target>
+      </trans-unit>
+      <trans-unit id="TFL6rV3" resname="Start Date">
+        <source>Start Date</source>
+        <target>Anfangsdatum</target>
+      </trans-unit>
+      <trans-unit id="ZZgpZ_R" resname="Training Duration">
+        <source>Training Duration</source>
+        <target>Trainingsdauer</target>
+      </trans-unit>
+      <trans-unit id="7GVPrJW" resname="valid">
+        <source>valid</source>
+        <target>gültig</target>
+      </trans-unit>
+      <trans-unit id="SWrKgOT" resname="block">
+        <source>block</source>
+        <target>Block</target>
+      </trans-unit>
+      <trans-unit id="iIuU8zB" resname="Salary">
+        <source>Salary</source>
+        <target>Gehalt</target>
+      </trans-unit>
+      <trans-unit id="vIkmLYM" resname="Job Type">
+        <source>Job Type</source>
+        <target>Auftragstyp</target>
+      </trans-unit>
+      <trans-unit id="F3L_9gu" resname="Date Posted">
+        <source>Date Posted</source>
+        <target>Datum der Veröffentlichung</target>
+      </trans-unit>
+      <trans-unit id="KJr.ErB" resname="Question">
+        <source>Question</source>
+        <target>Frage</target>
+      </trans-unit>
+      <trans-unit id="nibTd3r" resname="Edit Question">
+        <source>Edit Question</source>
+        <target>Frage bearbeiten</target>
+      </trans-unit>
+      <trans-unit id="5ZbmJWp" resname="Add Comment">
+        <source>Add Comment</source>
+        <target>Einen Kommentar hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="J.iNMfI" resname="All Comment">
+        <source>All Comment</source>
+        <target>Alle Kommentare</target>
+      </trans-unit>
+      <trans-unit id="wlP0Ub3" resname="Reply">
+        <source>Reply</source>
+        <target>Antwort</target>
+      </trans-unit>
+      <trans-unit id="4tClSWj" resname="Delete">
+        <source>Delete</source>
+        <target>Löschen</target>
+      </trans-unit>
+      <trans-unit id="vgiSvK_" resname="Edit Profil">
+        <source>Edit Profil</source>
+        <target>Profil bearbeiten</target>
+      </trans-unit>
+      <trans-unit id="vD4QnH0" resname="Edit Training">
+        <source>Edit Training</source>
+        <target>Ausbildung bearbeiten</target>
+      </trans-unit>
+      <trans-unit id="oDyJAqG" resname="EDIT TRAINING">
+        <source>EDIT TRAINING</source>
+        <target>SCHULUNG BEARBEITEN</target>
+      </trans-unit>
+      <trans-unit id="nqf1Els" resname="Edit Training Form">
+        <source>Edit Training Form</source>
+        <target>Schulungsformular bearbeiten</target>
+      </trans-unit>
+      <trans-unit id="zFS1DFF" resname="Edit Post">
+        <source>Edit Post</source>
+        <target>Beitrag bearbeiten</target>
+      </trans-unit>
+      <trans-unit id="oO3CFSq" resname="EDIT POST">
+        <source>EDIT POST</source>
+        <target>BEITRAG BEARBEITEN</target>
+      </trans-unit>
+      <trans-unit id="jfro2JO" resname="Edit Post Form">
+        <source>Edit Post Form</source>
+        <target>Beitragsformular bearbeiten</target>
+      </trans-unit>
+      <trans-unit id="e04j8BC" resname="EDIT QUESTION">
+        <source>EDIT QUESTION</source>
+        <target>FRAGE BEARBEITEN</target>
+      </trans-unit>
+      <trans-unit id="1pgiP7g" resname="Edit Question Form">
+        <source>Edit Question Form</source>
+        <target>Frageformular bearbeiten</target>
+      </trans-unit>
+      <trans-unit id="nug4MkP" resname="Application list">
+        <source>Application list</source>
+        <target>Anwendungsliste</target>
+      </trans-unit>
+      <trans-unit id="9RYiBjG" resname="Valid">
+        <source>Valid</source>
+        <target>Gültig</target>
+      </trans-unit>
+      <trans-unit id="1RDRzIy" resname="List Job offer">
+        <source>List Job offer</source>
+        <target>Stellenangebot auflisten</target>
+      </trans-unit>
+      <trans-unit id="RZid5J_" resname="Details">
+        <source>Details</source>
+        <target>Einzelheiten</target>
+      </trans-unit>
+      <trans-unit id="oA_wxQd" resname="Accepted">
+        <source>Accepted</source>
+        <target>Akzeptiert</target>
+      </trans-unit>
+      <trans-unit id="0tlxrP9" resname="Unaccepted">
+        <source>Unaccepted</source>
+        <target>Nicht akzeptiert</target>
+      </trans-unit>
+      <trans-unit id="vsgR8hz" resname="My Forum">
+        <source>My Forum</source>
+        <target>Mein Forum</target>
+      </trans-unit>
+      <trans-unit id="MeOS0cA" resname="Apply">
+        <source>Apply</source>
+        <target>Sich bewerben</target>
+      </trans-unit>
+      <trans-unit id="LL9lVfI" resname="APPLY">
+        <source>APPLY</source>
+        <target>SICH BEWERBEN</target>
+      </trans-unit>
+      <trans-unit id="Le1KPuZ" resname="Log In">
+        <source>Log In</source>
+        <target>Einloggen</target>
+      </trans-unit>
+      <trans-unit id="9R_E3Dd" resname="We're glad to see you again!">
+        <source>We're glad to see you again!</source>
+        <target>Wir freuen uns, Sie wiederzusehen!</target>
+      </trans-unit>
+      <trans-unit id="G1RbI.r" resname="Don't have an account?">
+        <source>Don't have an account?</source>
+        <target>Sie haben kein Konto?</target>
+      </trans-unit>
+      <trans-unit id="JlcrvgO" resname="Sign Up!">
+        <source>Sign Up!</source>
+        <target>Anmeldung!</target>
+      </trans-unit>
+      <trans-unit id="acVpEs4" resname="You are logged in as">
+        <source>You are logged in as</source>
+        <target>Du bist eingeloggt als</target>
+      </trans-unit>
+      <trans-unit id="wzmr1yx" resname="Forgot your password ?">
+        <source>Forgot your password ?</source>
+        <target>Haben Sie Ihr Passwort vergessen ?</target>
+      </trans-unit>
+      <trans-unit id="a7FhNlK" resname="Forgot your password">
+        <source>Forgot your password</source>
+        <target>Haben Sie Ihr Passwort vergessen</target>
+      </trans-unit>
+      <trans-unit id="fEUeD0N" resname="New Password">
+        <source>New Password</source>
+        <target>Neues Passwort</target>
+      </trans-unit>
+      <trans-unit id="YG48Hy2" resname="Enter your new password">
+        <source>Enter your new password</source>
+        <target>Gib dein neues Passwort ein</target>
+      </trans-unit>
+      <trans-unit id="588_9PF" resname="Password">
+        <source>Password</source>
+        <target>Passwort</target>
+      </trans-unit>
+      <trans-unit id="EzyOuGz" resname="validate">
+        <source>validate</source>
+        <target>bestätigen</target>
+      </trans-unit>
+      <trans-unit id="pP5lJk7" resname="Language">
+        <source>Language</source>
+        <target>Sprache</target>
+      </trans-unit>
+      <trans-unit id="rmVWuhK" resname="Other News">
+        <source>Other News</source>
+        <target>Andere Neuigkeiten</target>
+      </trans-unit>
+      <trans-unit id="jfxTVpf" resname="Apply with your profile">
+        <source>Apply with your profile</source>
+        <target>Bewerben Sie sich mit Ihrem Profil</target>
+      </trans-unit>
+      <trans-unit id="EIbMotW" resname="Your account has been successfully created">
+        <source>Your account has been successfully created</source>
+        <target>Ihr Konto wurde erfolgreich erstellt</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

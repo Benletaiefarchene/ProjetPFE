@@ -13,7 +13,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Forum
 {
-    /**
+    /**     
+     * @ORM\GeneratedValue
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -38,8 +39,35 @@ class Forum
     private $commentaires;
 
  
+    /**
+     * @ORM\ManyToMany(targetEntity=Candidat::class, inversedBy="offreEmplois")
+     */
+    private $Candidat;
 
-  
+    /**
+     * @return Collection<int, Candidat>
+     */
+    public function getCandidat(): Collection
+    {
+        return $this->Candidat;
+    }
+
+    public function addCandidat(Candidat $candidat): self
+    {
+        if (!$this->Candidat->contains($candidat)) {
+            $this->Candidat[] = $candidat;
+        }
+
+        return $this;
+    }
+
+    public function removeCandidat(Candidat $candidat): self
+    {
+        $this->Candidat->removeElement($candidat);
+
+        return $this;
+    }
+
 
     public function __construct()
     {

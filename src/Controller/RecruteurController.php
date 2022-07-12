@@ -12,6 +12,8 @@ use App\Entity\Candidat;
 use App\Form\SearchForm;
 use App\Entity\Recruteur;
 use App\Form\AddPostType;
+use App\Entity\Competance;
+use App\Entity\Experience;
 use App\Form\UserPassType;
 use App\Entity\Candidature;
 use App\Entity\Commentaire;
@@ -19,10 +21,12 @@ use App\Entity\OffreEmploi;
 use App\Form\FormationType;
 use App\Form\RecruteurType;
 use App\Form\TypeOffreType;
+use App\Service\T_HTML2PDF;
 use App\Form\CandidatureType;
 use App\Form\CommentaireType;
 use App\Entity\OffreFormation;
 use App\Repository\ForumRepository;
+use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Form\FormError;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\OffreEmploiRepository;
@@ -32,6 +36,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -89,10 +94,12 @@ class RecruteurController extends AbstractController
     {
         
         $Off= $this->getDoctrine()->getRepository(OffreEmploi::class)->find($id);
-        $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
+        $idrec= $Off->getRecruteur()->getId();
+        $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findBy(array('id'=>$idrec));
+       
         $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
-
-
+     
+   
         return $this->render('Recruteur/detailedOffre.html.twig',[
            
             'off'=>$Off,
@@ -121,6 +128,7 @@ class RecruteurController extends AbstractController
     
         if($form->isSubmitted()&& $form->isValid()){
             $file= $candidature->getCv();
+           
             $filename = md5(uniqid()).'.'.$file->guessExtension();
             try{
                 $file->move(
@@ -130,8 +138,9 @@ class RecruteurController extends AbstractController
             }catch(FileException $e){
 
             }
+
             $candidature->setEtat(-1);
-            $candidature->setCv($filename);
+            $candidature->setCv( $filename);
             $candidature->setCandidat($cand);
             $candidature->setCreatedAt($date);
             $candidature->setJob($Off);
@@ -213,23 +222,27 @@ class RecruteurController extends AbstractController
     /**
      * @Route("/listPost", name="listpost")
      */
-    public function listpostAction(Request $request,OffreEmploiRepository $repository)
+    public function listpostAction(Request $request,OffreEmploiRepository $repository,PaginatorInterface $paginator)
     {
        
       
         
         $data = new SearchData();
+        $data->page =$request->get('page',1);
         $form = $this->createForm(SearchForm::class , $data);
         $form->handleRequest($request);
-       $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
-       $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
+        $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
+        $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
         $posts=$repository->findSearch($data);
         
+    
+        
         return $this->render('recruteur/listPost.html.twig', array(
-            "posts" =>$posts,
-            "rec"=>$rec,
-            "can"=>$can,
-            'form'=>$form->createView()
+            'posts' =>$posts,
+            'rec'=>$rec,
+            'can'=>$can,
+            'form'=>$form->createView(),
+           
         ));
        // return $this->redirectToRoute('list_post');
 
@@ -237,7 +250,7 @@ class RecruteurController extends AbstractController
     /**
      * @Route("/listOffre", name="listOffre")
      */
-    public function listOffreAction(Request $request,OffreEmploiRepository $repository)
+    public function listOffreAction(Request $request,OffreEmploiRepository $repository, PaginatorInterface $paginator)
     {
        
       
@@ -247,6 +260,13 @@ class RecruteurController extends AbstractController
         $off=$this->getDoctrine()->getRepository(OffreEmploi::class)->findBy(array('recruteur' => $recc));
         $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
         $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
+        $offre=$this->getDoctrine()->getRepository(OffreEmploi::class)->findAll();
+        $dql=$repository->findBy(array('recruteur'=>$recc));
+        $pagination = $paginator->paginate(
+            $off, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            4 /*limit per page*/
+        );
         
         
         return $this->render('recruteur/listJob.html.twig', array(
@@ -254,6 +274,7 @@ class RecruteurController extends AbstractController
             "off"=>$off,
             "rec"=>$rec,
             "can"=>$can,
+            "list"=>$pagination,
            
         ));
        // return $this->redirectToRoute('list_post');
@@ -286,7 +307,7 @@ class RecruteurController extends AbstractController
     /**
      * @Route("/addProfilerec", name="addpofile")
      */
-    public function addProfileRec(Request $request){
+    public function addProfileRec(Request $request, \Swift_Mailer $mailer,TranslatorInterface $Trans){
         
         $Rec= new Recruteur();
         
@@ -297,7 +318,7 @@ class RecruteurController extends AbstractController
         $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
         $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
         $email=$this->getUser()->getEmail();
-       
+        
        
 
         if($form->isSubmitted() && $form->isValid())
@@ -320,6 +341,18 @@ class RecruteurController extends AbstractController
             $ex=$this->getUser()->setExist(true);
             $em->persist($ex);
             $em->flush();
+            $mail=$Trans->trans('Your account has been successfully created');
+            $message=(new \Swift_Message('Internisa'))
+   
+             
+           ->setFrom ('archene9@gmail.com')
+           ->setTo ($email)
+             ->setBody(
+             
+                 $mail,'text/html'
+             )
+             ;
+             $mailer->send($message);
             $this->addFlash('info', 'Created Successfully !');
             return $this->redirectToRoute('listposthome');
         }
@@ -440,105 +473,7 @@ class RecruteurController extends AbstractController
         ));
 
     }
-     /**
-     * @Route("/addFormation/{id}", name="addFormation")
-     */
-    public function addFormationAction(Request $request,$id){
-        
-        $Formation= new OffreFormation();
-        $recruteur= $this->getDoctrine()->getRepository(Recruteur::class)->find($id);
-        $em = $this->getDoctrine()->getManager();
-        $recruteur->setUser($this->getUser());
-        $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
-        $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
-        $form= $this->createForm(FormationType ::class, $Formation );
-        $form->handleRequest($request);
-
-        if($form->isSubmitted() && $form->isValid())
-        {
-           
-            $Formation->setRecruteur($recruteur);
-            $em->persist($Formation);
-            $em->flush();
-            
-         
-        }
-        
-        return $this->render('recruteur/addFormation.html.twig', [
-            'Formation' => $form->createView(),
-            "rec"=>$rec,
-            "can"=>$can,
-        ]);
-        
-    }
-     /**
-     * @Route("/detailedFormation/{id}", name="detailedFormation")
-     */
-    public function detailedFormationAction($id)
-    {
-        
-        $Formation= $this->getDoctrine()->getRepository(OffreFormation::class)->find($id);
-        $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
-        $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
-        
-      
-       
-        return $this->render('Recruteur/detailedFormation.html.twig',[
-            
-            'Formation'=>$Formation,
-            "rec"=>$rec,
-            "can"=>$can,
-        ]   
-        );
-    }
-     /**
-     * @Route("/editFormation/{id}", name="editFormation")
-     */
-    public function editFormationAction(Request $request , $id){
-
-        $Formation= $this->getDoctrine()->getRepository(OffreFormation::class)->find($id);
-        
-        $form=$this->createForm(FormationType::class,$Formation);
-        $form->handleRequest($request);
-        $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
-        $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
-       
-        if($form->isSubmitted()){
-          
-            $em= $this->getDoctrine()->getManager();
-            $em->persist($Formation);
-            $em->flush();
-            //return $this->redirectToRoute('detailed'{$id});
-
-        }
-        return $this->render('Recruteur/editFormation.html.twig', array(
-            
-            "Formation"=> $form->createView(),
-            "rec"=>$rec,
-            "can"=>$can,
-        ));
-
-    }
-     /**
-     * @Route("/listFormation", name="listFormation")
-     * @IsGranted("ROLE_RECRUTEUR")
-     */
-    public function listFormationAction(Request $request)
-    {
-       
-        $em=$this->getDoctrine()->getManager();
-        $Form=$em->getRepository(OffreFormation::class)->findAll();
-        $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
-        $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
-        return $this->render('recruteur/listFormation.html.twig', array(
-            "Form" =>$Form,
-            "rec"=>$rec,
-            "can"=>$can,
-        ));
-       //return $this->redirectToRoute('list_post');
-
-    }
-    
+   
     /**
      * 
      * @Route("/addquestion/{id}", name="addquestion")
@@ -548,16 +483,17 @@ class RecruteurController extends AbstractController
         
         $question= new Forum();
         $em = $this->getDoctrine()->getManager();
-        $recruteur= $this->getDoctrine()->getRepository(Recruteur::class)->find($id);
+        $recruteur= $this->getDoctrine()->getRepository(Recruteur::class)->findBy(array('User'=>$id));
         $form= $this->createForm(ForumType ::class, $question );
         $form->handleRequest($request);
-        $recruteur->setUser($this->getUser());
+        
+    
         $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
         $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
         if($form->isSubmitted() && $form->isValid())
         {
            
-            $question->setRecruteur($recruteur);
+            $question->setRecruteur($recruteur["0"]);
             $em->persist($question);
             $em->flush();
           
@@ -719,8 +655,65 @@ class RecruteurController extends AbstractController
         return $this->redirectToRoute('listQuestion');
     }
      
-       
+       /**
+     * @Route("/applyprofile/{id}", name="applyprofile")
+     */
+    public function testAction($id,Request $request )
+    {
+        $em = $this->getDoctrine()->getManager();
+        $candidature = new Candidature();
+
+        $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
+        $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
+        $date=new \DateTime('now');
+         $user=$this->getUser()->getId();
+
+        $Candidat= $this->getDoctrine()->getRepository(Candidat::class)->findBy(array('User'=>$user));
+     
+        $Competance= $this->getDoctrine()->getRepository(Competance::class)->findComById($Candidat["0"]->getId());
+   
+        $Experience= $this->getDoctrine()->getRepository(Experience::class)->findExpById($Candidat["0"]->getId());
       
+        $Off= $this->getDoctrine()->getRepository(OffreEmploi::class)->find($id);
+       $image=$Candidat["0"]->getCV()->getPhoto();
+       $logo = 'uploads/images/'.$image;
+      
+       
+        // Retrieve the HTML generated in our twig file
+        $template = $this->renderView('test.html.twig',[
+            'cv'=> $Candidat,
+            'Competances'=>$Competance,
+            'Experiences'=>$Experience,
+            'html'=>$logo
+
+        ]);
+       
+        $html2pdf = new \Spipu\Html2Pdf\Html2Pdf('P','A4','fr','true','UTF-8');
+        //$html2pdf->create('P','A4','fr','true','UTF-8');
+        $html2pdf->pdf->setTitle('CV_'.$Candidat["0"]->getUser()->getNom());
+        $html2pdf->writeHTML($template);
+      
+        $filename= md5(uniqid()).'.pdf';
+        $directory=$this->getParameter('images_directory');
+       
+        $html2pdf->pdf->Output($directory."/".$filename ,'F');
+       
+        
+       
+
+        $candidature->setEtat(-1);
+        $candidature->setCv($filename );
+        $candidature->setCandidat($Candidat["0"]);
+        $candidature->setCreatedAt($date);
+        $candidature->setJob($Off);
+        $em->persist($candidature);
+        $em->flush();
+
+
+       return $this->redirectToRoute('detailedOff', array('id' => $id));
+        
+    }  
+
         
   
 }

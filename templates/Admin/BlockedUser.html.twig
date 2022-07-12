@@ -1,5 +1,5 @@
 {% extends 'dashboard.html.twig' %}
-
+{% block title %}{% trans %}block a user {% endtrans %}{% endblock %}
 {% block body %}
 
 
@@ -32,10 +32,10 @@
 
 							{% if user.blocked == true %}
 
-								<a href="{{ path('admin_BlockedUser',{'id': user.id}) }}" class="button full-width button-sliding-icon ripple-effect margin-top-10">Unblocked<i class="icon-material-outline-arrow-right-alt"></i>
+								<a href="{{ path('admin_BlockedUser',{'id': user.id}) }}" class="button full-width button-sliding-icon ripple-effect margin-top-10">{% trans %}Unblocked {% endtrans %}<i class="icon-material-outline-arrow-right-alt"></i>
 								</a>
 							{% else %}
-								<a href="{{ path('admin_BlockedUser',{'id': user.id}) }}" class="button full-width button-sliding-icon ripple-effect margin-top-10">Blocked<i class="icon-material-outline-arrow-right-alt"></i>
+								<a href="{{ path('admin_BlockedUser',{'id': user.id}) }}" class="button full-width button-sliding-icon ripple-effect margin-top-10">{% trans %}Blocked {% endtrans %}<i class="icon-material-outline-arrow-right-alt"></i>
 								</a>
 							{% endif %}
 

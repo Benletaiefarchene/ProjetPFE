@@ -1,12 +1,61 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Training{% endblock %}
-	{% block header %}
+{% block title %} {% trans %}Training {% endtrans %}{% endblock %}
+{% block header %}
 			{% if is_granted('ROLE_CANDIDAT') %}
 
 
 					<!-- User Menu -->
-				<div class="header-widget">
+					{% if app.request.locale == "ar" %}
+						<div class="header-widget" style="margin-right: 1000px;margin-top: -82px;">
+					{% for can in can %}
+							
+						{% if app.token.user.id == can.user.id %}
+							<!-- Messages -->
+						<div class="header-notifications user-menu">
+							<div class="header-notifications-trigger">
+								<a href="#">
+									<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.CV.photo ) }}" alt=""></div>
+										
+								</a>
+							</div>
+						
+							<!-- Dropdown -->
+								<div class="header-notifications-dropdown">
+									<ul class="user-menu-small-nav" style="text-align: right;">
+									<div class="user-status">
+
+								<!-- User Name / Avatar -->
+								<div class="user-details">
+									<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.CV.photo ) }}" alt=""></div>
+									<div class="user-name">
+											
+											<span>{{app.token.user.nom}}</span>
+										</div>
+								</div>
+								</div>
+									
+										<li>
+											<a href="{{path('detailedCV',{'id': can.id})}}">
+												<i class="icon-material-outline-settings"></i>
+											{% trans %}	Settings {% endtrans %}</a>
+												
+										</li>
+										<li>
+											<a href="{{path('app_logout')}}">
+												<i class="icon-material-outline-power-settings-new"></i>
+											{% trans %}	Logout {% endtrans %}</a>
+										</li>
+									</ul>
+
+								</div>
+						</div>
+					
+			{% endif %}
+					{% endfor %}
+		</div>
+					{% else %}
+				<div class="header-widget" style="position: absolute;">
 					{% for can in can %}
 							
 						{% if app.token.user.id == can.user.id %}
@@ -37,13 +86,13 @@
 										<li>
 											<a href="{{path('detailedCV',{'id': can.id})}}">
 												<i class="icon-material-outline-settings"></i>
-												Settings</a>
+											{% trans %}	Settings {% endtrans %}</a>
 												
 										</li>
 										<li>
 											<a href="{{path('app_logout')}}">
 												<i class="icon-material-outline-power-settings-new"></i>
-												Logout</a>
+											{% trans %}	Logout {% endtrans %}</a>
 										</li>
 									</ul>
 
@@ -54,10 +103,68 @@
 					{% endfor %}
 		</div>
 		<!-- User Menu / End -->
+		{% endif %}
 	{% elseif is_granted('ROLE_RECRUTEUR') %}
 
 		<!-- User Menu -->
-		<div class="header-widget">
+			{% if app.request.locale == "ar" %}
+<div class="header-widget" style="margin-right: 1000px;margin-top: -82px;">
+			{% for rec in rec %}
+							
+				{% if app.token.user.id == rec.user.id %}
+			<!-- Messages -->
+			<div class="header-notifications user-menu">
+						<div class="header-notifications-trigger">
+						
+							<a href="#">
+								<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ rec.photo ) }}" alt=""></div>
+							</a>
+							
+						</div>
+					
+				<!-- Dropdown -->
+				<div class="header-notifications-dropdown">
+
+					<!-- User Status -->
+					<div
+						class="user-status">
+
+						<!-- User Name / Avatar -->
+						<div class="user-details">
+						
+							<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ rec.photo ) }}" alt=""></div>
+						
+							<div class="user-name">
+								{{app.token.user.nom}}
+								<span></span>
+							</div>
+						</div>
+
+					</div>
+
+					<ul class="user-menu-small-nav" style="text-align: right;">
+					
+						<li>
+							<a href="{{path('detailedRec',{'id': rec.id})}}">
+								<i class="icon-material-outline-settings"></i>
+							{% trans %}	Settings {% endtrans %}</a>
+						</li>
+						<li>
+							<a href="{{path('app_logout')}}">
+								<i class="icon-material-outline-power-settings-new"></i>
+							{% trans %}	Logout {% endtrans %}</a>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+			{% endif %}
+					{% endfor %}
+		</div>
+
+			{% else %}
+				
+		<div class="header-widget" style="position: absolute;">
 			{% for rec in rec %}
 							
 				{% if app.token.user.id == rec.user.id %}
@@ -96,12 +203,12 @@
 						<li>
 							<a href="{{path('detailedRec',{'id': rec.id})}}">
 								<i class="icon-material-outline-settings"></i>
-								Settings</a>
+							{% trans %}	Settings {% endtrans %}</a>
 						</li>
 						<li>
 							<a href="{{path('app_logout')}}">
 								<i class="icon-material-outline-power-settings-new"></i>
-								Logout</a>
+							{% trans %}	Logout {% endtrans %}</a>
 						</li>
 					</ul>
 
@@ -110,20 +217,33 @@
 			{% endif %}
 					{% endfor %}
 		</div>
+		{% endif %}
 		{% elseif is_granted('ROLE_ADMIN') %}
 		<!-- User Menu / End -->
 		{% else %}
-		<div
-			class="header-widget">
+		{% if app.request.locale == "ar" %}
+		<div class="trans-login">
 			<div class="connect" style="margin-right: -70px;">
 				<a href="{{ path('app_login') }}" class="connect">
-					<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-12" style="width: 120px;">Connexion<i class="icon-material-outline-arrow-right-alt"></i>
+					<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-12" style="width: 140px;">{% trans %} Login {% endtrans %}<i class="icon-material-outline-arrow-right-alt"></i>
 					</button>
 				</a>
 			</div>
 	
 	
 		</div>
+		{% else %}
+		<div class="header-widget" style="position: absolute;">
+			<div class="connect" style="margin-right: -70px;">
+				<a href="{{ path('app_login') }}" class="connect">
+					<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-12" style="width: 120px;">{% trans %} Login {% endtrans %}<i class="icon-material-outline-arrow-right-alt"></i>
+					</button>
+				</a>
+			</div>
+	
+	
+		</div>
+		{% endif %}
 	{% endif %}
 	
 	</br>
@@ -137,33 +257,27 @@
        </br>
     <!-- Titlebar
 ================================================== -->
-<div class="single-page-header" data-background-image="images/single-job.jpg">
+<div class="single" data-background-image="images/single-job.jpg">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<div class="single-page-header-inner">
+				<div class="single-inner">
 					<div class="left-side">
-						<div class="header-image"><a href="single-company-profile.html"><img  src="{{ asset('uploads/images/' ~ Formation.recruteur.photo) }}" alt="" ></a></div>
+					
 						<div class="header-details">
                        
 							<h3>{{ Formation.titre }} </h3>
-							<h5>{{ Formation.recruteur.User.nom }} {{ Formation.recruteur.User.prenom }}</h5>
-							<ul>
-								<li><i class="icon-material-outline-business"></i> {{ Formation.recruteur.ville }}</a></li>
-
-								<li><i class="icon-material-outline-location-on"></i> {{ Formation.recruteur.pays }}</li>
-								
-							</ul>
-                            <h5><i class="icon-line-awesome-calendar-o"></i>{{Formation.DateDebut|date('d-m-Y ')}} <h5>
-							<h5><i class="icon-material-outline-access-time"></i> {{Formation.dureeformation}} Days </h5>
+							
                            
-                             
+							
 						</div>
 					</div>
 					<div class="right-side">
 						<div class="salary-box">
-							<div class="salary-type"><h3><center>Price</center></h3></div>
-							<div class="salary-amount">{{ Formation.price }} $</div>
+							<div class="salary-type"><h3><center>{% trans %} Download File {% endtrans %}</center></h3></div>
+							
+						<a href='{{ path('downloadfile',{'id': Formation.id})}}' > <img src="{{ asset('images/Download.png') }}" alt="" width="250px"></a>
+					
 						</div>
 					</div>
 				</div>
@@ -182,7 +296,7 @@
 		<div class="col-xl-8 col-lg-8 content-right-offset">
 
 			<div class="single-page-section">
-				<h3 class="margin-bottom-25">Job Description</h3>
+				<h3 class="margin-bottom-25">{% trans %} Job Description {% endtrans %}</h3>
 				<p>{{Formation.description}}</p>
 			</div>
 
@@ -198,52 +312,6 @@
 		</div>
 		
 
-		<!-- Sidebar -->
-		<div class="col-xl-4 col-lg-4">
-			<div class="sidebar-container">
-
-				<button type="submit" class="apply-now-button">Apply Now </button>
-					
-				<!-- Sidebar Widget -->
-				<div class="sidebar-widget">
-					<div class="job-overview">
-						<div class="job-overview-headline">Job Summary</div>
-						<div class="job-overview-inner">
-							<ul>
-								<li>
-									<i class="icon-material-outline-location-on"></i>
-									<span>Location</span>
-									<h5>{{ Formation.recruteur.ville }}, {{ Formation.recruteur.pays }}</h5>
-								</li>
-								{# <li>
-									<i class="icon-material-outline-business-center"></i>
-									<span>Job Type</span>
-									<h5>Full Time</h5>
-								</li> #}
-								<li>
-									<i class="icon-material-outline-local-atm"></i>
-									<span>Price</span>
-									<h5>{{ Formation.price }} $</h5>
-								</li>
-								<li>
-									<i class="icon-line-awesome-calendar-o"></i>
-									<span>Start Date</span>
-									<h5>{{Formation.DateDebut|date('d-m-Y ')}}</h5>
-								</li>
-                                <li>
-									<i class="icon-material-outline-access-time"></i>
-									<span>Training Duration</span>
-									<h5>{{Formation.dureeformation}} Days</h5>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-
-			
-
-			</div>
-		</div>
 
 	</div>
 </div>

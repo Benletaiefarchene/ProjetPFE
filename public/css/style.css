@@ -269,7 +269,15 @@ button {
 	line-height: normal;
 	cursor: pointer;
 }
+.thumb {
+    width:150px;
+    height:150px;
+    background-position:center center;
+    overflow:hidden;
+    border:1px solid black;
 
+    background-image: attr(data-image-src);/*This is the question piece*/
+}
 a { color: #66676b; transition: 0.3s; }
 a, button { outline: none !important; }
 a:focus,
@@ -287,16 +295,17 @@ a:focus{
 	border-right: 1px solid #e0e0e0;
 	height: 100%;
 	vertical-align: top;
-	padding-right: 35px;
-	margin-right: 20px;
+	padding-right: 20px;
+	margin-right: 10px;
 }
 
 #logo img {
-	height: 42px;
+	height: 35px;
 	width: auto;
 	top: 50%;
 	position: relative;
 	transform: translate3d(0,-50%,0);
+	width: 135px;
 }
 
 #header {
@@ -337,7 +346,7 @@ header.fullwidth .container {
 	width: auto;
 	display: inline-block;
 	position: absolute;
-	right: -95px;
+	right: 40px;
 	background-color: #fff;
 	flex: 1;
 }
@@ -379,7 +388,7 @@ header.fullwidth .container {
 	border-right: none;
 }
 
-.header-widget:last-of-type { padding-right: 0; margin-right: -5px; }
+.header-widget:last-of-type { padding-right: 0; margin-right: -5px;  }
 .fullwidth .header-widget:last-of-type { padding-right: 5px; margin-right: 0; }
 
 /* Notification Avatar*/
@@ -823,7 +832,12 @@ ul.user-menu-small-nav li a:hover i { color: #66676b; }
 	padding: 25px;
 	border-bottom: 1px solid #e6e6e6;
 }
-
+p.desc{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 500px;
+  }
 /* User Menu - Details */
 .user-details {
 	display: flex;
@@ -842,7 +856,8 @@ ul.user-menu-small-nav li a:hover i { color: #66676b; }
 .user-name {
 	font-weight: 500;
 	color: #333;
-	line-height: 20px;
+	line-height: 36px;
+	margin-right: 20px;
 	padding: 2px 0 0 15px;
 }
 
@@ -1072,7 +1087,7 @@ ul.user-menu-small-nav li a:hover i { color: #66676b; }
 
 #navigation ul li {
 	transition: all 0.25s;
-	margin: 0 5px;
+	margin: 0 0px;
 	border-radius: 4px;
 }
 
@@ -2195,7 +2210,7 @@ em.mm-counter+a.mm-fullsubopen+span {
 	display: inline-block;
 	padding: 0 40px;
 	border-right: 1px solid #484848;
-	border-left: 1px solid #484848;
+	border-left: 1px solid hsl(0, 0%, 28%);
 	float: left;
 	height: 100%;
 }
@@ -2897,6 +2912,14 @@ body #backtotop a {
 }
 
 
+.flexContainer {
+    display: flex;
+}
+
+.inputField {
+    flex: 1;
+}
+
 /* Adjustments for "Single Page Header" */
 .single-page-header #breadcrumbs {
 	position: relative;
@@ -2938,7 +2961,7 @@ body #backtotop a {
     top: 0;
     left: 0;
     z-index: 15;
-    background: linear-gradient(to right,rgba(247,247,247,1) 50%,rgba(247,247,247,0.8) 70%,rgba(247,247,247,0.8) 90%);
+    background: linear-gradient(to right,rgb(176, 58, 65) 30%,rgba(176, 58, 66, 0.829) 50%,rgba(156, 156, 156, 0.8) 90%);
 }
 
 .single-page-header:after {
@@ -2975,7 +2998,29 @@ body #backtotop a {
 }
 
 @media (min-width: 1365px) {
-	.single-page-header .right-side { max-width: 30%; }
+	.single-page-header .right-side { max-width: 30%; text-align: right;}
+}
+.left-side-home{
+	margin-right: 700px;
+}
+.trans-login{
+	position: absolute;
+    width: auto;
+    left: -157px;
+    float: left;
+
+}
+.trans{
+	float: left;
+    text-align: left;
+    width: auto;
+    display: inline-block;
+    position: absolute;
+
+    background-color: #fff;
+    flex: 1;
+    left: -133px;
+	top: 12px;
 }
 
 /* Image */
@@ -3118,6 +3163,238 @@ body #backtotop a {
 
 /* Salary Box */
 .single-page-header .salary-box {
+	border-radius: 4px;
+	box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+	background-color: #fff;
+	display: inline-block;
+	padding: 20px 25px;
+	margin-left: auto;
+}
+
+
+
+
+/* Adjustments for "Single Page Header" */
+.single #breadcrumbs {
+	position: relative;
+	top: 0;
+	left: 0;
+	transform: none;
+	margin-left: auto;
+}
+
+@media (max-width: 992px) {
+	.single #breadcrumbs {
+		margin: 30px 0 20px 0;
+	}
+}
+
+
+
+/* ---------------------------------- */
+/* Single Page Header
+------------------------------------- */
+.single {
+	margin-bottom: 65px;
+	padding: 60px 0;
+	position: relative;
+}
+
+.single .container {
+	z-index: 100;
+	position: relative;
+}
+
+.single:after,
+.single:before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: block;
+    top: 0;
+    left: 0;
+    z-index: 15;
+    background: linear-gradient(to right,rgb(221, 221, 221) 30%,rgba(184, 184, 184, 0.8) 50%,rgba(156, 156, 156, 0.8) 80%);
+}
+
+.single:after {
+    z-index: 5;
+    background-color: #f7f7f7;
+}
+
+.single .background-image-container {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 100% 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 50%;
+    left: 50%;
+    z-index: 10;
+}
+
+.single .single-inner { display: flex; }
+
+.single .left-side,
+.single .right-side {
+	flex: 1;
+	display: flex;
+	align-items: center;
+}
+
+.single .left-side { padding-right: 30px; }
+
+.single .right-side {
+	max-width: 35%;
+}
+
+@media (min-width: 1365px) {
+	.single .right-side { max-width: 30%; }
+}
+
+/* Image */
+.single .header-image a {
+	display: flex; 
+	height: 100%;
+}
+
+.single .header-image {
+    height: 140px;
+    flex: 0 0 140px;
+    margin-right: 35px;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+    display: flex;
+    padding: 0 20px;
+}
+
+/* IE 11 Fixes */
+@media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {  
+	.single .header-image { max-width: 140px; }
+}
+
+.single.freelancer-header .header-image {
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: none;
+    display: flex;
+    padding: 0;
+    overflow: hidden;
+    height: 130px;
+    flex: 0 0 130px;
+    width: 130px;
+}
+
+.single .header-image img {
+	align-self: center;
+	transform: translate3d(0,0,0);
+}
+
+
+/* IE 11 FIX */
+@media all and (-ms-high-contrast:none) {
+	.single .header-image img {
+		width: 100%;
+	}
+}
+
+/* Details */
+.single .header-details {
+	flex: 1;
+}
+
+.single .header-details h3 {
+	color: #333;
+	font-size: 26px;
+	margin: 0;
+	padding: 0;
+	margin-bottom: 12px;
+	margin-top: 3px;
+	line-height: 36px;
+	position: relative;
+	padding-right: 0;
+	display: inline-block;
+}
+
+.single .header-details h3 span {
+	color: #808080;
+	display: block;
+	font-size: 20px;
+	font-weight: 300;
+	margin-top: -3px;
+}
+
+.single .header-details h5 {
+	font-size: 16px;
+	font-weight: 600;
+	color: #333;
+}
+
+/* Details */
+.single .header-details h5 {
+	font-size: 16px;
+	font-weight: 600;
+	color: #333;
+}
+
+.single .header-details ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	line-height: 24px;
+	margin-bottom: -7px;
+}
+
+.single .header-details li {
+	display: inline-block;
+	margin-right: 20px;
+	margin-bottom: 12px;
+}
+
+.single .header-details li:last-child { margin-right: 0; }
+
+.single .header-details li a { color: #666; }
+.single .header-details li a:hover { color: #66676b; }
+
+.single .header-details li i {
+	font-size: 20px;
+	position: relative;
+	top: 2px;
+	margin-right: 2px;
+}
+
+.single .header-details li .verified-badge {
+	transform: scale(0.85);
+	position: relative;
+	top: 2px;
+}
+
+.single .header-details li .verified-txt {
+	color: #299840;
+}
+
+.single .header-details li .star-rating  {
+	position: relative;
+	top: 6px;
+}
+
+.single .header-details ul li img.flag {
+	height: 16px;
+	border-radius: 3px;
+	position: relative;
+	top: -1px;
+	display: inline-block;
+	box-shadow: 0 0 3px rgba(0,0,0,0.2);
+	margin-right: 5px;
+	cursor: default
+}
+
+/* Salary Box */
+.single .salary-box {
 	border-radius: 4px;
 	box-shadow: 0 3px 8px rgba(0,0,0,0.08);
 	background-color: #fff;
@@ -6871,6 +7148,9 @@ table.basic-table { margin-bottom: 0; }
 	overflow: hidden;
 	position: relative;
 	z-index: 1;
+	text-align: center;
+	color: white;
+	margin-top: 11px;
 }
 
 .ripple-effect span.ripple-overlay,
@@ -7455,6 +7735,10 @@ input:checked + .switch-button:before {
 div.uploadButton.S{
 	margin-top: 30px;
 	margin-left: 300px;
+}
+div.uploadButton.V{
+	margin-top: -44px;
+	margin-left: 425px;
 }
 span.uploadButton-file-name{
 	margin-left: 100px;
@@ -10948,6 +11232,9 @@ hr:after {
 .account-type div {
 	flex: 1;
 	margin-right: 20px;
+	border: 2px solid #b03a41;
+	background-color: #b03a41;
+	border-radius: 5px;
 }
 
 /* .account-type label {
@@ -11010,7 +11297,7 @@ a{
 }
 span.list-apply-button.ripple-effect:hover{
 	color: #FFFFFF !important;
-	background-color: #2b41e6;
+	background-color: #b03a41;
 }
 a.headline-link:hover{
 

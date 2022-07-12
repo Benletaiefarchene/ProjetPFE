@@ -17,7 +17,7 @@ class CVType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            
+           
             ->add('sexe')
             ->add('pays')
             ->add('date_naissance',DateType::class, [

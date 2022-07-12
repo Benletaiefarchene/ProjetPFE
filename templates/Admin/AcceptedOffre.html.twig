@@ -1,5 +1,5 @@
 {% extends 'dashboard.html.twig' %}
-
+{% block title %}{% trans %}Accept a Job Offer {% endtrans %} {% endblock %}
 {% block body %}
 
 
@@ -39,13 +39,27 @@
    <div >
 					
 							
-                             {% if offre.accepted == true %}
+                             {% if offre.accepted == -1 %}
 											
-                                        <a href="{{ path('admin_AcceptedOffre',{'id': offre.id}) }}" class="button full-width button-sliding-icon ripple-effect margin-top-10">Unaccept<i class="icon-material-outline-arrow-right-alt"></i></a>
-                                    {% else %}
-                                        <a href="{{ path('admin_AcceptedOffre',{'id': offre.id}) }}" class="button full-width button-sliding-icon ripple-effect margin-top-10">Accept<i class="icon-material-outline-arrow-right-alt"></i></a>
+                                      
+                                        <a href="{{ path('admin_AcceptedOffre',{'id': offre.id}) }}" class="button full-width button-sliding-icon ripple-effect margin-top-10"> {% trans %}Accept {% endtrans %}<i class="icon-material-outline-arrow-right-alt"></i></a>
+                                     
+                                    {% elseif offre.accepted == 0 %}
+                                    <a href="{{ path('admin_AcceptedOffre',{'id': offre.id}) }}" class="button full-width button-sliding-icon ripple-effect margin-top-10">{% trans %} Accept {% endtrans %}<i class="icon-material-outline-arrow-right-alt"></i></a>
+                                     {% else %}
                                     {% endif %}
                            
+                             {% if offre.accepted == -1 %}
+											
+                                      
+                                        <a href="{{ path('admin_Message',{'id': offre.id}) }}" class="button full-width button-sliding-icon ripple-effect margin-top-10"> {% trans %}  Unaccept {% endtrans %}<i class="icon-material-outline-arrow-right-alt"></i></a>
+                                     
+                                    {% elseif offre.accepted == 1 %}
+                                    <a href="{{ path('admin_Message',{'id': offre.id}) }}" class="button full-width button-sliding-icon ripple-effect margin-top-10"> {% trans %}  Unaccept {% endtrans %}<i class="icon-material-outline-arrow-right-alt"></i></a>
+                                     {% else %}
+                                    {% endif %}
+                           
+							
 							
 						
 					        </div>

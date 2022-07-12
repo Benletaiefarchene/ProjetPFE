@@ -13,7 +13,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Recruteur 
 {
-    /**
+    /**  
+     * groups("Recruteur")
+     * @ORM\GeneratedValue
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -53,6 +55,7 @@ class Recruteur
 
     /**
      * @ORM\OneToMany(targetEntity=OffreEmploi::class, mappedBy="recruteur")
+     
      */
     private $OffreEmploi;
 

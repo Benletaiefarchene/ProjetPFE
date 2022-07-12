@@ -8,11 +8,11 @@ use App\Entity\Type;
 class SearchData
 {
     /**
-     * Undocumented variable
      *
-     * @var int
+     * @var integer
      */
-    public $page=1;
+    public $page = 1;
+    
     /**
      * @var String
      */

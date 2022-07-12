@@ -1,6 +1,6 @@
 {% extends 'dashboard.html.twig' %}
 
-{% block title %}Edit Profile
+{% block title %} {% trans %}Edit News {% endtrans %}
 {% endblock %}
 
 {% block body %}
@@ -14,18 +14,18 @@
 
 			<!-- Dashboard Headline -->
 			<div class="dashboard-headline">
-				<h3>EDIT ADMIN</h3>
+				<h3> {% trans %} EDIT NEWS {% endtrans %}</h3>
 
 				<!-- Breadcrumbs -->
 				<nav id="breadcrumbs" class="dark">
 					<ul>
 						<li>
-							<a href="#">Home</a>
+							<a href="#">{% trans %}Home {% endtrans %}</a>
 						</li>
 						<li>
-							<a href="#">Dashboard</a>
+							<a href="#">{% trans %}Dashboard {% endtrans %}</a>
 						</li>
-						<li>Edit Admin</li>
+						<li>{% trans %}Edit News {% endtrans %}</li>
 					</ul>
 				</nav>
 			</div>
@@ -43,7 +43,7 @@
 						<div class="headline">
 							<h3>
 								<i class="icon-feather-folder-plus"></i>
-								Profile Form</h3>
+								{% trans %}News Form {% endtrans %}</h3>
 						</div>
 
 
@@ -86,7 +86,7 @@
 							</div>
 							
 						<div class="col-xl-12">
-							<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-10">Edit News<i class="icon-material-outline-arrow-right-alt"></i>
+							<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-10">{% trans %}Edit News {% endtrans %}<i class="icon-material-outline-arrow-right-alt"></i>
 							</button>
 						</div>
 						{{ form_end(news) }}

@@ -4,7 +4,7 @@
 
 <!-- Basic Page Needs
 ================================================== -->
-<title>Hireo</title>
+<title>{% trans %} dashbord {% endtrans %}</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -39,87 +39,7 @@
 					<a href="index.html"><img src={{ asset('images/logo.png')}} alt=""></a>
 				</div>
 
-				<!-- Main Navigation -->
-				<nav id="navigation">
-					<ul id="responsive">
-
-						<li><a href="{{ path('listposthome') }}" class="current">Home</a>
-							
-						</li>
-						<li><a href="{{ path('Actualites') }}" class="current">News</a>
-							
-						</li>
-
-						<li><a href="#">Job offer</a>
-							<ul class="dropdown-nav">
-								
-								<li><a href="http://127.0.0.1:8000/listPosthome?q=&type%5B%5D=1&min=&max=&_token=tXdUxYvDEnrDBv0uoOyUW1YMZq_fRqucCESknfhcc2I">Recrutement</a></li>
-								<li><a href="http://127.0.0.1:8000/listPosthome?q=&type%5B%5D=2&min=&max=&_token=tXdUxYvDEnrDBv0uoOyUW1YMZq_fRqucCESknfhcc2I">Free-lance</a></li>
-								<li><a href="http://127.0.0.1:8000/listPosthome?q=&type%5B%5D=3&min=&max=&_token=tXdUxYvDEnrDBv0uoOyUW1YMZq_fRqucCESknfhcc2I">Télétravail</a></li>
-								<li><a href="http://127.0.0.1:8000/listPosthome?q=&type%5B%5D=4&min=&max=&_token=tXdUxYvDEnrDBv0uoOyUW1YMZq_fRqucCESknfhcc2I">Stage</a></li>
-							</ul>
-						</li>
-
-						<li><a href="#">Training</a>
-							<ul class="dropdown-nav">
-								<li><a href="#">Find a Freelancer</a>
-									<ul class="dropdown-nav">
-										<li><a href="freelancers-grid-layout-full-page.html">Full Page Grid</a></li>
-										<li><a href="freelancers-grid-layout.html">Grid Layout</a></li>
-										<li><a href="freelancers-list-layout-1.html">List Layout 1</a></li>
-										<li><a href="freelancers-list-layout-2.html">List Layout 2</a></li>
-									</ul>
-								</li>
-								<li><a href="single-freelancer-profile.html">Freelancer Profile</a></li>
-								<li><a href="dashboard-post-a-job.html">Post a Job</a></li>
-								<li><a href="dashboard-post-a-task.html">Post a Task</a></li>
-							</ul>
-						</li>
-						
-
-						<li><a href="#">Dashboard</a>
-							<ul class="dropdown-nav">
-								<li><a href="dashboard.html">Dashboard</a></li>
-								<li><a href="dashboard-messages.html">Messages</a></li>
-								<li><a href="dashboard-bookmarks.html">Bookmarks</a></li>
-								<li><a href="dashboard-reviews.html">Reviews</a></li>
-								<li><a href="dashboard-manage-jobs.html">Jobs</a>
-									<ul class="dropdown-nav">
-										<li><a href="dashboard-manage-jobs.html">Manage Jobs</a></li>
-										<li><a href="dashboard-manage-candidates.html">Manage Candidates</a></li>
-										<li><a href="dashboard-post-a-job.html">Post a Job</a></li>
-									</ul>
-								</li>
-								<li><a href="dashboard-manage-tasks.html">Tasks</a>
-									<ul class="dropdown-nav">
-										<li><a href="dashboard-manage-tasks.html">Manage Tasks</a></li>
-										<li><a href="dashboard-manage-bidders.html">Manage Bidders</a></li>
-										<li><a href="dashboard-my-active-bids.html">My Active Bids</a></li>
-										<li><a href="dashboard-post-a-task.html">Post a Task</a></li>
-									</ul>
-								</li>
-								<li><a href="dashboard-settings.html">Settings</a></li>
-							</ul>
-						</li>
-
-						<li><a href="#">Pages</a>
-							<ul class="dropdown-nav">
-								<li><a href="pages-blog.html">Blog</a></li>
-								<li><a href="pages-pricing-plans.html">Pricing Plans</a></li>
-								<li><a href="pages-checkout-page.html">Checkout Page</a></li>
-								<li><a href="pages-invoice-template.html">Invoice Template</a></li>
-								<li><a href="pages-user-interface-elements.html">User Interface Elements</a></li>
-								<li><a href="pages-icons-cheatsheet.html">Icons Cheatsheet</a></li>
-								<li><a href="pages-login.html">Login & Register</a></li>
-								<li><a href="pages-404.html">404 Page</a></li>
-								<li><a href="pages-contact.html">Contact</a></li>
-							</ul>
-						</li>
-						<li><a href="{{ path('app_contact') }}" class="current">Contact</a>
-							
-						</li>
-					</ul>
-				</nav>
+			
 				<div class="clearfix"></div>
 				<!-- Main Navigation / End -->
 				
@@ -154,7 +74,7 @@
 							<span class="hamburger-inner"></span>
 						</span>
 					</span>
-					<span class="trigger-title">Dashboard Navigation</span>
+					<span class="trigger-title">{% trans %}Dashboard Navigation {% endtrans %}</span>
 				</a>
 				
 				<!-- Navigation -->
@@ -162,27 +82,27 @@
 					<div class="dashboard-nav-inner">
 
 						<ul data-submenu-title="Start">
-							<li ><a href="{{ path('admin_count') }}"><i class="icon-material-outline-dashboard"></i> Dashboard</a></li>
-							<li><a href="{{ path('admin_addAdmin') }}"><i class="icon-material-outline-add"></i> Add Admin </a></li>
-							<li><a href="#"><i class="icon-material-outline-highlight-off"></i> Blocked</a>
+							<li ><a href="{{ path('admin_count') }}"><i class="icon-material-outline-dashboard"></i>{% trans %} Dashboard {% endtrans %}</a></li>
+							<li><a href="{{ path('admin_addAdmin') }}"><i class="icon-material-outline-add"></i>{% trans %} Add Admin {% endtrans %} </a></li>
+							<li><a href="#"><i class="icon-material-outline-highlight-off"></i>{% trans %} Blocked {% endtrans %}</a>
 							<ul>
-									<li><a href="{{ path('admin_listBlockedUser') }}"><i class="icon-material-outline-assignment"></i>  User</a></li>
-								<li><a href="{{ path('admin_listBlockedOffre') }}"><i class="icon-material-outline-assignment"></i> Offre d'emploi</a></li>
+									<li><a href="{{ path('admin_listBlockedUser') }}"><i class="icon-material-outline-assignment"></i> {% trans %} User {% endtrans %}</a></li>
+								<li><a href="{{ path('admin_listBlockedOffre') }}"><i class="icon-material-outline-assignment"></i>{% trans %} Job offer {% endtrans %}</a></li>
 									
 								</ul>	
-							<li><a href="{{path('admin_listAcceptedOffre')}}"><i class="icon-material-outline-check-circle"></i> Accept Offre</a></li>
-							<li><a href="#"><i class="icon-material-outline-add"></i> News</a>
+							<li><a href="{{path('admin_listAcceptedOffre')}}"><i class="icon-material-outline-check-circle"></i> Accept job offer</a></li>
+							<li><a href="#"><i class="icon-material-outline-add"></i>{% trans %} News {% endtrans %}</a>
 							<ul>
-									<li><a href="{{ path('admin_addNews') }}"><i class="icon-material-outline-assignment"></i>  Add News</a></li>
-								<li><a href="{{ path('admin_ListNews') }}"><i class="icon-material-outline-assignment"></i> List News </a></li>
+									<li><a href="{{ path('admin_addNews') }}"><i class="icon-material-outline-assignment"></i> {% trans %} Add News {% endtrans %}</a></li>
+								<li><a href="{{ path('admin_ListNews') }}"><i class="icon-material-outline-assignment"></i>{% trans %} List News {% endtrans %} </a></li>
 									
 								</ul>	
 						</ul>
 					
 
 						<ul data-submenu-title="Account">
-							<li><a href="dashboard-settings.html"><i class="icon-material-outline-settings"></i> Settings</a></li>
-							<li><a href="{{path('app_logout')}}"><i class="icon-material-outline-power-settings-new"></i> Logout</a></li>
+							<li><a href="dashboard-settings.html"><i class="icon-material-outline-settings"></i>{% trans %} Settings {% endtrans %}</a></li>
+							<li><a href="{{path('app_logout')}}"><i class="icon-material-outline-power-settings-new"></i> {% trans %}Logout {% endtrans %}</a></li>
 						</ul>
 						
 					</div>
@@ -208,7 +128,7 @@
 			<div class="dashboard-footer-spacer"></div>
 			<div class="small-footer margin-top-15">
 				<div class="small-footer-copyrights">
-					© 2018 <strong>Hireo</strong>. All Rights Reserved.
+					© {{ "now"|date("Y") }} <strong>Internisa</strong>.{% trans %} All Rights Reserved. {% endtrans %}
 				</div>
 				<ul class="footer-social-links">
 					<li>

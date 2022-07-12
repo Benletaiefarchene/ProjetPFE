@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class OffreEmploi
 {
     /**
+     * groups("OffreEmploi")
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -73,7 +74,7 @@ class OffreEmploi
     private $blocked;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="integer" , options={"default" : -1})
      */
     private $accepted;
 
@@ -81,6 +82,11 @@ class OffreEmploi
      * @ORM\OneToMany(targetEntity=Candidature::class, mappedBy="job")
      */
     private $candidatures;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $Message;
 
     public function __construct()
     {
@@ -227,12 +233,12 @@ class OffreEmploi
         return $this;
     }
 
-    public function getAccepted(): ?bool
+    public function getAccepted(): ?int
     {
         return $this->accepted;
     }
 
-    public function setAccepted(bool $accepted): self
+    public function setAccepted(int $accepted): self
     {
         $this->accepted = $accepted;
 
@@ -268,4 +274,17 @@ class OffreEmploi
 
         return $this;
     }
+
+    public function getMessage(): ?string
+    {
+        return $this->Message;
+    }
+
+    public function setMessage(?string $Message): self
+    {
+        $this->Message = $Message;
+
+        return $this;
+    }
+    
 }

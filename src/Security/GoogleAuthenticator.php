@@ -3,26 +3,23 @@ namespace App\Security;
 
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
-use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
-use KnpU\OAuth2ClientBundle\Security\Authenticator\SocialAuthenticator;
 use League\OAuth2\Client\Provider\GoogleUser;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
+use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
+use KnpU\OAuth2ClientBundle\Security\Authenticator\SocialAuthenticator;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 
-/**
- * Created by IntelliJ IDEA.
- * User: mert
- * Date: 12/18/17
- * Time: 12:00 PM
- */
+
 class GoogleAuthenticator extends SocialAuthenticator
 {
     private $clientRegistry;
     private $em;
     private $router;
+    
 
     public function __construct(ClientRegistry $clientRegistry, EntityManagerInterface $em, RouterInterface $router)
     {
@@ -33,7 +30,7 @@ class GoogleAuthenticator extends SocialAuthenticator
 
     public function supports(Request $request)
     {
-        return $request->getPathInfo() == '/connect/google/check' && $request->isMethod('GET');
+        return $request->getPathInfo() == '/connect/google/check'   && $request->isMethod('GET');
     }
 
     public function getCredentials(Request $request)
@@ -52,12 +49,14 @@ class GoogleAuthenticator extends SocialAuthenticator
         $user = $this->em->getRepository('App:User')
             ->findOneBy(['email' => $email]);
         if (!$user) {
+          
             $user = new User();
+            
             $user->setEmail($googleUser->getEmail());
             $user->setPrenom($googleUser->getFIRSTName());
             $user->setNom($googleUser->getLASTName());
             $user->setCreatedAt(new \DateTime(date('Y-m-d H:i:s')));
-            $user->setExist(1);
+            $user->setExist(0);
             $user->setBlocked(0);
             $this->em->persist($user);
             $this->em->flush();

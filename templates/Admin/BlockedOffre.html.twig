@@ -1,5 +1,5 @@
 {% extends 'dashboard.html.twig' %}
-
+{% block title %}{% trans %}Block a Job Offers {% endtrans %}{% endblock %}
 {% block body %}
 
 
@@ -41,9 +41,9 @@
 							
                              {% if offre.blocked == true %}
 											
-                                        <a href="{{ path('admin_blockedOffre',{'id': offre.id}) }}" class="button full-width button-sliding-icon ripple-effect margin-top-10">Unblocked<i class="icon-material-outline-arrow-right-alt"></i></a>
+                                        <a href="{{ path('admin_blockedOffre',{'id': offre.id}) }}" class="button full-width button-sliding-icon ripple-effect margin-top-10">{% trans %}Unblocked {% endtrans %}<i class="icon-material-outline-arrow-right-alt"></i></a>
                                     {% else %}
-                                        <a href="{{ path('admin_blockedOffre',{'id': offre.id}) }}" class="button full-width button-sliding-icon ripple-effect margin-top-10">Blocked<i class="icon-material-outline-arrow-right-alt"></i></a>
+                                        <a href="{{ path('admin_blockedOffre',{'id': offre.id}) }}" class="button full-width button-sliding-icon ripple-effect margin-top-10">{% trans %}Blocked {% endtrans %}<i class="icon-material-outline-arrow-right-alt"></i></a>
                                     {% endif %}
                            
 							

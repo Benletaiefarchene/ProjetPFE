@@ -1,14 +1,62 @@
-
 {% extends 'base.html.twig' %}
-	
-{% block title %}List Offre
+
+{% block title %}{% trans %}  List Job offer {% endtrans %}
 {% endblock %}
-	{% block header %}
+{% block header %}
 			{% if is_granted('ROLE_CANDIDAT') %}
 
 
 					<!-- User Menu -->
-				<div class="header-widget">
+					{% if app.request.locale == "ar" %}
+						<div class="header-widget" style="margin-right: 1000px;margin-top: -82px;">
+					{% for can in can %}
+							
+						{% if app.token.user.id == can.user.id %}
+							<!-- Messages -->
+						<div class="header-notifications user-menu">
+							<div class="header-notifications-trigger">
+								<a href="#">
+									<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.CV.photo ) }}" alt=""></div>
+										
+								</a>
+							</div>
+						
+							<!-- Dropdown -->
+								<div class="header-notifications-dropdown">
+									<ul class="user-menu-small-nav" style="text-align: right;">
+									<div class="user-status">
+
+								<!-- User Name / Avatar -->
+								<div class="user-details">
+									<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.CV.photo ) }}" alt=""></div>
+									<div class="user-name">
+											
+											<span>{{app.token.user.nom}}</span>
+										</div>
+								</div>
+								</div>
+									
+										<li>
+											<a href="{{path('detailedCV',{'id': can.id})}}">
+												<i class="icon-material-outline-settings"></i>
+											{% trans %}	Settings {% endtrans %}</a>
+												
+										</li>
+										<li>
+											<a href="{{path('app_logout')}}">
+												<i class="icon-material-outline-power-settings-new"></i>
+											{% trans %}	Logout {% endtrans %}</a>
+										</li>
+									</ul>
+
+								</div>
+						</div>
+					
+			{% endif %}
+					{% endfor %}
+		</div>
+					{% else %}
+				<div class="header-widget" style="position: absolute;">
 					{% for can in can %}
 							
 						{% if app.token.user.id == can.user.id %}
@@ -39,13 +87,13 @@
 										<li>
 											<a href="{{path('detailedCV',{'id': can.id})}}">
 												<i class="icon-material-outline-settings"></i>
-												Settings</a>
+											{% trans %}	Settings {% endtrans %}</a>
 												
 										</li>
 										<li>
 											<a href="{{path('app_logout')}}">
 												<i class="icon-material-outline-power-settings-new"></i>
-												Logout</a>
+											{% trans %}	Logout {% endtrans %}</a>
 										</li>
 									</ul>
 
@@ -56,10 +104,68 @@
 					{% endfor %}
 		</div>
 		<!-- User Menu / End -->
+		{% endif %}
 	{% elseif is_granted('ROLE_RECRUTEUR') %}
 
 		<!-- User Menu -->
-		<div class="header-widget">
+			{% if app.request.locale == "ar" %}
+<div class="header-widget" style="margin-right: 1000px;margin-top: -82px;">
+			{% for rec in rec %}
+							
+				{% if app.token.user.id == rec.user.id %}
+			<!-- Messages -->
+			<div class="header-notifications user-menu">
+						<div class="header-notifications-trigger">
+						
+							<a href="#">
+								<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ rec.photo ) }}" alt=""></div>
+							</a>
+							
+						</div>
+					
+				<!-- Dropdown -->
+				<div class="header-notifications-dropdown">
+
+					<!-- User Status -->
+					<div
+						class="user-status">
+
+						<!-- User Name / Avatar -->
+						<div class="user-details">
+						
+							<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ rec.photo ) }}" alt=""></div>
+						
+							<div class="user-name">
+								{{app.token.user.nom}}
+								<span></span>
+							</div>
+						</div>
+
+					</div>
+
+					<ul class="user-menu-small-nav" style="text-align: right;">
+					
+						<li>
+							<a href="{{path('detailedRec',{'id': rec.id})}}">
+								<i class="icon-material-outline-settings"></i>
+							{% trans %}	Settings {% endtrans %}</a>
+						</li>
+						<li>
+							<a href="{{path('app_logout')}}">
+								<i class="icon-material-outline-power-settings-new"></i>
+							{% trans %}	Logout {% endtrans %}</a>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+			{% endif %}
+					{% endfor %}
+		</div>
+
+			{% else %}
+				
+		<div class="header-widget" style="position: absolute;">
 			{% for rec in rec %}
 							
 				{% if app.token.user.id == rec.user.id %}
@@ -98,12 +204,12 @@
 						<li>
 							<a href="{{path('detailedRec',{'id': rec.id})}}">
 								<i class="icon-material-outline-settings"></i>
-								Settings</a>
+							{% trans %}	Settings {% endtrans %}</a>
 						</li>
 						<li>
 							<a href="{{path('app_logout')}}">
 								<i class="icon-material-outline-power-settings-new"></i>
-								Logout</a>
+							{% trans %}	Logout {% endtrans %}</a>
 						</li>
 					</ul>
 
@@ -112,187 +218,127 @@
 			{% endif %}
 					{% endfor %}
 		</div>
+		{% endif %}
 		{% elseif is_granted('ROLE_ADMIN') %}
 		<!-- User Menu / End -->
 		{% else %}
-		<div
-			class="header-widget">
+		{% if app.request.locale == "ar" %}
+		<div class="trans-login">
 			<div class="connect" style="margin-right: -70px;">
 				<a href="{{ path('app_login') }}" class="connect">
-					<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-12" style="width: 120px;">Connexion<i class="icon-material-outline-arrow-right-alt"></i>
+					<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-12" style="width: 140px;">{% trans %} Login {% endtrans %}<i class="icon-material-outline-arrow-right-alt"></i>
 					</button>
 				</a>
 			</div>
 	
 	
 		</div>
+		{% else %}
+		<div class="header-widget" style="position: absolute;">
+			<div class="connect" style="margin-right: -70px;">
+				<a href="{{ path('app_login') }}" class="connect">
+					<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-12" style="width: 120px;">{% trans %} Login {% endtrans %}<i class="icon-material-outline-arrow-right-alt"></i>
+					</button>
+				</a>
+			</div>
+	
+	
+		</div>
+		{% endif %}
 	{% endif %}
 	
 	</br>
 	</br>
 {% endblock %}
-
 {% block body %}
-</br></br>
-	{# {% if is_granted('ROLE_CANDIDAT') %} #}
-	<!-- Page Content
-					================================================== -->
-	<div class="container">
-		<div class="row"></br>
-	
+</br>
+</br>
+
+<div class="container">
+	<div class="row"></br>
 		<div class="col-md-4 col-lg-4">
-		</br></br>
-				{{ form_start(form , {attr:{class:'filter'} } ) }}
-
-
-			<div class="sidebar-container">
-			
-
-				<!-- Location -->
-				<div class="sidebar-widget">
-					<h3>Search</h3>
-					<div class="input-with-icon">
-						<div id="autocomplete-container">
-							{{form_row(form.q)}}
+			</br></br>{{ form_start(form , {attr:{class:'filter'} } ) }}
+				<div class="sidebar-container"><!-- Location -->
+					<div class="sidebar-widget">
+						<h3>{% trans %} Search {% endtrans %}</h3>
+						<div class="input-with-icon">
+							<div id="autocomplete-container">
+								{{form_row(form.q)}}
+							</div>
 						</div>
-
-					</div>
-				{# {{dump(form)}} #}
-						
-
-					<!-- Job Types -->
-					
-						<h3>Job Type</h3>
-
+							<h3>{% trans %}  Job Type {% endtrans %}</h3>
 						<div class="switches-list">
 							<div class="switch-container">
-						
+
 								{{form_row(form.type )}}
-							
+
+							</div>
+						</div>
+							<h3>{% trans %} Salary {% endtrans %}</h3>
+								{{form_row(form.min)}}{{form_row(form.max)}}
+									<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-10">{% trans %}  Search {% endtrans %}<i class="icon-material-outline-arrow-right-alt"></i></button>
+					</div>
+				</div>
+					{{form_end(form)}}</br></br></br>
+		</div>
+		
+			<div class="col-xl-9 col-lg-8 content-left-offset">
+				{% for posts in posts %}
+					<div class="listings-container margin-top-35">
+							{% if is_granted('ROLE_CANDIDAT') %}
+								<a href="{{ path('detailedOff',{'id': posts.id}) }}" class="job-listing">
+							{% elseif is_granted('ROLE_RECRUTEUR') %}
+								<a href="{{ path('detailedOff',{'id': posts.id}) }}" class="job-listing">
+							{% else %}
+								<a href="{{ path('detailedOff',{'id': posts.id}) }}" class="job-listing">
+							{% endif %}<!-- Job Listing --><!-- Job Listing Details -->
+						<div class="job-listing-details">
+
+							<div class="job-listing-company-logo">
+								<img src="{{ asset ('uploads/images/' ~ posts.recruteur.photo ) }}" alt="">
 							</div>
 
 
+							<div class="job-listing-description">
+
+								<h4 class="job-listing-company">{{posts.recruteur.user.nom	}}
+
+									<span class="verified-badge" title="Verified Employer" data-tippy-placement="top"></span>
+								</h4>
+									<h3 class="job-listing-title">{{posts.titre}}</h3>
+									<p class="desc">{{posts.description}}</p>
+							</div>
 						</div>
+							<div class="job-listing-footer">
+								<ul>
+									<li>
+										<i class="icon-material-outline-business"></i>
+										{{posts.recruteur.ville}}
+									</li>
 
-
-					<!-- Salary -->
-					
-						<h3>Salary</h3>
-						
-							{{form_row(form.min)}}
-					
-					
-							{{form_row(form.max)}}
-					
-						<!-- Range Slider -->
-						<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-10">Search<i class="icon-material-outline-arrow-right-alt"></i>
-								</button>
-						{# <input class="range-slider" type="text" value="" data-slider-currency="$" data-slider-min="1500" data-slider-max="15000" data-slider-step="100" data-slider-value="[1500,15000]"/> #}
-					</div>
-				
-
-</div>
-{{form_end(form)}}
-</br>
-</br></br>
-</div>
-
-{# {% endif %} #}
-<div class="col-xl-9 col-lg-8 content-left-offset">
-{% for posts in posts %}
-{# {% if posts.type[0] == "télétravail" %} #}
-<div class="listings-container margin-top-35">
-
-	{% if is_granted('ROLE_CANDIDAT') %}
-		<a href="{{ path('detailedOff',{'id': posts.id}) }}" class="job-listing">
-		{% elseif is_granted('ROLE_RECRUTEUR') %}
-			<a href="{{ path('detailedOff',{'id': posts.id}) }}" class="job-listing">
-			{% else %}
-				<a href="{{ path('detailedOff',{'id': posts.id}) }}" class="job-listing">
-				{% endif %}
-				<!-- Job Listing -->
-
-
-				<!-- Job Listing Details -->
-				<div
-					class="job-listing-details">
-					<!-- Logo -->
-					<div class="job-listing-company-logo">
-						<img src="{{ asset ('uploads/images/' ~ posts.recruteur.photo ) }}" alt="">
-					</div>
-
-					<!-- Details -->
-					<div class="job-listing-description">
-
-						<h4 class="job-listing-company">{{posts.recruteur.user.nom	}}
-
-							<span class="verified-badge" title="Verified Employer" data-tippy-placement="top"></span>
-						</h4>
-						<h3 class="job-listing-title">{{posts.titre}}</h3>
-						<p class="job-listing-text">{{posts.description}}</p>
-					</div>
-
-
-				
-
-				</div>
-
-				<!-- Job Listing Footer -->
-				<div class="job-listing-footer">
-					<ul>
-							<li>
-							<i class="icon-material-outline-business"></i>
-							{{posts.recruteur.ville}}</li>
-
-							<li>
-							<i class="icon-material-outline-location-on"></i>
-							{{posts.recruteur.pays}}</li>
-							<li>
-							<i class="icon-material-outline-account-balance-wallet"></i>
-							{{posts.salaire}}
-							$</li>
-							{# <div class="validorblock" style="text-align: right;margin-top: -30px;;">
-								<li>
-									
-										{% if date('now')|date('d-m-Y ') > posts.DateFinOffre|date('d-m-Y ') %}
-											<li>
-												<h5>
-													<span class="label label-success">Valide</span>
-												</h5>
-											</li>
-										{% elseif date('now')|date('d-m-Y ') < posts.DateFinOffre|date('d-m-Y ') %}
-											<li>
-												<h5>
-													<span class="label label-danger">blocked</span>
-												</h5>
-											</li>
-										{% endif %}
-									
-								</li>
-					</div> #}
-
-					</ul>
-				</div>
-			</a>
-			</div>
-			
-			{% endfor %}
-			</div>	</div>	</div>	</div>	</div>	
-			 {{ knp_pagination_render(posts) }}	
-</div>	
-</div>	</div>	</div>	
-			<!-- Pagination -->
+									<li>
+										<i class="icon-material-outline-location-on"></i>
+										{{posts.recruteur.pays}}
+									</li>
+									<li>
+										<i class="icon-material-outline-account-balance-wallet"></i>
+										{{posts.salaire}}
+										$</li>
 	
-							
-						{# <div class="col-md-12">
-					<!-- Pagination -->
-				<div class="pagination-container margin-top-30 margin-bottom-60" style="text-align: center;">
+
+								</ul>
+							</div>
+						</a>
+						</div>
+					
+				{% endfor %}
 			
-				</div> #}
-			
-	<!-- Pagination / End -->
-</div></div>
-		
-		{# {% endif %} #}
-	
-</div><!-- Dashboard Content / End -->{% endblock %}
+				<div class="col-md-12">
+					<div class="pagination-container margin-top-30 margin-bottom-60" style="text-align: center;">
+						{{ knp_pagination_render(posts) }}
+					</div>
+				</div>
+		</div>	
+</div>
+</div>
+{% endblock %}

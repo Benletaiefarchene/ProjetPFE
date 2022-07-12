@@ -5,80 +5,92 @@
    
 
 
-<table>
+<table style="width:70%;">
+   <tbody>
 <tr>
-<td bgcolor="#d5d5d7" style="width:25%;text-align:center;"> 
-<div  > <!--start of the container for the left column-->
-        <div   > 
-        <img src="{{ asset('uploads/images/' ~ cv.CV.photo) }}" alt="Avatar" width=75% style="border-radius:50%;"  >
-    
+    <td bgcolor="#d5d5d7" style="width:25%;text-align:center;"> 
+        <!--start of the container for the left column-->
+           
+                 {# <img src="{{ asset('uploads/images/' ~ cv.CV.photo) }}" alt="Avatar" style="border-radius:50%; "  width="200" height="200">  #}
+           <img src="{{html}}" alt="Avatar" style="border-radius:50%;"  width="200" height="200">
         
-       
-     </div>
-</td>
+    </td>
 
-<td bgcolor="#d5d5d7" > <div > <!--start of the container for the right column-->
-    
-              <div  > <!-- Resume / About Me -->
-                      <h1 style="text-align:center;">     {{ cv.User.nom }} <br> 	{{ cv.User.prenom }} <br> </h1> 
-       
-              </div> <!-- End of Resume / About Me -->
+    <td bgcolor="#d5d5d7"  > 
+
     
            
-</div></td>
+                      <h1 style="text-align:center;">     {{ cv["0"].User.nom }} <br> 	{{ cv["0"].User.prenom }} <br> </h1> 
+       
+           
+    
+           
+       
+    </td>
+ 
+   
+     
+                      
+      
+   
 </tr>
 <tr>
-<td style="width:25%; background-color:#c0d8de">
+    <td style="width:25%; background-color:#c0d8de">
 
- <div > <!--left column bottom - contact details & skills -->
-         <br>
-         <h2  style="text-align:center;"> CONTACT </h2> <hr style="width:100%;text-align:center;margin-left:0">
-         <p  style="text-align:center;">{{ cv.CV.email }}</p> <hr style="width:100%;text-align:center;margin-left:0">
-         <p  style="text-align:center;">{{ cv.CV.datenaissance|date('d-m-Y ') }} </p> <hr style="width:100%;text-align:center;margin-left:0">
-         <p  style="text-align:center;"> {{ cv.CV.pays }} , {{ cv.CV.ville }} </p> <hr style="width:100%;text-align:center;margin-left:0"> <br>
-         
-        <h2  style="text-align:center;"> COMPETANCE </h2>
-        {% for com in Competances %}
-            <div style="text-align:center;"> 	{{ com.Competance }} </div>
-           {% endfor %}
+       
+            <br>
+            <h2  style="text-align:center;">{% trans %}  CONTACT {% endtrans %} </h2> <hr style="width:100%;text-align:center;margin-left:0">
+            <p  style="text-align:center;">{{ cv["0"].CV.email }}</p> <hr style="width:100%;text-align:center;margin-left:0">
+            <p  style="text-align:center;">{{ cv["0"].CV.datenaissance|date('d-m-Y ') }} </p> <hr style="width:100%;text-align:center;margin-left:0">
+            <p  style="text-align:center;"> {{ cv["0"].CV.pays }} , {{ cv["0"].CV.ville }} </p> <hr style="width:100%;text-align:center;margin-left:0"> <br>
+            
+            <h2  style="text-align:center;">{% trans %}  COMPETANCE {% endtrans %}</h2>
+                {% for com in Competances %}
+              
+                    <div style="text-align:center;"> 	{{ com.Competance }}
+                    </div>
+                   
+                {% endfor %}
          
       
-      </div>
+      
 
-</td>
-<td >
- <div style="margin-left:40px;margin-top:10px;">
-                <h2 > EXPERIENCE </h2>
+    </td>
+    <td >
+            <div style="margin-left:40px;margin-top:10px;">
+                <h2 >{% trans %}  EXPERIENCE {% endtrans %} </h2>
             </div> <!-- work experience header -->
-     {% for Exp in Experiences %}
-        <div style="margin-left:40px;margin-top:0px;"> <!-- work experience container -->
-     
-                <h4 style="border:1px solid black;border-radius:50px; background-color:#c0d8de; margin-right:800px;text-align:center;" > {{ Exp.Datedebut|date('d-m-Y ') }} </h4>
-        
-       
+             {% for Exp in Experiences %}
+                <div style="margin-left:40px;margin-top:0px;"> <!-- work experience container -->
             
-           <div style="margin-left:120px;">
-              <h3> {{ Exp.Titre }} <h3>
-              <h4> {{ Exp.Lieu }} </h4>
-           </div> <!-- job description container -->         
-        </div> <!-- work experience header (year & title) container -->
+                        <h4 style="border:1px solid black;border-radius:50px; background-color:#c0d8de; margin-right:800px;text-align:left;" > {{ Exp.Datedebut|date('d-m-Y ') }} / {{ Exp.Datefin|date('d-m-Y ') }} </h4>
+                
+                </div> <!-- work experience header (year & title) container -->
+                    
+                    <div style="margin-left:70px;">
+                        <h3> {{ Exp.Titre }} </h3>
+                          </div>
+                         <div style="margin-left:85px;">
+                        <h4> {{ Exp.Lieu }} </h4>
+                    </div> <!-- job description container -->         
+              
      
           
 
-             <div style="margin-left:160px;"> <p>{{ Exp.Description }}</p></div>
-        
-        
-        <div style="margin-left:40px;margin-top:0px;"> 
-             <h4 style="border:1px solid black;border-radius:50px; background-color:#c0d8de; margin-right:800px;text-align:center;"> {{ Exp.Datefin|date('d-m-Y ') }} </h4>
-           </div> <!-- years container -->   
-       <hr>
+                    <div style="margin-left:100px;"> <p>{{ Exp.Description }}</p></div>
+                
+                
+                    <div style="margin-left:40px;margin-top:0px;"> 
+                        
+                    </div> <!-- years container -->   
+                    <hr>
     
-     {% endfor %}
+            {% endfor %}
      
- </div> <!-- end of the flex container -->
-</td>
+        
+    </td>
 </tr>
-       
+          </tbody>
 </table>
 
  </page_header>					

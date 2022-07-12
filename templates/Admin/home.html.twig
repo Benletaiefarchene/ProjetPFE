@@ -1,4 +1,5 @@
 {% extends 'dashboard.html.twig' %}
+{% block title %} {% trans %}Home {% endtrans %} {% endblock %}
 {% block body %}
 <!-- Dashboard Content
 <div id="wrapper">
@@ -10,14 +11,15 @@
 			
 			<!-- Dashboard Headline -->
 			<div class="dashboard-headline">
-				<h3>Hello , {{app.user.nom}}</h3>
-				<span>We are glad to see you again!</span>
+				<h3> {% trans %}Hello ,{% endtrans %} {{app.user.nom}}   </h3>
+			
+				<span> {% trans %}We are glad to see you again! {% endtrans %}</span>
 
 				<!-- Breadcrumbs -->
 				<nav id="breadcrumbs" class="dark">
 					<ul>
-						<li><a href="#">Home</a></li>
-						<li>Dashboard</li>
+						<li><a href="#">{% trans %}Home {% endtrans %}</a></li>
+						<li>{% trans %}Dashboard {% endtrans %}</li>
 					</ul>
 				</nav>
 			</div>
@@ -26,18 +28,18 @@
 			<div class="fun-facts-container">
 				<div class="fun-fact" data-fun-fact-color="#36bd78">
 					<div class="fun-fact-text">
-						<span>All users</span>
+						<span>{% trans %}All users {% endtrans %}</span>
 						<h4>{{user}}</h4>
-						<span>Users Blocked</span>
+						<span>{% trans %}Users Blocked {% endtrans %}</span>
 						<h4>{{userblock}}</h4>
 					</div>
 					<div class="fun-fact-icon"><i class="icon-feather-users"></i></div>
 				</div>
 				<div class="fun-fact" data-fun-fact-color="#b81b7f">
 					<div class="fun-fact-text">
-						<span>All Offres</span>
+						<span>{% trans %}All Job Offers {% endtrans %}</span>
 						<h4>{{offre}}</h4>
-						<span>Offres Accepted</span>
+						<span>{% trans %}Job Offers Accepted {% endtrans %}</span>
 						<h4>{{offreAcc}}</h4>
 					</div>
 					<div class="fun-fact-icon"><i class="icon-material-outline-business-center"></i></div>
@@ -47,7 +49,7 @@
 				<!-- Last one has to be hidden below 1600px, sorry :( -->
 				<div class="fun-fact" data-fun-fact-color="#2a41e6">
 					<div class="fun-fact-text">
-						<span>This Month Views</span>
+						<span>{% trans %}This Month Views {% endtrans %}</span>
 						<h4>987</h4>
 					</div>
 					<div class="fun-fact-icon"><i class="icon-feather-trending-up"></i></div>
@@ -57,14 +59,14 @@
             <div class="fun-facts-container">
             	<div class="fun-fact" data-fun-fact-color="#efa80f">
 					<div class="fun-fact-text">
-						<span>Employers</span>
+						<span>{% trans %}Employers {% endtrans %}</span>
 						<h4>{{recruteur}}</h4>
 					</div>
 					<div class="fun-fact-icon"><i class="icon-material-outline-rate-review"></i></div>
 				</div>
 			 <div class="fun-fact" data-fun-fact-color="#efa80f">
 					<div class="fun-fact-text">
-					  <span>Appliants</span>
+					  <span>{% trans %}Appliants {% endtrans %}</span>
 						<h4>{{candidat}}</h4>
 					</div>
 					<div class="fun-fact-icon"><i class="icon-material-outline-rate-review"></i></div>
@@ -73,14 +75,142 @@
 				<!-- Last one has to be hidden below 1600px, sorry :( -->
 				<div class="fun-fact" data-fun-fact-color="#2a41e6">
 					<div class="fun-fact-text">
-						<span>This Month Views</span>
-						<h4>987</h4>
+						<span>{% trans %}This Month Views {% endtrans %}</span>
+						<h4>{% trans %}987 {% endtrans %}</h4>
 					</div>
 					<div class="fun-fact-icon"><i class="icon-feather-trending-up"></i></div>
 				</div>
             </div>
-		
+			<stylesheet>
+				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha512-/zs32ZEJh+/EO2N1b0PEdoA10JkdC3zJ8L5FTiQu82LR9S/rOQNfQN7U59U9BC12swNeRAz3HSzIL2vpp4fv3w==" crossorigin="anonymous">
+			
+			</stylesheet>
+			<style>
+			    * {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+      }
+   
+    
+      .chartCard {
+        width: 50vw;
+        height: calc(100vh - 40px);
+       
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .chartBox {
+        width: 700px;
+        padding: 20px;
+        border-radius: 20px;
+        border: solid 3px rgba(175, 61, 68, 1);
+        background: white;
+      }
+			</style>
 
+
+ <div class="chartCard">
+      <div class="chartBox">
+        <canvas id="user"></canvas>
+      </div>
+    </div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
+		<script>
+
+    let user = document.querySelector("#user")
+    let annGraph = new Chart(user, {
+        type: "line",
+      data: {
+             labels: ["Janvier {{da |date("Y")}}","Février {{da |date("Y")}}","Mars {{da |date("Y")}}","Avril {{da |date("Y")}}","Mai {{da |date("Y")}}","Juin {{da |date("Y")}}","Juillet {{da |date("Y")}}","Aout {{da |date("Y")}}","Septembre {{da |date("Y")}}","Ocrobre {{da |date("Y")}}","Nouvembre {{da |date("Y")}}","Décembre {{da |date("Y")}}"],
+            
+			datasets: [{
+                label: "Nombre des offres ajouter par mois",
+                data: ["{{jan}}","{{fev}}","{{mar}}","{{avr}}","{{mai}}","{{juin}}","{{juil}}","{{aou}}","{{sep}}","{{oct}}","{{nouv}}","{{dec}}"],
+				backgroundColor: [
+          			'rgba(255,0,0,0.0)',
+					'rgba(255,0,0,0.0)',
+					'rgba(255,0,0,0.0)',
+					'rgba(255,0,0,0.0)',
+					'rgba(255,0,0,0.0)',
+					'rgba(255,0,0,0.0)',
+					'rgba(255,0,0,0.0)',
+					'rgba(255,0,0,0.0)',
+					'rgba(255,0,0,0.0)',
+					'rgba(255,0,0,0.0)',
+					'rgba(255,0,0,0.0)',
+					'rgba(255,0,0,0.0)'
+         
+          
+        ],
+        borderColor: [
+           	'rgba(54, 162, 235, 1)',
+		    'rgba(54, 162, 235, 1)',
+			'rgba(54, 162, 235, 1)',
+			'rgba(54, 162, 235, 1)',
+			'rgba(54, 162, 235, 1)',
+			'rgba(54, 162, 235, 1)',
+			'rgba(54, 162, 235, 1)',
+			'rgba(54, 162, 235, 1)',
+			'rgba(54, 162, 235, 1)',
+			'rgba(54, 162, 235, 1)',
+			'rgba(54, 162, 235, 1)',
+			'rgba(54, 162, 235, 1)'
+        
+        ],
+            },
+			  {label: "Nombre des Utilisateurs inscrit par mois",
+                data: ["{{jan1}}","{{fev1}}","{{mar1}}","{{avr1}}","{{mai1}}","{{juin1}}","{{juil1}}","{{aou1}}","{{sep1}}","{{oct1}}","{{nouv1}}","{{dec1}}"],
+		backgroundColor: [
+								'rgba(255,0,0,0.0)',
+					'rgba(255,0,0,0.0)',
+					'rgba(255,0,0,0.0)',
+					'rgba(255,0,0,0.0)',
+					'rgba(255,0,0,0.0)',
+					'rgba(255,0,0,0.0)',
+					'rgba(255,0,0,0.0)',
+					'rgba(255,0,0,0.0)',
+					'rgba(255,0,0,0.0)',
+					'rgba(255,0,0,0.0)',
+					'rgba(255,0,0,0.0)',
+					'rgba(255,0,0,0.0)'
+         
+        ],
+        borderColor: [
+           	'rgba(255, 26, 104, 0.2)',
+		    'rgba(255, 26, 104, 0.2)',
+			'rgba(255, 26, 104, 0.2)',
+			'rgba(255, 26, 104, 0.2)',
+			'rgba(255, 26, 104, 0.2)',
+			'rgba(255, 26, 104, 0.2)',
+			'rgba(255, 26, 104, 0.2)',
+			'rgba(255, 26, 104, 0.2)',
+			'rgba(255, 26, 104, 0.2)',
+			'rgba(255, 26, 104, 0.2)',
+			'rgba(255, 26, 104, 0.2)',
+			'rgba(255, 26, 104, 0.2)'
+        
+        ],
+			}]
+				
+		
+        },
+		
+        options: {
+			responsive: true,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+						stepSize: 1
+                    }
+                }]
+            }
+        }
+    })
+</script>
 		</div>
 	</div>
 	<!-- Dashboard Content / End -->

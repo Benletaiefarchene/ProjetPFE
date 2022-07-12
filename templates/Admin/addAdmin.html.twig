@@ -1,6 +1,6 @@
 {% extends 'dashboard.html.twig' %}
 
-{% block title %}Hello AdminController!{% endblock %}
+{% block title %}{% trans %}Add Admin {% endtrans %} {% endblock %}
 
 {% block body %}
 <div class="container">
@@ -11,7 +11,7 @@
 					class="login-register-page">
 					<!-- Welcome Text -->
 					<div class="welcome-text">
-						<h3 style="font-size: 26px;">Let's create new Admin</h3>
+						<h3 style="font-size: 26px;"> {% trans %} Let's create new Admin{% endtrans %}</h3>
 						
 					</div>
 
@@ -28,7 +28,7 @@
 
 					<div class="submit-field"></div>
 				</div>
-				<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-10">Register<i class="icon-material-outline-arrow-right-alt"></i>
+				<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-10">{% trans %}Register {% endtrans %}<i class="icon-material-outline-arrow-right-alt"></i>
 				</button>
 				{{ form_end(addAdmin) }}
 

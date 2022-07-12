@@ -7,6 +7,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class FormationType extends AbstractType
@@ -15,15 +18,20 @@ class FormationType extends AbstractType
     {
         $builder
             ->add('titre')
-            ->add('lieu_formation')
-            ->add('DateDebut',DateType::class, [
-                'widget' => 'single_text'
-            ])
-            ->add('dureeformation')
-            ->add('price')
             ->add('description',TextareaType::class)
-            
-           
+            ->add('folder',FileType::class , array('data_class'=>null))
+            ->add('Role', ChoiceType::class, [
+                'choices'  => [
+                    'Recruteur' => 0,
+                    'Candidat' => 1,
+                ],
+                'required' => false,
+                'multiple' => false,
+                'expanded' => false,
+                'placeholder'=>false,
+                
+            ])
+            ->add('Submit',SubmitType::class)           
         ;
     }
 

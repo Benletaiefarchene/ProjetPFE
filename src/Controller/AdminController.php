@@ -8,15 +8,20 @@ use App\Form\NewsType;
 use App\Entity\Candidat;
 use App\Entity\Recruteur;
 use App\Form\BlockedType;
+use App\Form\MessageType;
 use App\Form\AddAdminType;
 use App\Entity\OffreEmploi;
+use App\Form\FormationType;
 use App\Entity\Administrateur;
+use App\Entity\OffreFormation;
 use App\Security\UserAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -38,8 +43,60 @@ class AdminController extends AbstractController
             $userblock=$em->getRepository(User::class)->countuserBlocekd();
             $recruteur=$em->getRepository(Recruteur::class)->countRec();
             $candidat=$em->getRepository(Candidat::class)->countCan();
-        
-        
+            $twig = new \DateTime('now');
+
+            $jan=$em->getRepository(OffreEmploi::class)->countNumberOffrePerMonth("01");
+            $jan=$jan['1'];
+            $fev=$em->getRepository(OffreEmploi::class)->countNumberOffrePerMonth("02");
+            $fev=$fev['1'];
+            $mar=$em->getRepository(OffreEmploi::class)->countNumberOffrePerMonth("03");
+            $mar=$mar['1'];
+            $avr=$em->getRepository(OffreEmploi::class)->countNumberOffrePerMonth("04");
+            $avr=$avr['1'];
+            $mai=$em->getRepository(OffreEmploi::class)->countNumberOffrePerMonth("05");
+            $mai=$mai['1'];
+            $juin=$em->getRepository(OffreEmploi::class)->countNumberOffrePerMonth("06");
+            $juin=$juin['1'];
+            $juil=$em->getRepository(OffreEmploi::class)->countNumberOffrePerMonth("07");
+            $juil=$juil['1'];
+            $aou=$em->getRepository(OffreEmploi::class)->countNumberOffrePerMonth("08");
+            $aou=$aou['1'];
+            $sep=$em->getRepository(OffreEmploi::class)->countNumberOffrePerMonth("09");
+            $sep=$sep['1'];
+            $oct=$em->getRepository(OffreEmploi::class)->countNumberOffrePerMonth("10");
+            $oct=$oct['1'];
+            $nouv=$em->getRepository(OffreEmploi::class)->countNumberOffrePerMonth("11");
+            $nouv=$nouv['1'];
+            $dec=$em->getRepository(OffreEmploi::class)->countNumberOffrePerMonth("12");
+            $dec=$dec['1'];
+            // affichage des utilisateurs inscrit par mois
+            $jan1=$em->getRepository(User::class)->countNumberUsersPerMonth("01");
+            $jan1=$jan1['1'];
+            $fev1=$em->getRepository(User::class)->countNumberUsersPerMonth("02");
+            $fev1=$fev1['1'];
+            $mar1=$em->getRepository(User::class)->countNumberUsersPerMonth("03");
+            $mar1=$mar1['1'];
+            $avr1=$em->getRepository(User::class)->countNumberUsersPerMonth("04");
+            $avr1=$avr1['1'];
+            $mai1=$em->getRepository(User::class)->countNumberUsersPerMonth("05");
+            $mai1=$mai1['1'];
+            $juin1=$em->getRepository(User::class)->countNumberUsersPerMonth("06");
+            $juin1=$juin1['1'];
+            $juil1=$em->getRepository(User::class)->countNumberUsersPerMonth("07");
+            $juil1=$juil1['1'];
+            $aou1=$em->getRepository(User::class)->countNumberUsersPerMonth("08");
+            $aou1=$aou1['1'];
+            $sep1=$em->getRepository(User::class)->countNumberUsersPerMonth("09");
+            $sep1=$sep1['1'];
+            $oct1=$em->getRepository(User::class)->countNumberUsersPerMonth("10");
+            $oct1=$oct1['1'];
+            $nouv1=$em->getRepository(User::class)->countNumberUsersPerMonth("11");
+            $nouv1=$nouv1['1'];
+            $dec1=$em->getRepository(User::class)->countNumberUsersPerMonth("12");
+            $dec1=$dec1['1'];
+
+               
+          
             return $this->render('Admin/home.html.twig', array(
                 "offre" =>$offre,
                 "offreAcc"=>$offreAcc,
@@ -47,6 +104,31 @@ class AdminController extends AbstractController
                 "userblock"=>$userblock,
                 "recruteur" =>$recruteur,
                 "candidat" =>$candidat,
+                "da"=>$twig,
+                "jan"=>$jan,
+                "fev"=>$fev,
+                "mar"=>$mar,
+                "avr"=>$avr,
+                "mai"=>$mai,
+                "juin"=>$juin,
+                "juil"=>$juil,
+                "aou"=>$aou,
+                "sep"=>$sep,
+                "oct"=>$oct,
+                "nouv"=>$nouv,
+                "dec"=>$dec,
+                "jan1"=>$jan1,
+                "fev1"=>$fev1,
+                "mar1"=>$mar1,
+                "avr1"=>$avr1,
+                "mai1"=>$mai1,
+                "juin1"=>$juin1,
+                "juil1"=>$juil1,
+                "aou1"=>$aou1,
+                "sep1"=>$sep1,
+                "oct1"=>$oct1,
+                "nouv1"=>$nouv1,
+                "dec1"=>$dec1,
              
             
             ));
@@ -271,21 +353,47 @@ class AdminController extends AbstractController
        
         $offre= $this->getDoctrine()->getRepository(OffreEmploi::class)->find($id);
 
-        if($offre->getAccepted()==true){
-        $accept = false;
-        $offre->setAccepted($accept);
-        $entityManager->persist($offre);
-        $entityManager->flush();
-         }else   {
+    
         $accept = true;
+        $offre->setMessage(null);
         $offre->setAccepted($accept);
         $entityManager->persist($offre);
         $entityManager->flush();
-        }
+      
       
        return $this->redirectToRoute('admin_listAcceptedOffre');
         return $this->render('Admin/AcceptedOffre.html.twig',[
             'offre'=> $offre,
+        ] 
+            
+           
+        );
+    }   
+       /**
+     * IsGranted("ROLE_ADMIN)
+     * @Route("/Message/{id}", name="Message")
+     */
+    public function MessageUnacceptedAction($id,EntityManagerInterface $entityManager,Request $request)
+    {
+       
+        $offre= $this->getDoctrine()->getRepository(OffreEmploi::class)->find($id);
+        $msg = $this->createForm(MessageType::class,$offre);
+        $msg->handleRequest($request);
+        if($msg->isSubmitted() && $msg->isValid()){
+            $accept = false;
+            $offre->setAccepted($accept);
+          
+            $entityManager->persist($offre);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('admin_listAcceptedOffre');
+
+        }
+        
+      
+      
+        return $this->render('Admin/Message.html.twig',[
+            'msg'=> $msg->createView(),
         ] 
             
            
@@ -474,7 +582,83 @@ class AdminController extends AbstractController
           
         ));
 
-    }  
+    } 
+    
+      /**
+     * @Route("/addFormation", name="addFormation")
+     */
+    public function addFormationAction(Request $request){
+        
+        $Formation= new OffreFormation();
+    
+        $em = $this->getDoctrine()->getManager();
+  
+        $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
+        $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
+        $form= $this->createForm(FormationType ::class, $Formation );
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid())
+        { 
+            $file= $Formation->getFolder();
+         
+            $filename = $file->getClientOriginalName();
+            try{
+                $file->move(
+                    $this->getParameter('images_directory'),
+                    $filename
+                );
+            }catch(FileException $e){
+
+            }
+            $Formation->setFolder($filename);
+        
+            $em->persist($Formation);
+            $em->flush();
+            
+         
+        }
+        
+        return $this->render('Admin/addFormation.html.twig', [
+            'Formation' => $form->createView(),
+            "rec"=>$rec,
+            "can"=>$can,
+        ]);
+        
+    }
+
+     /**
+     * @Route("/editFormation/{id}", name="editFormation")
+     */
+    public function editFormationAction(Request $request , $id){
+
+        $Formation= $this->getDoctrine()->getRepository(OffreFormation::class)->find($id);
+        
+        $form=$this->createForm(FormationType::class,$Formation);
+        $form->handleRequest($request);
+        $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
+        $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
+       
+        if($form->isSubmitted()){
+          
+            $em= $this->getDoctrine()->getManager();
+            $em->persist($Formation);
+            $em->flush();
+            //return $this->redirectToRoute('detailed'{$id});
+
+        }
+        return $this->render('Recruteur/editFormation.html.twig', array(
+            
+            "Formation"=> $form->createView(),
+            "rec"=>$rec,
+            "can"=>$can,
+        ));
+
+    }
+
+    
+  
+    
 }
 
 

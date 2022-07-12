@@ -237,12 +237,12 @@ h4 {font-family:"Lato"; font-size: 0.9em; margin:0; font-style: italic; font-wei
      
       <div class="leftRow" id="LeftBottom"> <!--left column bottom - contact details & skills -->
          <br>
-         <h2 class="left"> CONTACT </h2> <hr>
+         <h2 class="left">{% trans %} CONTACT {% endtrans %} </h2> <hr>
          <span class="left">{{ cv.CV.email }}</span> <hr>
          <span class="left">{{ cv.CV.datenaissance|date('d-m-Y ') }} </span> <hr>
          <span class="left"> {{ cv.CV.pays }} , {{ cv.CV.ville }} </span> <hr> <br>
          
-        <h2 class="left"> COMPETANCE </h2>
+        <h2 class="left">{% trans %} SKILLS {% endtrans %} </h2>
         {% for com in Competances %}
             <div class="skills"> 	{{ com.Competance }} </div>
            {% endfor %}
@@ -259,7 +259,7 @@ h4 {font-family:"Lato"; font-size: 0.9em; margin:0; font-style: italic; font-wei
               </div> <!-- End of Resume / About Me -->
     
             <div class="rightRow">
-                <h2 class="right"> EXPERIENCE </h2>
+                <h2 class="right">{% trans %} EXPERIENCE {% endtrans %}</h2>
             </div> <!-- work experience header -->
      {% for Exp in Experiences %}
         <div class="containerHl"> <!-- work experience container -->
@@ -294,7 +294,7 @@ h4 {font-family:"Lato"; font-size: 0.9em; margin:0; font-style: italic; font-wei
 </div>
 <div class="print" style="max-width: 50%;margin-left: 230px;margin-top: 50px;margin-bottom: 70px;">
 
-								<button onclick="generatePDF()" class="button full-width button-sliding-icon ripple-effect margin-top-10">Print<i class="icon-material-outline-arrow-right-alt"></i>
+								<button onclick="generatePDF()" class="button full-width button-sliding-icon ripple-effect margin-top-10">{% trans %} Print {% endtrans %}<i class="icon-material-outline-arrow-right-alt"></i>
 								</button>
                
 							</div>

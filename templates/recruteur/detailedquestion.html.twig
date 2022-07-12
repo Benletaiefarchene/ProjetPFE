@@ -1,12 +1,61 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Training{% endblock %}
-	{% block header %}
+{% block title %}{% trans %} Question {% endtrans %}{% endblock %}
+{% block header %}
 			{% if is_granted('ROLE_CANDIDAT') %}
 
 
 					<!-- User Menu -->
-				<div class="header-widget">
+					{% if app.request.locale == "ar" %}
+						<div class="header-widget" style="margin-right: 1000px;margin-top: -82px;">
+					{% for can in can %}
+							
+						{% if app.token.user.id == can.user.id %}
+							<!-- Messages -->
+						<div class="header-notifications user-menu">
+							<div class="header-notifications-trigger">
+								<a href="#">
+									<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.CV.photo ) }}" alt=""></div>
+										
+								</a>
+							</div>
+						
+							<!-- Dropdown -->
+								<div class="header-notifications-dropdown">
+									<ul class="user-menu-small-nav" style="text-align: right;">
+									<div class="user-status">
+
+								<!-- User Name / Avatar -->
+								<div class="user-details">
+									<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.CV.photo ) }}" alt=""></div>
+									<div class="user-name">
+											
+											<span>{{app.token.user.nom}}</span>
+										</div>
+								</div>
+								</div>
+									
+										<li>
+											<a href="{{path('detailedCV',{'id': can.id})}}">
+												<i class="icon-material-outline-settings"></i>
+											{% trans %}	Settings {% endtrans %}</a>
+												
+										</li>
+										<li>
+											<a href="{{path('app_logout')}}">
+												<i class="icon-material-outline-power-settings-new"></i>
+											{% trans %}	Logout {% endtrans %}</a>
+										</li>
+									</ul>
+
+								</div>
+						</div>
+					
+			{% endif %}
+					{% endfor %}
+		</div>
+					{% else %}
+				<div class="header-widget" style="position: absolute;">
 					{% for can in can %}
 							
 						{% if app.token.user.id == can.user.id %}
@@ -37,13 +86,13 @@
 										<li>
 											<a href="{{path('detailedCV',{'id': can.id})}}">
 												<i class="icon-material-outline-settings"></i>
-												Settings</a>
+											{% trans %}	Settings {% endtrans %}</a>
 												
 										</li>
 										<li>
 											<a href="{{path('app_logout')}}">
 												<i class="icon-material-outline-power-settings-new"></i>
-												Logout</a>
+											{% trans %}	Logout {% endtrans %}</a>
 										</li>
 									</ul>
 
@@ -54,10 +103,68 @@
 					{% endfor %}
 		</div>
 		<!-- User Menu / End -->
+		{% endif %}
 	{% elseif is_granted('ROLE_RECRUTEUR') %}
 
 		<!-- User Menu -->
-		<div class="header-widget">
+			{% if app.request.locale == "ar" %}
+<div class="header-widget" style="margin-right: 1000px;margin-top: -82px;">
+			{% for rec in rec %}
+							
+				{% if app.token.user.id == rec.user.id %}
+			<!-- Messages -->
+			<div class="header-notifications user-menu">
+						<div class="header-notifications-trigger">
+						
+							<a href="#">
+								<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ rec.photo ) }}" alt=""></div>
+							</a>
+							
+						</div>
+					
+				<!-- Dropdown -->
+				<div class="header-notifications-dropdown">
+
+					<!-- User Status -->
+					<div
+						class="user-status">
+
+						<!-- User Name / Avatar -->
+						<div class="user-details">
+						
+							<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ rec.photo ) }}" alt=""></div>
+						
+							<div class="user-name">
+								{{app.token.user.nom}}
+								<span></span>
+							</div>
+						</div>
+
+					</div>
+
+					<ul class="user-menu-small-nav" style="text-align: right;">
+					
+						<li>
+							<a href="{{path('detailedRec',{'id': rec.id})}}">
+								<i class="icon-material-outline-settings"></i>
+							{% trans %}	Settings {% endtrans %}</a>
+						</li>
+						<li>
+							<a href="{{path('app_logout')}}">
+								<i class="icon-material-outline-power-settings-new"></i>
+							{% trans %}	Logout {% endtrans %}</a>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+			{% endif %}
+					{% endfor %}
+		</div>
+
+			{% else %}
+				
+		<div class="header-widget" style="position: absolute;">
 			{% for rec in rec %}
 							
 				{% if app.token.user.id == rec.user.id %}
@@ -96,12 +203,12 @@
 						<li>
 							<a href="{{path('detailedRec',{'id': rec.id})}}">
 								<i class="icon-material-outline-settings"></i>
-								Settings</a>
+							{% trans %}	Settings {% endtrans %}</a>
 						</li>
 						<li>
 							<a href="{{path('app_logout')}}">
 								<i class="icon-material-outline-power-settings-new"></i>
-								Logout</a>
+							{% trans %}	Logout {% endtrans %}</a>
 						</li>
 					</ul>
 
@@ -110,20 +217,33 @@
 			{% endif %}
 					{% endfor %}
 		</div>
+		{% endif %}
 		{% elseif is_granted('ROLE_ADMIN') %}
 		<!-- User Menu / End -->
 		{% else %}
-		<div
-			class="header-widget">
+		{% if app.request.locale == "ar" %}
+		<div class="trans-login">
 			<div class="connect" style="margin-right: -70px;">
 				<a href="{{ path('app_login') }}" class="connect">
-					<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-12" style="width: 120px;">Connexion<i class="icon-material-outline-arrow-right-alt"></i>
+					<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-12" style="width: 140px;">{% trans %} Login {% endtrans %}<i class="icon-material-outline-arrow-right-alt"></i>
 					</button>
 				</a>
 			</div>
 	
 	
 		</div>
+		{% else %}
+		<div class="header-widget" style="position: absolute;">
+			<div class="connect" style="margin-right: -70px;">
+				<a href="{{ path('app_login') }}" class="connect">
+					<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-12" style="width: 120px;">{% trans %} Login {% endtrans %}<i class="icon-material-outline-arrow-right-alt"></i>
+					</button>
+				</a>
+			</div>
+	
+	
+		</div>
+		{% endif %}
 	{% endif %}
 	
 	</br>
@@ -137,7 +257,7 @@
        </br>
     <!-- Titlebar
 ================================================== -->
-<div class="single-page-header" data-background-image="images/single-job.jpg">
+<div class="single" data-background-image="images/single-job.jpg">
 	<div class="container">
     <div class="img-question">
 				
@@ -152,7 +272,7 @@
 			{% if is_granted('ROLE_RECRUTEUR') %}
 					 {% if app.User.id == question.recruteur.User.id %}	
 					 <div class="col-xl-6" style="margin-top: 70px;margin-left: 270px;">
-							<a href="{{ path('editQuestion',{'id': question.id}) }}"  class="button full-width button-sliding-icon ripple-effect margin-top-10">Edit Question<i class="icon-material-outline-arrow-right-alt"></i>
+							<a href="{{ path('editQuestion',{'id': question.id}) }}"  class="button full-width button-sliding-icon ripple-effect margin-top-10">{% trans %} Edit Question {% endtrans %}<i class="icon-material-outline-arrow-right-alt"></i>
 							</a>
 					</div>	
 					{% else %}
@@ -174,7 +294,7 @@
 		<div class="col-xl-8 col-lg-8 content-right-offset">
 				{% if is_granted('ROLE_RECRUTEUR') %}	
 			<div class="single-page-section" >
-				<h3 class="margin-bottom-25">Add Comment</h3>
+				<h3 class="margin-bottom-25">{% trans %} Add Comment {% endtrans %}</h3>
 				 <div class="single-page-section"id="Ajout_Commentaire">
 				    {{ form_start(commentForm) }}
                 	{{ form_end(commentForm) }}
@@ -182,7 +302,7 @@
 			</div>
 				{% elseif is_granted('ROLE_CANDIDAT') %}	
 					<div class="single-page-section" >
-				<h3 class="margin-bottom-25">Add Comment</h3>
+				<h3 class="margin-bottom-25">{% trans %} Add Comment {% endtrans %}</h3>
 				 <div class="single-page-section"id="Ajout_Commentaire">
 				    {{ form_start(commentForm) }}
                 	{{ form_end(commentForm) }}
@@ -190,7 +310,7 @@
 			</div>
 			   {% endif %}
             <div class="single-page-section">
-				<h3 class="margin-bottom-25">All Comment</h3>
+				<h3 class="margin-bottom-25">{% trans %} All Comment {% endtrans %}</h3>
 				 <div class="single-page-section">
                 
                     {% for comment in question.commentaires %}
@@ -208,15 +328,15 @@
 						                {{comment.Candidat.User.nom}}    {{comment.createdat|date('d-m-Y H:i')}}
                                         <span>{{comment.content}}</span>
 									{% if is_granted('ROLE_RECRUTEUR') %}	
-                                         <div>  <p><a href="#Ajout_Commentaire" data-reply data-id="{{comment.id}}">Repondre</a></p></div>
+                                         <div>  <p><a href="#Ajout_Commentaire" data-reply data-id="{{comment.id}}">{% trans %}  Reply {% endtrans %}</a></p></div>
                                       {% if app.user.id == comment.Candidat.User.id %} 
                                      
-                                        <div>  <p><a href="{{ path('deleteCommentaire',{'id': comment.id}) }}" >Delete</a></p></div>
+                                        <div>  <p><a href="{{ path('deleteCommentaire',{'id': comment.id}) }}" >{% trans %} Delete {% endtrans %}</a></p></div>
                                       {% else %}
                                      
                                         {% endif %}
 										{% elseif is_granted('ROLE_CANDIDAT') %}	
-										    <div>  <p><a href="#Ajout_Commentaire" data-reply data-id="{{comment.id}}">Repondre</a></p></div>
+										    <div>  <p><a href="#Ajout_Commentaire" data-reply data-id="{{comment.id}}">{% trans %} Reply {% endtrans %}</a></p></div>
                                       {% if app.user.id == comment.Candidat.User.id %} 
                                      
                                         <div>  <p><a href="{{ path('deleteCommentaire',{'id': comment.id}) }}" >Delete</a></p></div>
@@ -236,10 +356,10 @@
                                     <div class="user-name">
 						                {{comment.recruteur.User.nom}}    {{comment.createdat|date('d-m-Y H:i')}}
                                         <span>{{comment.content}}</span>
-                                         <div>  <p><a href="#Ajout_Commentaire" data-reply data-id="{{comment.id}}">Repondre</a></p></div>
+                                         <div>  <p><a href="#Ajout_Commentaire" data-reply data-id="{{comment.id}}">{% trans %}Reply {% endtrans %}</a></p></div>
                                       {% if app.user.id == comment.Candidat.User.id %} 
                                      
-                                        <div>  <p><a href="{{ path('deleteCommentaire',{'id': comment.id}) }}" >Delete</a></p></div>
+                                        <div>  <p><a href="{{ path('deleteCommentaire',{'id': comment.id}) }}" >{% trans %} Delete {% endtrans %}</a></p></div>
                                       {% else %}
                                      
                                         {% endif %}

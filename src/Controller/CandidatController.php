@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use Swift;
 use App\Entity\CV;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use App\Entity\User;
 use App\Form\CVType;
 use App\Form\UserType;
@@ -12,7 +15,6 @@ use App\Form\SearchForm;
 use App\Entity\Recruteur;
 use App\Entity\Competance;
 use App\Entity\Experience;
-
 use App\Form\UserPassType;
 use App\Entity\Candidature;
 use App\Entity\OffreEmploi;
@@ -23,11 +25,17 @@ use Symfony\Component\Form\FormError;
 use App\Repository\OffreEmploiRepository;
 use Symfony\Component\Form\FormInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
    
@@ -39,7 +47,7 @@ class CandidatController extends AbstractController
      * IsGranted("ROLE_CANDIDAT)
      * @Route("/addcv", name="addcv")
      */
-    public function addCV(Request $request){
+    public function addCV(Request $request, \Swift_Mailer $mailer,TranslatorInterface $Trans){
         $this->denyAccessUnlessGranted('ROLE_CANDIDAT');
         
         $cv= new CV();
@@ -48,7 +56,8 @@ class CandidatController extends AbstractController
         
         $form= $this->createForm(CVType ::class, $cv );
         $form->handleRequest($request);
-
+        $email=$this->getUser()->getEmail();
+        
         $orignalExp = new ArrayCollection();
         foreach ($cv->getExperiences() as $exp) {
             $orignalExp->add($exp);
@@ -97,6 +106,7 @@ class CandidatController extends AbstractController
                     $em->remove($com);
                 }
             }
+            $cv->setEmail($email);
             $em->persist($cv);
             $em->flush();
             $cv->setPhoto($filename); 
@@ -109,7 +119,18 @@ class CandidatController extends AbstractController
            $ex=$this->getUser()->setExist(true);
            $em->persist($ex);
            $em->flush();
-           
+           dd($request);
+            $mail=$Trans->trans('Your account has been successfully created');
+           $message=(new \Swift_Message('Internisa'))
+  
+           ->setFrom ('archene9@gmail.com')
+           ->setTo ($email)
+            ->setBody(
+            
+                "<p>'$mail'</p>",'text/html'
+            )
+            ;
+            $mailer->send($message);
             $this->addFlash('info', 'Created Successfully !');
             return $this->redirectToRoute('homee');
         }
@@ -189,7 +210,7 @@ class CandidatController extends AbstractController
             $em->flush();
             $em->persist($user);
             $em->flush();
-           // return $this->redirectToRoute('detailed');
+            return $this->redirectToRoute('detailedCV', array('id' => $id));
 
         }
         return $this->render('Candidat/editCV.html.twig', array(
@@ -323,7 +344,7 @@ class CandidatController extends AbstractController
         $Off= $this->getDoctrine()->getRepository(OffreEmploi::class)->find($id);
         $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
         $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
-       
+       dd($Off);
         return $this->render('Recruteur/detailedOffre.html.twig',[
            
             'off'=>$Off,
@@ -364,5 +385,8 @@ class CandidatController extends AbstractController
       
 
     }
+
+  
+   
    
 }

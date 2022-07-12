@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+
+<html  >
+
+
+
+   <head>
+
+<!-- Basic Page Needs
+================================================== -->
+<title>{% block title %}{% endblock %}</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!-- CSS
+================================================== -->
+<link rel="stylesheet" href={{ asset('css/style.css')}}>
+
+<link rel="stylesheet" href={{ asset('css/colors/blue.css')}}>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+    <body>
+    <!-- Header Container
+================================================== -->
+
+<header id="header-container" class="fullwidth">
+
+	<!-- Header -->
+	<div id="header">
+		<div class="container">
+			
+			<!-- Left Side Content -->
+			<div class="left-side">
+				
+				<!-- Logo -->
+				<div id="logo">
+					<a href="index.html"><img src={{ asset('images/logo.png')}} alt="" ></a>
+				</div>
+
+				<!-- Main Navigation -->
+				<nav id="navigation">
+					<ul id="responsive">
+
+						<li><a href="{{ path('homee') }}" class="current"> {% trans %} Home {% endtrans %}</a>
+							
+						</li>
+						<li><a href="{{ path('Actualites') }}" class="current"> {% trans %}  News {% endtrans %}</a>
+							
+						</li>
+
+						<li><a href="#" class="current">  {% trans %} Job offer {% endtrans %}</a>
+							<ul class="dropdown-nav">
+								<li><a href="{{ path('listposthome') }}">  {% trans %} All Job Offre {% endtrans %}</a></li>
+								<li><a href="http://127.0.0.1:8000/listPosthome?q=&type%5B%5D=1&min=&max=&_token=tXdUxYvDEnrDBv0uoOyUW1YMZq_fRqucCESknfhcc2I"> {% trans %} Recruitment {% endtrans %}</a></li>
+								<li><a href="http://127.0.0.1:8000/listPosthome?q=&type%5B%5D=2&min=&max=&_token=tXdUxYvDEnrDBv0uoOyUW1YMZq_fRqucCESknfhcc2I"> {% trans %} Free-lance {% endtrans %}</a></li>
+								<li><a href="http://127.0.0.1:8000/listPosthome?q=&type%5B%5D=3&min=&max=&_token=tXdUxYvDEnrDBv0uoOyUW1YMZq_fRqucCESknfhcc2I"> {% trans %} Telework {% endtrans %}</a></li>
+								<li><a href="http://127.0.0.1:8000/listPosthome?q=&type%5B%5D=4&min=&max=&_token=tXdUxYvDEnrDBv0uoOyUW1YMZq_fRqucCESknfhcc2I"> {% trans %} Traineeship {% endtrans %}</a></li>
+							</ul>
+						</li>
+					
+						<li><a href="#" class="current">Training</a>
+							<ul class="dropdown-nav">
+								<li><a href="#">Find a Freelancer</a>
+									<ul class="dropdown-nav">
+										<li><a href="freelancers-grid-layout-full-page.html">Full Page Grid</a></li>
+										<li><a href="freelancers-grid-layout.html">Grid Layout</a></li>
+										<li><a href="freelancers-list-layout-1.html">List Layout 1</a></li>
+										<li><a href="freelancers-list-layout-2.html">List Layout 2</a></li>
+									</ul>
+								</li>
+								<li><a href="single-freelancer-profile.html">Freelancer Profile</a></li>
+								<li><a href="dashboard-post-a-job.html">Post a Job</a></li>
+								<li><a href="dashboard-post-a-task.html">Post a Task</a></li>
+							</ul>
+						</li>
+							<li><a href="{{path('listQuestion')}}" class="current">  {% trans %} List Forum {% endtrans %}</a></li>
+						<li><a href="{{ path('app_contact') }}" class="current"> {% trans %} Contact {% endtrans %}</a>
+						<li><a href="{{ path('About') }}" class="current"> {% trans %} About {% endtrans %}</a>
+							
+						</li>
+					</ul>
+				</nav>
+				<div class="clearfix"></div>
+				<!-- Main Navigation / End -->
+				
+			</div>
+			<!-- Left Side Content / End -->
+
+			<!-- Right Side Content / End -->
+			<div class="right-side">
+
+				<!--  User Notifications -->
+				<div class="header-widget hide-on-mobile">
+					
+					<!-- Notifications -->
+					<div class="header-notifications">
+
+					<div>
+				
+					{% for locale in locales  %}
+						{% if locale != app.request.locale %}
+							
+								
+								 <a href="{{path('change_locale',{'locale': locale })}}" alt="{{locale}}">{{locale}}</a> 
+							
+								
+							
+							{% endif %}
+						{% endfor %}
+						
+					</div>
+						
+						<!-- Trigger -->
+						
+						
+
+						
+
+					</div>
+					
+					
+
+				</div>
+				<!--  User Notifications / End -->
+{% block header %}{% endblock %}
+
+				<!-- Mobile Navigation Button -->
+				<span class="mmenu-trigger">
+					<button class="hamburger hamburger--collapse" type="button">
+						<span class="hamburger-box">
+							<span class="hamburger-inner"></span>
+						</span>
+					</button>
+				</span>
+
+			</div>
+			<!-- Right Side Content / End -->
+
+		</div>
+	</div>
+	<!-- Header / End -->
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</header>
+</br>
+</br>
+</br>
+
+
+	{% if is_granted('ROLE_RECRUTEUR') %}
+	</br></br>
+
+	<div class="col-md-4 col-lg-3">
+	<div class="dashboard-container">
+</br></br>
+	<!-- Dashboard Sidebar
+	================================================== -->
+
+	<div class="dashboard-sidebar">
+		
+			<div class="dashboard-nav-container">
+
+				
+				
+				<!-- Navigation -->
+				<div class="dashboard-nav">
+				</br>
+					<div class="dashboard-nav-inner">
+
+						<ul data-submenu-title="Start" >
+					
+							<li ><a href="{{ path('listOffre') }}"><i class="icon-material-outline-dashboard"></i> {% trans %} My Posts {% endtrans %}</a></li>
+							<li ><a href="{{ path('MyQuestion') }}"><i class="icon-material-outline-dashboard"></i> {% trans %}  My Forums {% endtrans %}</a></li>
+							<li><a href="{{ path('addPost',{'id':app.user.id}) }}"><i class="icon-material-outline-add"></i>{% trans %}  Add Job Offre  {% endtrans %}</a></li>
+						
+							<li><a href="{{path('listpost')}}"><i class="icon-material-outline-check-circle"></i>{% trans %}  List Posts {% endtrans %}</a></li>
+								<li><a href="{{path('addquestion',{'id':app.user.id})}}"><i class="icon-material-outline-add"></i>{% trans %}  Add Forum {% endtrans %}</a></li>
+								<li><a href="{{path('listQuestion')}}"><i class="icon-material-outline-add"></i> {% trans %} List Forum {% endtrans %}</a></li>
+						</ul>
+						
+
+						
+					</div>
+				</div>
+				<!-- Navigation / End -->
+
+			</div>
+		
+	</div>
+
+
+</div>
+
+</div>
+	<!-- Dashboard Sidebar / End -->
+	{% endif %}
+<!-- Header Container / End -->
+
+
+        {% block body %}{% endblock %}
+
+     
+</br>
+</br>
+
+
+
+</div>
+<!-- Wrapper / End -->
+
+
+<!-- Scripts
+================================================== -->
+<script src={{ asset('js/competance.js')}}></script>
+<script src={{ asset('js/experiance.js')}}></script>
+<script src={{ asset('js/jquery-3.3.1.min.js')}}></script>
+<script src={{ asset('js/jquery-migrate-3.0.0.min.js')}}></script>
+<script src={{ asset('js/mmenu.min.js')}}></script>
+<script src={{ asset('js/tippy.all.min.js')}}></script>
+<script src={{ asset('js/simplebar.min.js')}}></script>
+<script src={{ asset('js/bootstrap-slider.min.js')}}></script>
+<script src={{ asset('js/bootstrap-select.min.js')}}></script>
+<script src={{ asset('js/snackbar.js')}}></script>
+<script src={{ asset('js/clipboard.min.js')}}></script>
+<script src={{ asset('js/counterup.min.js')}}></script>
+<script src={{ asset('js/magnific-popup.min.js')}}></script>
+<script src={{ asset('js/slick.min.js')}}></script>
+<script src={{ asset('js/custom.js')}}></script>
+
+
+
+<!-- Snackbar // documentation: https://www.polonel.com/snackbar/ -->
+<script>
+var lastScrollTop;
+navbar = document.getElementById('header');
+window.addEventListener('scroll',function(){
+var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+if(scrollTop > lastScrollTop){
+navbar.style.top='-80px';
+}
+else{
+navbar.style.top='0';
+}
+lastScrollTop = scrollTop;
+});
+// Snackbar for user status switcher
+$('#snackbar-user-status label').click(function() { 
+	Snackbar.show({
+		text: 'Your status has been changed!',
+		pos: 'bottom-center',
+		showAction: false,
+		actionText: "Dismiss",
+		duration: 3000,
+		textColor: '#fff',
+		backgroundColor: '#383838'
+	}); 
+}); 
+</script>
+
+
+<!-- Google Autocomplete -->
+<script>
+	function initAutocomplete() {
+		 var options = {
+		  types: ['(cities)'],
+		  // componentRestrictions: {country: "us"}
+		 };
+
+		 var input = document.getElementById('autocomplete-input');
+		 var autocomplete = new google.maps.places.Autocomplete(input, options);
+	}
+
+	// Autocomplete adjustment for homepage
+	if ($('.intro-banner-search-form')[0]) {
+	    setTimeout(function(){ 
+	        $(".pac-container").prependTo(".intro-search-field.with-autocomplete");
+	    }, 300);
+	}
+
+</script>
+
+<!-- Google API -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgeuuDfRlweIs7D6uo4wdIHVvJ0LonQ6g&libraries=places&callback=initAutocomplete"></script>
+</body>
+
+
+	<!-- Footer
+================================================== -->
+<footer>
+
+	<div id="footer">
+	
+	<!-- Footer Top Section -->
+	<div class="footer-top-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-12">
+
+					<!-- Footer Rows Container -->
+					<div class="footer-rows-container">
+						
+						<!-- Left Side -->
+						<div class="footer-rows-left">
+							<div class="footer-row">
+								<div class="footer-row-inner footer-logo">
+									<img src={{ asset('images/logo2.png')}} alt="">
+								</div>
+							</div>
+						</div>
+						
+						<!-- Right Side -->
+						<div class="footer-rows-right">
+
+							<!-- Social Icons -->
+							<div class="footer-row">
+								<div class="footer-row-inner">
+									<ul class="footer-social-links">
+										<li>
+											<a href="#" title="Facebook" data-tippy-placement="bottom" data-tippy-theme="light">
+												<i class="icon-brand-facebook-f"></i>
+											</a>
+										</li>
+										<li>
+											<a href="#" title="Twitter" data-tippy-placement="bottom" data-tippy-theme="light">
+												<i class="icon-brand-twitter"></i>
+											</a>
+										</li>
+										<li>
+											<a href="#" title="Google Plus" data-tippy-placement="bottom" data-tippy-theme="light">
+												<i class="icon-brand-google-plus-g"></i>
+											</a>
+										</li>
+										<li>
+											<a href="#" title="LinkedIn" data-tippy-placement="bottom" data-tippy-theme="light">
+												<i class="icon-brand-linkedin-in"></i>
+											</a>
+										</li>
+									</ul>
+									<div class="clearfix"></div>
+								</div>
+							</div>
+							
+							<!-- Language Switcher -->
+							<div class="footer-row">
+								<div class="footer-row-inner">
+									<select class="selectpicker language-switcher" data-selected-text-format="count" data-size="5">
+										<option>English</option>
+										<option>Français</option>
+										<option>Español</option>
+										<option>Deutsch</option>
+									</select>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<!-- Footer Rows Container / End -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Footer Top Section / End -->
+
+	<!-- Footer Middle Section -->
+	<div class="footer-middle-section">
+		<div class="container">
+			<div class="row">
+
+				<!-- Links -->
+				<div class="col-xl-2 col-lg-2 col-md-3">
+					<div class="footer-links">
+						<h3>For Candidates</h3>
+						<ul>
+							<li><a href="#"><span> Browse Jobs</span></a></li>
+							<li><a href="#"><span>Add Resume</span></a></li>
+							<li><a href="#"><span>Job Alerts</span></a></li>
+							<li><a href="#"><span>My Bookmarks</span></a></li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- Links -->
+				<div class="col-xl-2 col-lg-2 col-md-3">
+					<div class="footer-links">
+						<h3>For Employers</h3>
+						<ul>
+							<li><a href="#"><span>Browse Candidates</span></a></li>
+							<li><a href="#"><span>Post a Job</span></a></li>
+							<li><a href="#"><span>Post a Task</span></a></li>
+							<li><a href="#"><span>Plans & Pricing</span></a></li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- Links -->
+				<div class="col-xl-2 col-lg-2 col-md-3">
+					<div class="footer-links">
+						<h3>Helpful Links</h3>
+						<ul>
+							<li><a href="#"><span>Contact</span></a></li>
+							<li><a href="#"><span>Privacy Policy</span></a></li>
+							<li><a href="#"><span>Terms of Use</span></a></li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- Links -->
+				<div class="col-xl-2 col-lg-2 col-md-3">
+					<div class="footer-links">
+						<h3>Account</h3>
+						<ul>
+							<li><a href="#"><span>Log In</span></a></li>
+							<li><a href="#"><span>My Account</span></a></li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- Newsletter -->
+				<div class="col-xl-4 col-lg-4 col-md-12">
+					<h3><i class="icon-feather-mail"></i> Sign Up For a Newsletter</h3>
+					<p>Weekly breaking news, analysis and cutting edge advices on job searching.</p>
+					<form action="#" method="get" class="newsletter">
+						<input type="text" name="fname" placeholder="Enter your email address">
+						<button type="submit"><i class="icon-feather-arrow-right"></i></button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Footer Middle Section / End -->
+	
+	<!-- Footer Copyrights -->
+	<div class="footer-bottom-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-12">
+					© 2018 <strong>Hireo</strong>. All Rights Reserved.
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Footer Copyrights / End -->
+
+</div>
+<!-- Footer / End -->
+
+</footer>
+
+</html>

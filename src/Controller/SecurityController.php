@@ -14,6 +14,11 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
+use Symfony\Component\HttpFoundation\JsonResponse;
 class SecurityController extends AbstractController
 {
     /**
@@ -129,4 +134,28 @@ class SecurityController extends AbstractController
         }
 
     }
+
+        /**
+     * @Route("/mobile/aff", name="affmobcategory")
+     */
+    public function affmobcategory(NormalizerInterface $normalizer)
+    {
+        $med=$this->getDoctrine()->getRepository(User::class)->findAll();
+
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setCircularReferenceLimit(1);
+        $normalizer->setCircularReferenceHandler(function ($med) {
+            return $med->getId();
+        });
+        $encoders = [new JsonEncoder()];
+        $normalizers = array($normalizer);
+        $serializer = new Serializer($normalizers,$encoders);
+        $formatted = $serializer->normalize($med);
+        
+        return new JsonResponse($formatted);
+ 
+      //  $jsonContent = $normalizer->normalize($med,'json',['categorie'=>'post:read']);
+       // return new Response(json_encode($jsonContent));
+    }
+
 }

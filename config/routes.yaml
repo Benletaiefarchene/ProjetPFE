@@ -1,5 +1,5 @@
 index:
    path: /
-   controller: App\Controller\CandidatController::listpostAction
+   controller: App\Controller\HomeController::Home
 
    

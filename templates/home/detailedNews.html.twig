@@ -1,12 +1,61 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Training{% endblock %}
+{% block title %}{% trans %} Training {% endtrans %}{% endblock %}
 {% block header %}
 			{% if is_granted('ROLE_CANDIDAT') %}
 
 
 					<!-- User Menu -->
-				<div class="header-widget">
+					{% if app.request.locale == "ar" %}
+						<div class="header-widget" style="margin-right: 1000px;margin-top: -82px;">
+					{% for can in can %}
+							
+						{% if app.token.user.id == can.user.id %}
+							<!-- Messages -->
+						<div class="header-notifications user-menu">
+							<div class="header-notifications-trigger">
+								<a href="#">
+									<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.CV.photo ) }}" alt=""></div>
+										
+								</a>
+							</div>
+						
+							<!-- Dropdown -->
+								<div class="header-notifications-dropdown">
+									<ul class="user-menu-small-nav" style="text-align: right;">
+									<div class="user-status">
+
+								<!-- User Name / Avatar -->
+								<div class="user-details">
+									<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.CV.photo ) }}" alt=""></div>
+									<div class="user-name">
+											
+											<span>{{app.token.user.nom}}</span>
+										</div>
+								</div>
+								</div>
+									
+										<li>
+											<a href="{{path('detailedCV',{'id': can.id})}}">
+												<i class="icon-material-outline-settings"></i>
+											{% trans %}	Settings {% endtrans %}</a>
+												
+										</li>
+										<li>
+											<a href="{{path('app_logout')}}">
+												<i class="icon-material-outline-power-settings-new"></i>
+											{% trans %}	Logout {% endtrans %}</a>
+										</li>
+									</ul>
+
+								</div>
+						</div>
+					
+			{% endif %}
+					{% endfor %}
+		</div>
+					{% else %}
+				<div class="header-widget" style="position: absolute;">
 					{% for can in can %}
 							
 						{% if app.token.user.id == can.user.id %}
@@ -37,13 +86,13 @@
 										<li>
 											<a href="{{path('detailedCV',{'id': can.id})}}">
 												<i class="icon-material-outline-settings"></i>
-												Settings</a>
+											{% trans %}	Settings {% endtrans %}</a>
 												
 										</li>
 										<li>
 											<a href="{{path('app_logout')}}">
 												<i class="icon-material-outline-power-settings-new"></i>
-												Logout</a>
+											{% trans %}	Logout {% endtrans %}</a>
 										</li>
 									</ul>
 
@@ -54,10 +103,68 @@
 					{% endfor %}
 		</div>
 		<!-- User Menu / End -->
+		{% endif %}
 	{% elseif is_granted('ROLE_RECRUTEUR') %}
 
 		<!-- User Menu -->
-		<div class="header-widget">
+			{% if app.request.locale == "ar" %}
+<div class="header-widget" style="margin-right: 1000px;margin-top: -82px;">
+			{% for rec in rec %}
+							
+				{% if app.token.user.id == rec.user.id %}
+			<!-- Messages -->
+			<div class="header-notifications user-menu">
+						<div class="header-notifications-trigger">
+						
+							<a href="#">
+								<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ rec.photo ) }}" alt=""></div>
+							</a>
+							
+						</div>
+					
+				<!-- Dropdown -->
+				<div class="header-notifications-dropdown">
+
+					<!-- User Status -->
+					<div
+						class="user-status">
+
+						<!-- User Name / Avatar -->
+						<div class="user-details">
+						
+							<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ rec.photo ) }}" alt=""></div>
+						
+							<div class="user-name">
+								{{app.token.user.nom}}
+								<span></span>
+							</div>
+						</div>
+
+					</div>
+
+					<ul class="user-menu-small-nav" style="text-align: right;">
+					
+						<li>
+							<a href="{{path('detailedRec',{'id': rec.id})}}">
+								<i class="icon-material-outline-settings"></i>
+							{% trans %}	Settings {% endtrans %}</a>
+						</li>
+						<li>
+							<a href="{{path('app_logout')}}">
+								<i class="icon-material-outline-power-settings-new"></i>
+							{% trans %}	Logout {% endtrans %}</a>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+			{% endif %}
+					{% endfor %}
+		</div>
+
+			{% else %}
+				
+		<div class="header-widget" style="position: absolute;">
 			{% for rec in rec %}
 							
 				{% if app.token.user.id == rec.user.id %}
@@ -96,12 +203,12 @@
 						<li>
 							<a href="{{path('detailedRec',{'id': rec.id})}}">
 								<i class="icon-material-outline-settings"></i>
-								Settings</a>
+							{% trans %}	Settings {% endtrans %}</a>
 						</li>
 						<li>
 							<a href="{{path('app_logout')}}">
 								<i class="icon-material-outline-power-settings-new"></i>
-								Logout</a>
+							{% trans %}	Logout {% endtrans %}</a>
 						</li>
 					</ul>
 
@@ -110,20 +217,33 @@
 			{% endif %}
 					{% endfor %}
 		</div>
+		{% endif %}
 		{% elseif is_granted('ROLE_ADMIN') %}
 		<!-- User Menu / End -->
 		{% else %}
-		<div
-			class="header-widget">
+		{% if app.request.locale == "ar" %}
+		<div class="trans-login">
 			<div class="connect" style="margin-right: -70px;">
 				<a href="{{ path('app_login') }}" class="connect">
-					<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-12" style="width: 120px;">Connexion<i class="icon-material-outline-arrow-right-alt"></i>
+					<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-12" style="width: 140px;">{% trans %} Login {% endtrans %}<i class="icon-material-outline-arrow-right-alt"></i>
 					</button>
 				</a>
 			</div>
 	
 	
 		</div>
+		{% else %}
+		<div class="header-widget" style="position: absolute;">
+			<div class="connect" style="margin-right: -70px;">
+				<a href="{{ path('app_login') }}" class="connect">
+					<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-12" style="width: 120px;">{% trans %} Login {% endtrans %}<i class="icon-material-outline-arrow-right-alt"></i>
+					</button>
+				</a>
+			</div>
+	
+	
+		</div>
+		{% endif %}
 	{% endif %}
 	
 	</br>
@@ -137,7 +257,7 @@
        </br>
     <!-- Titlebar
 ================================================== -->
-<div class="single-page-header" data-background-image="images/single-job.jpg">
+<div class="single" data-background-image="images/single-job.jpg">
 	<div class="container">
     <div class="img-question">
 				
@@ -156,12 +276,51 @@
 </div>
 <div class="container">
 <div class="row">
-<div class="col-md-12" style="text-align: center;">
-				<h2>Description</h2>
+			<div class="col-md-12" style="text-align: center;">
+				<h2>{% trans %}Description {% endtrans %}</h2>
                 <hr>
 				<h2>{{ new.description }} </h2>
 		
 			</div>
+		<hr>
+
+		<div class="col-xl-12">
+
+					<!-- Section Headline -->
+					<div class="section-headline margin-top-0 margin-bottom-35">
+						<h3>{% trans %} Other News {% endtrans %} </h3>
+						
+					</div>
+
+					<!-- Jobs Container -->
+
+
+				</div>
+
+				<!-- Job Listing -->
+
+
+				<div class="col-xl-12">
+					<div class="blog-carousel">
+						{% for news in news %}
+							<a href="{{ path('detailedNews',{'id': news.id}) }}" class="blog-compact-item-container">
+								<div class="blog-compact-item">
+									<img src="{{ asset('uploads/images/' ~ news.photo ) }}" alt="">
+									
+										<div class="blog-compact-item-content">
+										
+											<h2 class="job-listing-company">{{news.titre	}}</h2>
+											<span class="job-listing-title">{{news.createdAt|date('d-m-Y ')}}</span>
+										</div>
+								</div>
+							</a>
+						{% endfor %}
+					</div>
+
+
+							<!-- Job Listing -->
+						
+				</div>
 </div>
 </div>
 

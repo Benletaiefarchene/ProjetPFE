@@ -22,6 +22,13 @@ class OffreEmploiRepository extends ServiceEntityRepository
         parent::__construct($registry, OffreEmploi::class);
         $this->paginator =$paginator;
     }
+    public function add(OffreEmploi $entity, bool $flush = true): void
+    {
+        $this->_em->persist($entity);
+        if ($flush) {
+            $this->_em->flush();
+        }
+    }
 
     // /**
     //  * @return OffreEmploi[] Returns an array of OffreEmploi objects
@@ -88,11 +95,12 @@ class OffreEmploiRepository extends ServiceEntityRepository
          ->select('t','o')
          ->join('o.type','t')
          ->andWhere('o.blocked = false')
-         ->andWhere('o.accepted = true')
+         ->andWhere('o.accepted = 1')
          ->orderBy('o.dateOffre','DESC');
         if(!empty($search->q)){
             $query = $query
-            ->andWhere('o.titre LIKE :q')
+            ->Where('o.titre LIKE :q')
+            ->Where('o.categorie LIKE :q')
             ->setParameter('q',"%{$search->q}%");
         }
         if(!empty($search->min)){
@@ -116,10 +124,53 @@ class OffreEmploiRepository extends ServiceEntityRepository
         return $this->paginator->paginate(
             $query, /* query NOT result */
             $search->page, /*page number*/
-            4 /*limit per page*/
+            6 /*limit per page*/
+            
         );
 
      }
+       /**
+      * Undocumented function
+      *
+      * 
+      */
+      public function Search(SearchData $search)
+      {
+          $query=$this
+          
+          ->createQueryBuilder('o')
+          ->select('t','o')
+          ->join('o.type','t')
+          ->andWhere('o.blocked = false')
+          ->andWhere('o.accepted = 1')
+          ->orderBy('o.dateOffre','DESC');
+         if(!empty($search->q)){
+             $query = $query
+             ->Where('o.titre LIKE :q')
+             ->Where('o.categorie LIKE :q')
+             ->setParameter('q',"%{$search->q}%");
+         }
+         if(!empty($search->min)){
+             $query = $query
+             ->andWhere('o.salaire >= :min')
+             ->setParameter('min', $search->min);
+         }
+         if(!empty($search->max)){
+             $query = $query
+             ->andWhere('o.salaire <= :max')
+             ->setParameter('max', $search->max);
+         }
+         if(!empty($search->type)){
+             $query = $query
+             ->andWhere('t.id IN (:type)')
+             ->setParameter('type', $search->type);
+         }
+        
+         $query= $query->getQuery()->getResult();
+         //  dd($this->paginator->paginate($query, 1, 15));
+         return  $query;
+             
+      }
     
      public function countoffre()
      {   
@@ -140,4 +191,17 @@ class OffreEmploiRepository extends ServiceEntityRepository
 
         
      }
+     function countNumberOffrePerMonth($m) {
+         
+         $date=date("Y")."-".$m."-%% ";
+        $query = $this->createQueryBuilder('p')
+        ->select('COUNT(p)')
+        ->andWhere('p.dateOffre LIKE :date')
+        ->setParameter('date', '%' .$date. '%')
+           
+            ->getQuery();
+    
+        return $query->getOneOrNullResult();
+    }
+     
 }

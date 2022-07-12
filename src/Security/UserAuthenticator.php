@@ -100,7 +100,7 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-       $ro=$request->request->get("registration_form")["roles"];
+       
         //dd($this->user);
         $can = 'ROLE_CANDIDAT';
         //$id = $this->user->getId();
@@ -119,9 +119,9 @@ class UserAuthenticator extends AbstractFormLoginAuthenticator implements Passwo
                 }
             }else{
                 if ($token->getUser()->getRoles()[0]=='ROLE_CANDIDAT') {
-                    return new RedirectResponse($this->urlGenerator->generate('listpost'));
+                    return new RedirectResponse($this->urlGenerator->generate('homee'));
                 }else if ($token->getUser()->getRoles()[0]=='ROLE_RECRUTEUR'){
-                    return new RedirectResponse($this->urlGenerator->generate('listpost'));
+                    return new RedirectResponse($this->urlGenerator->generate('homee'));
                 }else if ($token->getUser()->getRoles()[0]=='ROLE_ADMIN'){
                     return new RedirectResponse($this->urlGenerator->generate('admin_count'));
                 }

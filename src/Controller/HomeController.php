@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Controller;
-
-use Dompdf\Dompdf;
 use Dompdf\Options;
+
 use App\Entity\News;
 use App\Entity\Type;
 use App\Data\SearchData;
@@ -15,25 +14,40 @@ use App\Entity\Experience;
 use App\Entity\OffreEmploi;
 use App\Form\TypeOffreType;
 use App\Service\PdfService;
+use App\Service\T_HTML2PDF;
+use App\Entity\OffreFormation;
 use App\Repository\OffreEmploiRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 
 class HomeController extends Controller
 {
-    // /**
-    //  * @Route("/home", name="homee")
-    //  */
-    // public function index(): Response
-    // {
-    //     return $this->render('home/index.html.twig', [
-    //         'controller_name' => 'HomeController',
-    //     ]);
-    // }
+    /**
+     * @Route("/home", name="homee")
+     */
+    public function Home(): Response
+    {
+        $em=$this->getDoctrine()->getManager();
+        $news=$em->getRepository(News::class)->findAll();
+        $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
+        $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
+       // $posts=$em->getRepository(OffreEmploi::class)->findBy(array('titre'=> 'mobile'));
+        
+        
+      
+        return $this->render('home/home.html.twig', [
+            "news" =>$news,
+            "rec"=>$rec,
+            "can"=>$can,
+        ]);
+    }
    /**
      * 
      * @Route("/detailedOffre/{id}", name="detailedOff")
@@ -42,18 +56,19 @@ class HomeController extends Controller
     {
         
         $Off= $this->getDoctrine()->getRepository(OffreEmploi::class)->find($id);
-      
-       
+        
+       dd($Off);
         return $this->render('Recruteur/detailedOffre.html.twig',[
            
             'off'=>$Off
         ]   
         );
     }
+  
     /**
      * @Route("/listPosthome", name="listposthome")
      */
-    public function listposteAction(Request $request,OffreEmploiRepository $repository)
+    public function listposteAction(Request $request,OffreEmploiRepository $repository,PaginatorInterface $paginator)
     {
         
         
@@ -62,41 +77,25 @@ class HomeController extends Controller
         $form->handleRequest($request);
        $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
        $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
-        $posts=$repository->findSearch($data);
+        $posts=$repository->Search($data);
+        $pagination = $paginator->paginate(
+            $posts, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            4 /*limit per page*/
+        );
         
         return $this->render('recruteur/listPost.html.twig', array(
-            "posts" =>$posts,
+            "posts" =>$pagination,
             "rec"=>$rec,
             "can"=>$can,
-            'form'=>$form->createView()
+            'form'=>$form->createView(),
+            
         ));
        // return $this->redirectToRoute('list_post');
 
     }
-    //  /**
-    //  * @Route("/listPostRec/{id}", name="listpostRec")
-    //  */
-    // public function listpostAction(Request $request,$id,OffreEmploiRepository $repository)
-    // {
-    //     $data = new SearchData();
-    //     $form = $this->createForm(SearchForm::class , $data);
-    //     $form->handleRequest($request);
-       
-    //     $posts=$repository->findSearch($data);
-        
-    //     $em=$this->getDoctrine()->getManager();
-    //     $posts=$em->getRepository(Type::class)->findtypeRec($id);
-    //    // $posts=$em->getRepository(OffreEmploi::class)->findBy(array('titre'=> 'mobile'));
-        
-        
-    //     return $this->render('recruteur/listPost.html.twig', array(
-    //         "posts" =>$posts,
-    //         'form'=>$form->createView()
-
-    //     ));
-    //    // return $this->redirectToRoute('list_post');
-
-    // }
+  
+ 
        /**
      * @Route("/Actualites", name="Actualites")
      */
@@ -122,10 +121,14 @@ class HomeController extends Controller
      */
     public function AboutAction(Request $request)
     {
-       
+        $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
+        $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
         
         
-        return $this->render('home/About.html.twig')
+        return $this->render('home/About.html.twig',array(
+            "rec"=>$rec,
+            "can"=>$can,
+        ))
         ;
        
     }
@@ -137,23 +140,7 @@ class HomeController extends Controller
     public function printCVAction($id)
     {
        
-        // Configure Dompdf according to your needs
-       
-        // $pdfOptions = new Options();
-        // $pdfOptions->set('defaultFont', 'Arial');
-        // $pdfOptions->set('isRemoteEnabled', true);
-         
-        // // Instantiate Dompdf with our options
-        // $dompdf = new Dompdf($pdfOptions);
-        // $dompdf->set_base_path("css");
-        // $contxt = stream_context_create([
-        //     'ssl' => [
-        //         'verify_peer' => FALSE,
-        //         'verify_peer_name' => FALSE,
-        //         'allow_self_signed'=> TRUE
-        //     ]
-        // ]);
-        // $dompdf->setHttpContext($contxt);
+        
 
         $Candidat= $this->getDoctrine()->getRepository(Candidat::class)->find($id);
       
@@ -168,23 +155,7 @@ class HomeController extends Controller
             'Experiences'=>$Experience,
         ]);
         
-    //     // Load HTML to Dompdf
-    //    // $html = '<link type="text/css" media="dompdf" href="D:/xampp/htdocs/projetPFE/public/css/printCV.css" rel="stylesheet" />';
-    //    $html .= ob_get_contents();
-    //    $dompdf->loadHtml($html);
-    //    $dompdf->render();
-       //$dompdf->set_base_path(" /public/css/printCV.css");
-        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
-       // $dompdf->setPaper('A4', 'portrait');
-
-        // Render the HTML as PDF
-        
-
-        // // Output the generated PDF to Browser (force download)
-        // $dompdf->stream("mypdf.pdf", [
-        //     "Attachment" => false
-        // ]);
-       
+ 
     }
       /**
      * 
@@ -220,7 +191,8 @@ class HomeController extends Controller
      */
     public function detailedNewsAction($id)
     {
-        
+        $em=$this->getDoctrine()->getManager();
+        $news=$em->getRepository(News::class)->findAll();
         $new= $this->getDoctrine()->getRepository(News::class)->find($id);
         $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
         $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
@@ -229,6 +201,7 @@ class HomeController extends Controller
             'new'=> $new,
             "rec"=>$rec,
             "can"=>$can,
+            "news"=>$news,
          
         ]   
         );
@@ -247,7 +220,7 @@ class HomeController extends Controller
       /**
      * @Route("/test/{id}", name="test")
      */
-    public function testAction($id)
+    public function testAction($id )
     {
         
     
@@ -257,12 +230,102 @@ class HomeController extends Controller
         $Competance= $this->getDoctrine()->getRepository(Competance::class)->findComById($id);
     
         $Experience= $this->getDoctrine()->getRepository(Experience::class)->findExpById($id);
+       $image=$Candidat->getCV()->getPhoto();
+       $logo = 'uploads/images/'.$image;
+      
+       
+
+
+
         // Retrieve the HTML generated in our twig file
-        return $this->render('test.html.twig',[
+        $template = $this->render('test.html.twig',[
             'cv'=> $Candidat,
             'Competances'=>$Competance,
             'Experiences'=>$Experience,
+            'html'=>$logo
+
         ]);
-      
+        
+        $html2pdf = new T_Html2Pdf('P','A4','fr','true','UTF-8');
+        $html2pdf->create('P','A4','fr','true','UTF-8');
+        $html2pdf->pdf->SetDisplayMode('fullpage');
+        $html2pdf->save();
+        return $html2pdf->generatePdf($template, "CV");
+    }
+         /**
+     * @Route("/listFormation", name="listFormation")
+     
+     */
+    public function listFormationAction(Request $request)
+    {
+       
+        $em=$this->getDoctrine()->getManager();
+       $role= $this->get('security.token_storage')->getToken()->getUser()->getRoles();
+       if($role["0"] == "Role_CANDIDAT"){
+        $Form=$em->getRepository(OffreFormation::class)->findBy(array('Role'=>1));
+       }else if($role["0"] == "Role_RECRUTEUR"){
+        $Form=$em->getRepository(OffreFormation::class)->findBy(array('Role'=>0));
+       }else{
+        $Form=$em->getRepository(OffreFormation::class)->findAll();
+       }
+        $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
+        $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
+        return $this->render('recruteur/listFormation.html.twig', array(
+            "Form" =>$Form,
+            "rec"=>$rec,
+            "can"=>$can,
+        ));
+       //return $this->redirectToRoute('list_post');
+
+    }
+         /**
+     * @Route("/detailedFormation/{id}", name="detailedFormation")
+     */
+    public function detailedFormationAction($id)
+    {
+        
+        $Formation= $this->getDoctrine()->getRepository(OffreFormation::class)->find($id);
+        $rec=$this->getDoctrine()->getRepository(Recruteur::class)->findAll();
+        $can=$this->getDoctrine()->getRepository(Candidat::class)->findAll();
+   
+       
+        return $this->render('Recruteur/detailedFormation.html.twig',[
+            
+            'Formation'=>$Formation,
+            "rec"=>$rec,
+            "can"=>$can,
+        ]   
+        );
+    }
+    /**
+    * @Route("/downloadfile/{id}", name="downloadfile")
+    */
+    public function downloadAction($id) {
+        try {
+        
+            $Formation= $this->getDoctrine()->getRepository(OffreFormation::class)->find($id);
+            if (! $Formation) {
+                $array = array (
+                    'status' => 0,
+                    'message' => 'File does not exist' 
+                );
+                $response = new JsonResponse ( $array, 200 );
+                return $response;
+            }
+            $displayName = $Formation->getFolder ();
+            $fileName = $Formation->getFolder ();
+            $file_with_path = $this->getParameter ( 'images_directory' ) . "/" . $fileName;
+            $response = new BinaryFileResponse ( $file_with_path );
+            $response->headers->set ( 'Content-Type', 'text/plain' );
+            $response->setContentDisposition ( ResponseHeaderBag::DISPOSITION_ATTACHMENT, $displayName );
+            return $response;
+        } catch ( Exception $e ) {
+            $array = array (
+                'status' => 0,
+                'message' => 'Download error' 
+            );
+            $response = new JsonResponse ( $array, 400 );
+            return $response;
+        }
     }
 }

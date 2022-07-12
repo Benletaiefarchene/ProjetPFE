@@ -1,0 +1,459 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %} Home {% endtrans %}{% endblock %}
+{% block header %}
+			{% if is_granted('ROLE_CANDIDAT') %}
+
+
+					<!-- User Menu -->
+					{% if app.request.locale == "ar" %}
+						<div class="header-widget" style="margin-right: 1000px;margin-top: -82px;">
+					{% for can in can %}
+							
+						{% if app.token.user.id == can.user.id %}
+							<!-- Messages -->
+						<div class="header-notifications user-menu">
+							<div class="header-notifications-trigger">
+								<a href="#">
+									<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.CV.photo ) }}" alt=""></div>
+										
+								</a>
+							</div>
+						
+							<!-- Dropdown -->
+								<div class="header-notifications-dropdown">
+									<ul class="user-menu-small-nav" style="text-align: right;">
+									<div class="user-status">
+
+								<!-- User Name / Avatar -->
+								<div class="user-details">
+									<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.CV.photo ) }}" alt=""></div>
+									<div class="user-name">
+											
+											<span>{{app.token.user.nom}}</span>
+										</div>
+								</div>
+								</div>
+									
+										<li>
+											<a href="{{path('detailedCV',{'id': can.id})}}">
+												<i class="icon-material-outline-settings"></i>
+											{% trans %}	Settings {% endtrans %}</a>
+												
+										</li>
+										<li>
+											<a href="{{path('app_logout')}}">
+												<i class="icon-material-outline-power-settings-new"></i>
+											{% trans %}	Logout {% endtrans %}</a>
+										</li>
+									</ul>
+
+								</div>
+						</div>
+					
+			{% endif %}
+					{% endfor %}
+		</div>
+					{% else %}
+				<div class="header-widget" style="position: absolute;">
+					{% for can in can %}
+							
+						{% if app.token.user.id == can.user.id %}
+							<!-- Messages -->
+						<div class="header-notifications user-menu">
+							<div class="header-notifications-trigger">
+								<a href="#">
+									<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.CV.photo ) }}" alt=""></div>
+										
+								</a>
+							</div>
+						
+							<!-- Dropdown -->
+								<div class="header-notifications-dropdown">
+									<ul class="user-menu-small-nav">
+									<div class="user-status">
+
+								<!-- User Name / Avatar -->
+								<div class="user-details">
+									<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.CV.photo ) }}" alt=""></div>
+									<div class="user-name">
+											
+											<span>{{app.token.user.nom}}</span>
+										</div>
+								</div>
+								</div>
+									
+										<li>
+											<a href="{{path('detailedCV',{'id': can.id})}}">
+												<i class="icon-material-outline-settings"></i>
+											{% trans %}	Settings {% endtrans %}</a>
+												
+										</li>
+										<li>
+											<a href="{{path('app_logout')}}">
+												<i class="icon-material-outline-power-settings-new"></i>
+											{% trans %}	Logout {% endtrans %}</a>
+										</li>
+									</ul>
+
+								</div>
+						</div>
+					
+			{% endif %}
+					{% endfor %}
+		</div>
+		<!-- User Menu / End -->
+		{% endif %}
+	{% elseif is_granted('ROLE_RECRUTEUR') %}
+
+		<!-- User Menu -->
+			{% if app.request.locale == "ar" %}
+<div class="header-widget" style="margin-right: 1000px;margin-top: -82px;">
+			{% for rec in rec %}
+							
+				{% if app.token.user.id == rec.user.id %}
+			<!-- Messages -->
+			<div class="header-notifications user-menu">
+						<div class="header-notifications-trigger">
+						
+							<a href="#">
+								<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ rec.photo ) }}" alt=""></div>
+							</a>
+							
+						</div>
+					
+				<!-- Dropdown -->
+				<div class="header-notifications-dropdown">
+
+					<!-- User Status -->
+					<div
+						class="user-status">
+
+						<!-- User Name / Avatar -->
+						<div class="user-details">
+						
+							<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ rec.photo ) }}" alt=""></div>
+						
+							<div class="user-name">
+								{{app.token.user.nom}}
+								<span></span>
+							</div>
+						</div>
+
+					</div>
+
+					<ul class="user-menu-small-nav" style="text-align: right;">
+					
+						<li>
+							<a href="{{path('detailedRec',{'id': rec.id})}}">
+								<i class="icon-material-outline-settings"></i>
+							{% trans %}	Settings {% endtrans %}</a>
+						</li>
+						<li>
+							<a href="{{path('app_logout')}}">
+								<i class="icon-material-outline-power-settings-new"></i>
+							{% trans %}	Logout {% endtrans %}</a>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+			{% endif %}
+					{% endfor %}
+		</div>
+
+			{% else %}
+				
+		<div class="header-widget" style="position: absolute;">
+			{% for rec in rec %}
+							
+				{% if app.token.user.id == rec.user.id %}
+			<!-- Messages -->
+			<div class="header-notifications user-menu">
+						<div class="header-notifications-trigger">
+						
+							<a href="#">
+								<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ rec.photo ) }}" alt=""></div>
+							</a>
+							
+						</div>
+					
+				<!-- Dropdown -->
+				<div class="header-notifications-dropdown">
+
+					<!-- User Status -->
+					<div
+						class="user-status">
+
+						<!-- User Name / Avatar -->
+						<div class="user-details">
+						
+							<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ rec.photo ) }}" alt=""></div>
+						
+							<div class="user-name">
+								{{app.token.user.nom}}
+								<span></span>
+							</div>
+						</div>
+
+					</div>
+
+					<ul class="user-menu-small-nav">
+					
+						<li>
+							<a href="{{path('detailedRec',{'id': rec.id})}}">
+								<i class="icon-material-outline-settings"></i>
+							{% trans %}	Settings {% endtrans %}</a>
+						</li>
+						<li>
+							<a href="{{path('app_logout')}}">
+								<i class="icon-material-outline-power-settings-new"></i>
+							{% trans %}	Logout {% endtrans %}</a>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+			{% endif %}
+					{% endfor %}
+		</div>
+		{% endif %}
+		{% elseif is_granted('ROLE_ADMIN') %}
+		<!-- User Menu / End -->
+		{% else %}
+		{% if app.request.locale == "ar" %}
+		<div class="trans-login">
+			<div class="connect" style="margin-right: -70px;">
+				<a href="{{ path('app_login') }}" class="connect">
+					<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-12" style="width: 140px;">{% trans %} Login {% endtrans %}<i class="icon-material-outline-arrow-right-alt"></i>
+					</button>
+				</a>
+			</div>
+	
+	
+		</div>
+		{% else %}
+		<div class="header-widget" style="position: absolute;">
+			<div class="connect" style="margin-right: -70px;">
+				<a href="{{ path('app_login') }}" class="connect">
+					<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-12" style="width: 120px;">{% trans %} Login {% endtrans %}<i class="icon-material-outline-arrow-right-alt"></i>
+					</button>
+				</a>
+			</div>
+	
+	
+		</div>
+		{% endif %}
+	{% endif %}
+	
+	</br>
+	</br>
+{% endblock %}
+{% block body %}
+
+       </br>
+       
+       
+    <!-- Titlebar
+================================================== -->
+<div class="single-page-header" data-background-image="images/pic1.jpg">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="single-page-header-inner">
+			
+	
+							<div class="left-side-home">
+						
+							<div class="header-details">
+                            <h3 style="color:#FFF;">{% trans %} Internisa , an ENI CBC Med {% endtrans %} <br>{% trans %} project for the  {% endtrans %}<br> {% trans %}professionalization of young  {% endtrans %}<br>{% trans %} people and women. {% endtrans %}</h3>
+							<br><br><br>
+                            <div>
+                            <a href="{{ path('app_login') }}" style="border: 2px solid #ffffff;color: white;padding: 7px 50px;" >{% trans %}JOIN US {% endtrans %} </a>
+                            </div>
+							</div>
+						</div>
+			
+					</div>
+				
+				</div>
+			</div>
+		</div>
+	</div>
+    
+
+
+<!-- Page Content
+================================================== -->
+<div class="single" data-background-image="images/pic1.jpg" style="margin-top: -65px;">
+	<div class="container">
+		<div class="row">
+			
+			<!-- Content -->
+			<div class="col-md-5" style="margin-top: 13px;">
+
+				<div class="single-page-section">
+					<h2 >{% trans %} Search for the job {% endtrans %}</h2>
+				
+				</div>
+			</div>
+			<!-- Content -->
+			<div class="col-md-4">
+
+				<div class="single-page-section" style="margin-top: 25px;margin-bottom: 0px !important;">
+					<input type="text" width="50px">
+             
+				
+				</div>
+			</div>
+            	<div class="col-md-3">
+
+				<div class="single-page-section">
+				{% if app.request.locale =="ar" %}
+				 <button style="border: 2px solid #000;color: black;padding: 7px 50px;margin-top: 30px;" >{% trans %} Search {% endtrans %}</button>
+				{% else %}
+					
+				  <button style="border: 2px solid #ffffff;color: white;padding: 7px 50px;margin-top: 30px;" >{% trans %} Search {% endtrans %}</button>
+                     {% endif %}      
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+  </div>    
+
+	<div class="section white padding-top-0 padding-bottom-60 full-width-carousel-fix">
+		<div class="container">
+			<div class="row">
+            <div class="col-xl-4">
+
+					<!-- Section Headline -->
+					<div class="section-headline margin-top-0 margin-bottom-35">
+						<img src="{{ asset('/images/pic2.jpg' ) }}" alt="" style="max-width: 370px;">
+						 <button style="border: 5px solid #741919;color: #040404;padding: 83px 76px;border-radius: 20px;margin-top: -233px;margin-left: -67px;" ></button>
+                          <button style="border: 5px solid #741919;color: #040404;padding: 71px 71px;border-radius: 20px;margin-top: -75px;margin-left: -64px;" ></button>
+					</div>
+
+				</div>
+                 <div class="col-xl-4">
+
+					<!-- Section Headline -->
+					<div class="section-headline margin-top-0 margin-bottom-35">
+						<img src="{{ asset('/images/pic3.jpg' ) }}" alt="" style="max-width: 440px;">
+						
+					</div>
+
+				</div>
+				
+				<div class="col-xl-4">
+				{% if app.request.locale == 'ar' %}
+					<!-- Section Headline -->
+					<div class="section-headline margin-top-0 margin-bottom-35" style="background-color: white;padding: 5px 0px 37px;margin-left: -7px;text-align: right;">
+						<h3 style="margin-right: 30px;">{% trans %}The Internisa Project {% endtrans %}</h3>
+                        <p style="margin-right: 30px;">{% trans %} it's a project that helps women with limited skills to find a job that suits them {% endtrans %} </p>
+						<p style="margin-right: 30px;">{% trans %} so join us so that you can find the most comfortable job for you {% endtrans %}</p>
+					</div>
+				{% else %}
+					<div class="section-headline margin-top-0 margin-bottom-35" style="background-color: white;padding: 5px 0px 37px;margin-left: -37px;">
+						<h3 style="margin-left: 20px;">{% trans %}The Internisa Project {% endtrans %}</h3>
+                        <p style="margin-left: 20px;">{% trans %} it's a project that helps women with limited skills to find a job that suits them {% endtrans %} </p>
+						<p style="margin-left: 20px;">{% trans %} so join us so that you can find the most comfortable job for you {% endtrans %}</p>
+					</div>
+					{% endif %}
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+	<div class="section white padding-top-0 padding-bottom-60 full-width-carousel-fix">
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-12">
+
+					<!-- Section Headline -->
+					<div class="section-headline margin-top-0 margin-bottom-35">
+						<h3>{% trans %}Latest News {% endtrans %}</h3>
+						
+					</div>
+
+					<!-- Jobs Container -->
+
+
+				</div>
+
+				<!-- Job Listing -->
+
+
+				<div class="col-xl-12">
+					<div class="blog-carousel">
+						
+							<a href="{{ path('detailedNews',{'id': news["0"].id}) }}" class="blog-compact-item-container">
+								<div class="blog-compact-item">
+									<img src="{{ asset('uploads/images/' ~ news["0"].photo ) }}" alt="">
+									
+										<div class="blog-compact-item-content">
+										
+											<h2 class="job-listing-company">{{news["0"].titre	}}</h2>
+											<span class="job-listing-title">{{news["0"].createdAt|date('d-m-Y ')}}</span>
+										</div>
+								</div>
+							</a>
+                            <a href="{{ path('detailedNews',{'id': news["1"].id}) }}" class="blog-compact-item-container">
+								<div class="blog-compact-item">
+									<img src="{{ asset('uploads/images/' ~ news["1"].photo ) }}" alt="">
+									
+										<div class="blog-compact-item-content">
+										
+											<h2 class="job-listing-company">{{news["1"].titre	}}</h2>
+											<span class="job-listing-title">{{news["1"].createdAt|date('d-m-Y ')}}</span>
+										</div>
+								</div>
+							</a>
+                            <a href="{{ path('detailedNews',{'id': news["2"].id}) }}" class="blog-compact-item-container">
+								<div class="blog-compact-item">
+									<img src="{{ asset('uploads/images/' ~ news["2"].photo ) }}" alt="">
+									
+										<div class="blog-compact-item-content">
+										
+											<h2 class="job-listing-company">{{news["2"].titre	}}</h2>
+											<span class="job-listing-title">{{news["2"].createdAt|date('d-m-Y ')}}</span>
+										</div>
+								</div>
+							</a>
+                            
+				
+					</div>
+                   <div class="col-xl-12" style="text-align: center;margin-top: 30px;"> 
+                    <a href="{{ path('Actualites') }}" style="border: 2px solid #666666;color: #4a4a4a;padding: 7px 50px;" >{% trans %} View All News {% endtrans %}</a>
+					</div>		
+				
+
+							<!-- Job Listing -->
+						
+				</div>
+					<!-- Jobs Container / End -->
+
+				
+			</div>
+		</div>
+	</div>
+
+
+<!-- Page Content
+================================================== -->
+<div class="container">
+	<div class="row">
+			
+			  
+	</div>
+</div>
+
+
+
+  </div>     
+{% endblock %}
+

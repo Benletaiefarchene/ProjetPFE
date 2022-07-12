@@ -6,6 +6,7 @@ use App\Repository\CandidatRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=CandidatRepository::class)
@@ -16,42 +17,64 @@ class Candidat
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("candidat")
+     * @Groups("posts:read")
+
      */
     private $id;
 
     /**
      * @ORM\OneToOne(targetEntity=CV::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
+          * @Groups("candidat")
+     * @Groups("posts:read")
+
      */
     private $CV;
 
     /**
      * @ORM\ManyToMany(targetEntity=OffreEmploi::class, mappedBy="Candidat")
+          * @Groups("candidat")
+     * @Groups("posts:read")
      */
     private $offreEmplois;
 
     /**
      * @ORM\ManyToMany(targetEntity=OffreFormation::class, mappedBy="Candidat")
+          * @Groups("candidat")
+     * @Groups("posts:read")
+
      */
     private $offreFormations;
 
     /**
      * @ORM\ManyToMany(targetEntity=Forum::class, mappedBy="Candidat")
+          * @Groups("candidat")
+     * @Groups("posts:read")
+
      */
     private $forums;
 
     /**
      * @ORM\OneToOne(targetEntity=User::class, cascade={"persist", "remove"})
+          * @Groups("candidat")
+     * @Groups("posts:read")
+
      */
     private $User;
 
     /**
      * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="candidat")
+          * @Groups("candidat")
+     * @Groups("posts:read")
      */
     private $commentaires;
 
     /**
      * @ORM\OneToMany(targetEntity=Candidature::class, mappedBy="candidat")
+          * @Groups("candidat")
+     * @Groups("posts:read")
+
      */
     private $candidatures;
 

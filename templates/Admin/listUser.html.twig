@@ -1,4 +1,5 @@
 {% extends 'dashboard.html.twig' %}
+{% block title %} {% trans %}List Users {% endtrans %}
 {% block body %}
 	<div class="container">
 		<div class="row"></br>
@@ -38,7 +39,7 @@
 
 						</div>
 						<div class="right-side">
-							<a href="{{ path('admin_editUser',{'id': user.id}) }}" class="button full-width button-sliding-icon ripple-effect margin-top-10">Edit<i class="icon-material-outline-arrow-right-alt"></i>
+							<a href="{{ path('admin_editUser',{'id': user.id}) }}" class="button full-width button-sliding-icon ripple-effect margin-top-10"> {% trans %} Edit {% endtrans %} <i class="icon-material-outline-arrow-right-alt"></i>
 								</a>
 						</div>
 				</div>

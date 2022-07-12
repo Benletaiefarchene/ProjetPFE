@@ -1,5 +1,9 @@
 <!DOCTYPE html>
-<html>
+
+<html {% if app.request.locale == "ar" %} dir="rtl" {% else %} dir="ltr" {% endif %} >
+
+
+
    <head>
 
 <!-- Basic Page Needs
@@ -13,6 +17,7 @@
 <!-- CSS
 ================================================== -->
 <link rel="stylesheet" href={{ asset('css/style.css')}}>
+
 <link rel="stylesheet" href={{ asset('css/colors/blue.css')}}>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -33,28 +38,90 @@
 			<div class="left-side">
 				
 				<!-- Logo -->
+			
+					
 				<div id="logo">
-					<a href="index.html"><img src={{ asset('images/logo.png')}} alt=""></a>
+					<a href="index.html"><img src={{ asset('images/logo.png')}} alt="" ></a>
 				</div>
+				{% if app.request.locale =="ar" %}
 
+				<nav id="navigation">
+					<ul id="responsive">
+						<li><a href="{{ path('About') }}" class="current"> {% trans %} About {% endtrans %}</a></li>
+						<li><a href="{{ path('app_contact') }}" class="current"> {% trans %} Contact {% endtrans %}</a></li>
+						<li><a href="{{path('listQuestion')}}" class="current">  {% trans %} List Forum {% endtrans %}</a></li>
+						<li><a href="#" class="current">Training</a>
+							<ul class="dropdown-nav">
+								<li><a href="#">Find a Freelancer</a>
+									<ul class="dropdown-nav">
+										<li><a href="freelancers-grid-layout-full-page.html">Full Page Grid</a></li>
+										<li><a href="freelancers-grid-layout.html">Grid Layout</a></li>
+										<li><a href="freelancers-list-layout-1.html">List Layout 1</a></li>
+										<li><a href="freelancers-list-layout-2.html">List Layout 2</a></li>
+									</ul>
+								</li>
+								<li><a href="single-freelancer-profile.html">Freelancer Profile</a></li>
+								<li><a href="dashboard-post-a-job.html">Post a Job</a></li>
+								<li><a href="dashboard-post-a-task.html">Post a Task</a></li>
+							</ul>
+						</li>
+						<li><a href="#" class="current">  {% trans %} Job offer {% endtrans %}</a>
+							<ul class="dropdown-nav">
+								<li><a href="{{ path('listposthome') }}">  {% trans %} All Job Offre {% endtrans %}</a></li>
+								<li><a href="http://127.0.0.1:8000/listPosthome?q=&type%5B%5D=1&min=&max=&_token=tXdUxYvDEnrDBv0uoOyUW1YMZq_fRqucCESknfhcc2I"> {% trans %} Recruitment {% endtrans %}</a></li>
+								<li><a href="http://127.0.0.1:8000/listPosthome?q=&type%5B%5D=2&min=&max=&_token=tXdUxYvDEnrDBv0uoOyUW1YMZq_fRqucCESknfhcc2I"> {% trans %} Free-lance {% endtrans %}</a></li>
+								<li><a href="http://127.0.0.1:8000/listPosthome?q=&type%5B%5D=3&min=&max=&_token=tXdUxYvDEnrDBv0uoOyUW1YMZq_fRqucCESknfhcc2I"> {% trans %} Telework {% endtrans %}</a></li>
+								<li><a href="http://127.0.0.1:8000/listPosthome?q=&type%5B%5D=4&min=&max=&_token=tXdUxYvDEnrDBv0uoOyUW1YMZq_fRqucCESknfhcc2I"> {% trans %} Traineeship {% endtrans %}</a></li>
+							</ul>
+						</li>
+						<li><a href="{{ path('Actualites') }}" class="current"> {% trans %}  News {% endtrans %}</a>
+							
+						</li>
+							<li><a href="{{ path('homee') }}" class="current"> {% trans %} Home {% endtrans %}</a></li>
+
+					{% if is_granted('ROLE_RECRUTEUR') %}
+					    <li><a href="{{ path('listOffre') }}" class="current"> {% trans %} Dash {% endtrans %}</a></li>
+					
+						{% else %}
+							
+					{% endif %}	
+
+						
+						
+						
+						
+					
+						
+							
+						
+					</ul>
+				</nav>
+				{% else %}
+					
+			
 				<!-- Main Navigation -->
 				<nav id="navigation">
 					<ul id="responsive">
+					{% if is_granted('ROLE_RECRUTEUR') %}
+					    <li><a href="{{ path('listOffre') }}" class="current"> {% trans %} Dash {% endtrans %}</a></li>
+					
+						{% else %}
+							
+					{% endif %}	
 
-						<li><a href="{{ path('listposthome') }}" class="current">Home</a>
+						
+							<li><a href="{{ path('homee') }}" class="current"> {% trans %} Home {% endtrans %}</a></li>
+						<li><a href="{{ path('Actualites') }}" class="current"> {% trans %}  News {% endtrans %}</a>
 							
 						</li>
-						<li><a href="{{ path('Actualites') }}" class="current">News</a>
-							
-						</li>
 
-						<li><a href="#" class="current">Job offer</a>
+						<li><a href="#" class="current">  {% trans %} Job offer {% endtrans %}</a>
 							<ul class="dropdown-nav">
-								
-								<li><a href="http://127.0.0.1:8000/listPosthome?q=&type%5B%5D=1&min=&max=&_token=tXdUxYvDEnrDBv0uoOyUW1YMZq_fRqucCESknfhcc2I">Recrutement</a></li>
-								<li><a href="http://127.0.0.1:8000/listPosthome?q=&type%5B%5D=2&min=&max=&_token=tXdUxYvDEnrDBv0uoOyUW1YMZq_fRqucCESknfhcc2I">Free-lance</a></li>
-								<li><a href="http://127.0.0.1:8000/listPosthome?q=&type%5B%5D=3&min=&max=&_token=tXdUxYvDEnrDBv0uoOyUW1YMZq_fRqucCESknfhcc2I">Télétravail</a></li>
-								<li><a href="http://127.0.0.1:8000/listPosthome?q=&type%5B%5D=4&min=&max=&_token=tXdUxYvDEnrDBv0uoOyUW1YMZq_fRqucCESknfhcc2I">Stage</a></li>
+								<li><a href="{{ path('listposthome') }}">  {% trans %} All Job Offre {% endtrans %}</a></li>
+								<li><a href="http://127.0.0.1:8000/listPosthome?q=&type%5B%5D=1&min=&max=&_token=tXdUxYvDEnrDBv0uoOyUW1YMZq_fRqucCESknfhcc2I"> {% trans %} Recruitment {% endtrans %}</a></li>
+								<li><a href="http://127.0.0.1:8000/listPosthome?q=&type%5B%5D=2&min=&max=&_token=tXdUxYvDEnrDBv0uoOyUW1YMZq_fRqucCESknfhcc2I"> {% trans %} Free-lance {% endtrans %}</a></li>
+								<li><a href="http://127.0.0.1:8000/listPosthome?q=&type%5B%5D=3&min=&max=&_token=tXdUxYvDEnrDBv0uoOyUW1YMZq_fRqucCESknfhcc2I"> {% trans %} Telework {% endtrans %}</a></li>
+								<li><a href="http://127.0.0.1:8000/listPosthome?q=&type%5B%5D=4&min=&max=&_token=tXdUxYvDEnrDBv0uoOyUW1YMZq_fRqucCESknfhcc2I"> {% trans %} Traineeship {% endtrans %}</a></li>
 							</ul>
 						</li>
 					
@@ -73,13 +140,14 @@
 								<li><a href="dashboard-post-a-task.html">Post a Task</a></li>
 							</ul>
 						</li>
-							<li><a href="{{path('listQuestion')}}" class="current"> List Forum</a></li>
-						<li><a href="{{ path('app_contact') }}" class="current">Contact</a>
-						<li><a href="{{ path('About') }}" class="current">About</a>
+							<li><a href="{{path('listQuestion')}}" class="current">  {% trans %} List Forum {% endtrans %}</a></li>
+						<li><a href="{{ path('app_contact') }}" class="current"> {% trans %} Contact {% endtrans %}</a>
+						<li><a href="{{ path('About') }}" class="current"> {% trans %} About {% endtrans %}</a>
 							
 						</li>
 					</ul>
 				</nav>
+					{% endif %}
 				<div class="clearfix"></div>
 				<!-- Main Navigation / End -->
 				
@@ -87,7 +155,9 @@
 			<!-- Left Side Content / End -->
 
 			<!-- Right Side Content / End -->
-			<div class="right-side">
+			{% if app.request.locale =="ar" %}
+			<div class="trans">
+			
 
 				<!--  User Notifications -->
 				<div class="header-widget hide-on-mobile">
@@ -95,138 +165,44 @@
 					<!-- Notifications -->
 					<div class="header-notifications">
 
+						<div>
+					<select name="test_redirect" onchange="location = this.value;" >
+
+								<option >{% trans %}Language {% endtrans %}</option>
+						{% for locale in locales  %}
+							{% if locale != app.request.locale %}
+								
+									
+										<option value="{{path('change_locale',{'locale':locale})}}">	
+										{% if locale == "ar" %} العربية 
+										{% elseif locale == "fr"  %} Français
+										{% elseif locale == "de"  %} Allemand
+										{% elseif locale == "it"  %} Italien
+										{% elseif locale == "el"  %} Grec
+										{% elseif locale == "es"  %} Espagnol
+										{% elseif locale == "en"  %} Anglais
+										{% endif %}
+											 </option>	
+								
+								
+								
+								{% endif %}
+							{% endfor %}
+								</select>	
+						</div>
+						
 						<!-- Trigger -->
-						<div class="header-notifications-trigger">
-							<a href="#"><i class="icon-feather-bell"></i><span>4</span></a>
-						</div>
+						
+						
 
-						<!-- Dropdown -->
-						<div class="header-notifications-dropdown">
-
-							<div class="header-notifications-headline">
-								<h4>Notifications</h4>
-								<button class="mark-as-read ripple-effect-dark" title="Mark all as read" data-tippy-placement="left">
-									<i class="icon-feather-check-square"></i>
-								</button>
-							</div>
-
-							<div class="header-notifications-content">
-								<div class="header-notifications-scroll" data-simplebar>
-									<ul>
-										<!-- Notification -->
-										<li class="notifications-not-read">
-											<a href="dashboard-manage-candidates.html">
-												<span class="notification-icon"><i class="icon-material-outline-group"></i></span>
-												<span class="notification-text">
-													<strong>Michael Shannah</strong> applied for a job <span class="color">Full Stack Software Engineer</span>
-												</span>
-											</a>
-										</li>
-
-										<!-- Notification -->
-										<li>
-											<a href="dashboard-manage-bidders.html">
-												<span class="notification-icon"><i class=" icon-material-outline-gavel"></i></span>
-												<span class="notification-text">
-													<strong>Gilbert Allanis</strong> placed a bid on your <span class="color">iOS App Development</span> project
-												</span>
-											</a>
-										</li>
-
-										<!-- Notification -->
-										<li>
-											<a href="dashboard-manage-jobs.html">
-												<span class="notification-icon"><i class="icon-material-outline-autorenew"></i></span>
-												<span class="notification-text">
-													Your job listing <span class="color">Full Stack PHP Developer</span> is expiring.
-												</span>
-											</a>
-										</li>
-
-										<!-- Notification -->
-										<li>
-											<a href="dashboard-manage-candidates.html">
-												<span class="notification-icon"><i class="icon-material-outline-group"></i></span>
-												<span class="notification-text">
-													<strong>Sindy Forrest</strong> applied for a job <span class="color">Full Stack Software Engineer</span>
-												</span>
-											</a>
-										</li>
-									</ul>
-								</div>
-							</div>
-
-						</div>
+						
 
 					</div>
 					
-					<!-- Messages -->
-					<div class="header-notifications">
-						<div class="header-notifications-trigger">
-							<a href="#"><i class="icon-feather-mail"></i><span>3</span></a>
-						</div>
-
-						<!-- Dropdown -->
-						<div class="header-notifications-dropdown">
-
-							<div class="header-notifications-headline">
-								<h4>Messages</h4>
-								<button class="mark-as-read ripple-effect-dark" title="Mark all as read" data-tippy-placement="left">
-									<i class="icon-feather-check-square"></i>
-								</button>
-							</div>
-
-							<div class="header-notifications-content">
-								<div class="header-notifications-scroll" data-simplebar>
-									<ul>
-										<!-- Notification -->
-										<li class="notifications-not-read">
-											<a href="dashboard-messages.html">
-												<span class="notification-avatar status-online"><img src="images/user-avatar-small-03.jpg" alt=""></span>
-												<div class="notification-text">
-													<strong>David Peterson</strong>
-													<p class="notification-msg-text">Thanks for reaching out. I'm quite busy right now on many...</p>
-													<span class="color">4 hours ago</span>
-												</div>
-											</a>
-										</li>
-
-										<!-- Notification -->
-										<li class="notifications-not-read">
-											<a href="dashboard-messages.html">
-												<span class="notification-avatar status-offline"><img src="images/user-avatar-small-02.jpg" alt=""></span>
-												<div class="notification-text">
-													<strong>Sindy Forest</strong>
-													<p class="notification-msg-text">Hi Tom! Hate to break it to you, but I'm actually on vacation until...</p>
-													<span class="color">Yesterday</span>
-												</div>
-											</a>
-										</li>
-
-										<!-- Notification -->
-										<li class="notifications-not-read">
-											<a href="dashboard-messages.html">
-												<span class="notification-avatar status-online"><img src="images/user-avatar-placeholder.png" alt=""></span>
-												<div class="notification-text">
-													<strong>Marcin Kowalski</strong>
-													<p class="notification-msg-text">I received payment. Thanks for cooperation!</p>
-													<span class="color">Yesterday</span>
-												</div>
-											</a>
-										</li>
-									</ul>
-								</div>
-							</div>
-
-							<a href="dashboard-messages.html" class="header-notifications-button ripple-effect button-sliding-icon">View All Messages<i class="icon-material-outline-arrow-right-alt"></i></a>
-						</div>
-					</div>
+					
 
 				</div>
-				<!--  User Notifications / End -->
-{% block header %}{% endblock %}
-
-				<!-- Mobile Navigation Button -->
+						<!-- Mobile Navigation Button -->
 				<span class="mmenu-trigger">
 					<button class="hamburger hamburger--collapse" type="button">
 						<span class="hamburger-box">
@@ -236,6 +212,69 @@
 				</span>
 
 			</div>
+				
+			{% else %}
+				
+			<div class="right-side">
+
+				<!--  User Notifications -->
+				<div class="header-widget hide-on-mobile">
+					
+					<!-- Notifications -->
+					<div class="header-notifications">
+
+						<div>
+					<select name="test_redirect" onchange="location = this.value;"  >
+
+								<option >{% trans %}Language {% endtrans %}</option>
+
+						{% for locale in locales  %}
+							{% if locale != app.request.locale %}
+								
+								<option value="{{path('change_locale',{'locale':locale})}}">	
+										{% if locale == "ar" %} العربية 
+										{% elseif locale == "fr"  %} Français
+										{% elseif locale == "de"  %} Allemand
+										{% elseif locale == "it"  %} Italien
+										{% elseif locale == "el"  %} Grec
+										{% elseif locale == "es"  %} Espagnol
+										{% elseif locale == "en"  %} Anglais
+										{% endif %}
+											 </option>	
+									
+								
+								{% endif %}
+							{% endfor %}
+						</select>	
+						</div>
+						
+						<!-- Trigger -->
+						
+					
+
+						
+
+					</div>
+					
+					
+
+				</div>
+						<!-- Mobile Navigation Button -->
+				<span class="mmenu-trigger">
+					<button class="hamburger hamburger--collapse" type="button">
+						<span class="hamburger-box">
+							<span class="hamburger-inner"></span>
+						</span>
+					</button>
+				</span>
+
+			</div>
+			
+			{% endif %}
+				<!--  User Notifications / End -->
+{% block header %}{% endblock %}
+
+		
 			<!-- Right Side Content / End -->
 
 		</div>
@@ -252,54 +291,6 @@
 </br>
 </br>
 
-
-	{% if is_granted('ROLE_RECRUTEUR') %}
-	</br></br>
-
-	<div class="col-md-4 col-lg-3">
-	<div class="dashboard-container">
-</br></br>
-	<!-- Dashboard Sidebar
-	================================================== -->
-
-	<div class="dashboard-sidebar">
-		
-			<div class="dashboard-nav-container">
-
-				
-				
-				<!-- Navigation -->
-				<div class="dashboard-nav">
-				</br>
-					<div class="dashboard-nav-inner">
-
-						<ul data-submenu-title="Start" >
-					
-							<li ><a href="{{ path('listOffre') }}"><i class="icon-material-outline-dashboard"></i> My Posts</a></li>
-							<li ><a href="{{ path('MyQuestion') }}"><i class="icon-material-outline-dashboard"></i> My Forums</a></li>
-							<li><a href="{{ path('addPost',{'id':app.user.id}) }}"><i class="icon-material-outline-add"></i> Add Post </a></li>
-						
-							<li><a href="{{path('listpost')}}"><i class="icon-material-outline-check-circle"></i> List Posts</a></li>
-								<li><a href="{{path('addquestion',{'id':app.user.id})}}"><i class="icon-material-outline-add"></i> Add Forum</a></li>
-								<li><a href="{{path('listQuestion')}}"><i class="icon-material-outline-add"></i> List Forum</a></li>
-						</ul>
-						
-
-						
-					</div>
-				</div>
-				<!-- Navigation / End -->
-
-			</div>
-		
-	</div>
-
-
-</div>
-
-</div>
-	<!-- Dashboard Sidebar / End -->
-	{% endif %}
 <!-- Header Container / End -->
 
 
@@ -450,7 +441,7 @@ $('#snackbar-user-status label').click(function() {
 							<div class="footer-row">
 								<div class="footer-row-inner">
 									<select class="selectpicker language-switcher" data-selected-text-format="count" data-size="5">
-										<option selected>English</option>
+										<option>English</option>
 										<option>Français</option>
 										<option>Español</option>
 										<option>Deutsch</option>
@@ -477,7 +468,7 @@ $('#snackbar-user-status label').click(function() {
 					<div class="footer-links">
 						<h3>For Candidates</h3>
 						<ul>
-							<li><a href="#"><span>Browse Jobs</span></a></li>
+							<li><a href="#"><span> Browse Jobs</span></a></li>
 							<li><a href="#"><span>Add Resume</span></a></li>
 							<li><a href="#"><span>Job Alerts</span></a></li>
 							<li><a href="#"><span>My Bookmarks</span></a></li>

@@ -1,5 +1,5 @@
 
-<title>Register
+<title>{% trans %} Register {% endtrans %}
 </title>
 
 
@@ -45,15 +45,15 @@
 			<div class="row">
 				<div class="col-md-12">
 
-					<h2>Register</h2>
+					<h2>{% trans %}Register {% endtrans %}</h2>
 
 					<!-- Breadcrumbs -->
 					<nav id="breadcrumbs" class="dark">
 						<ul>
 							<li>
-								<a href="#">Home</a>
+								<a href="#">{% trans %} Home {% endtrans %}</a>
 							</li>
-							<li>Register</li>
+							<li>{% trans %} Register {% endtrans %}</li>
 						</ul>
 					</nav>
 
@@ -69,34 +69,17 @@
 					class="login-register-page">
 					<!-- Welcome Text -->
 					<div class="welcome-text">
-						<h3 style="font-size: 26px;">Let's create your account!</h3>
-						<span>Already have an account?
-							<a href="{{path('app_login')}}">Log In!</a>
+						<h3 style="font-size: 26px;">{% trans %} Let's create your account! {% endtrans %}</h3>
+						<span>{% trans %} Already have an account? {% endtrans %}
+							<a href="{{path('app_login')}}">{% trans %} Log In! {% endtrans %}</a>
 						</span>
 					</div>
 
 					{{ form_start(registrationForm) }}
 
-					<div class="col-xl-12">
-									<div class="submit-field">
-						{# <div>
-							<input type="radio" name="roles" value="ROLE_CANDIDAT" id="Candidat" class="account-type-radio"/>
-							<label for="Candidat" class="ripple-effect-dark">
-								<i class="icon-material-outline-account-circle"></i>
-								{{form_widget(registrationForm.roles[0])}}</label> 
-
-						</div> #}
-
-						
-							
-							<label for="Recruteur" class="ripple-effect-dark col-xl-12" >
-								
-								{{form_widget(registrationForm.roles,{'attr':{'style':'text-align:center' ,'class':'role','name':'role'}})}}
-							</label>
-						</div> 
-					</div> 
+					
 				
-					 {# {{ form_widget(registrationForm.roles	)}}  #}
+					
 					{{ form_widget(registrationForm.email,{'attr':{'type':'text','class':'form-control','placeholder':'email...'}}) }}
 					{{ form_widget(registrationForm.nom,{'attr':{'type':'text','class':'form-control','placeholder':'nom...'}}) }}
 					{{ form_widget(registrationForm.prenom,{'attr':{'type':'text','class':'form-control','placeholder':'prenom...'}}) }}
@@ -104,15 +87,20 @@
 					
 					<div class="submit-field"></div>
 				</div>
-				<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-10">Register<i class="icon-material-outline-arrow-right-alt"></i>
+				<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-10">{% trans %} Register {% endtrans %}<i class="icon-material-outline-arrow-right-alt"></i>
 				</button>
+				{% if app.request.get('role')=='ROLE_CANDIDAT' %}
 				<hr>
-					<h3 style="text-align:center;">OR</h3>
+					<h3 style="text-align:center;">{% trans %} OR {% endtrans %}</h3>
 					<hr>
 					<div class="text-center social-btn">
+					
             		<a href="{{path('connect_facebook_start')}}" class="btns btn-primary"><i class="fa fa-facebook"></i>&nbsp; Facebook</a>
 					<a href="{{path('connect_google_start')}}" class="btns btn-danger"><i class="fa fa-google"></i>&nbsp; Google</a>
-        		</div>
+					{% elseif app.request.get('role')=='ROLE_RECRUTEUR' %}
+					
+					 {% endif %}
+				</div>
 				<hr>
 				
 				{{ form_end(registrationForm) }}

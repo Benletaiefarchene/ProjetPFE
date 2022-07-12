@@ -1,5 +1,5 @@
 
-<title>Login
+<title>{% trans %}Login {% endtrans %}
 </title>
 
 
@@ -42,13 +42,13 @@
 		<div class="row">
 			<div class="col-md-12">
 
-				<h2>Log In</h2>
+				<h2>{% trans %}Log In {% endtrans %}</h2>
 
 				<!-- Breadcrumbs -->
 				<nav id="breadcrumbs" class="dark">
 					<ul>
-						<li><a href="#">Home</a></li>
-						<li>Log In</li>
+						<li><a href="#">{% trans %}Home {% endtrans %}</a></li>
+						<li>{% trans %}Log In {% endtrans %}</li>
 					</ul>
 				</nav>
 
@@ -64,8 +64,8 @@
 			<div class="login-register-page">
 				<!-- Welcome Text -->
 				<div class="welcome-text">
-					<h3>We're glad to see you again!</h3>
-					<span>Don't have an account? <a href="{{path('app_register')}}">Sign Up!</a></span>
+					<h3>{% trans %}We're glad to see you again! {% endtrans %}</h3>
+					<span>{% trans %} Don't have an account? {% endtrans %} <a href="{{path('role')}}">{% trans %} Sign Up! {% endtrans %}</a></span>
 				</div>
 
 				{% for message in app.flashes('message') %}
@@ -82,7 +82,7 @@
 
     {% if app.user %}
         <div class="mb-3">
-            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+         {% trans %}   You are logged in as {% endtrans %} {{ app.user.username }}, <a href="{{ path('app_logout') }}">{% trans %} Logout {% endtrans %}</a>
         </div>
     {% endif %}
 	
@@ -113,9 +113,10 @@
             </label>
         </div>
     #}
-		<span> <a href="{{path('app_forgotten_password')}}">Mot de passe oublié ?</a></span>
+		<span> <a href="{{path('app_forgotten_password')}}">{% trans %}Forgot your password ? {% endtrans %}</a></span>
 
-   <button class="button full-width button-sliding-icon ripple-effect margin-top-10" type="submit" form="login-form">Log In <i class="icon-material-outline-arrow-right-alt"></i></button>
+   <button class="button full-width button-sliding-icon ripple-effect margin-top-10" type="submit" form="login-form">{% trans %}Log In {% endtrans %} <i class="icon-material-outline-arrow-right-alt"></i></button>
+   			
 </form>
 
 

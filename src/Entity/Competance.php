@@ -23,6 +23,7 @@ class Competance
     private $Competance;
 
     /**
+     * @ORM\JoinColumn(onDelete="CASCADE") 
      * @ORM\ManyToOne(targetEntity=CV::class, inversedBy="competances")
      * @ORM\JoinColumn(nullable=false)
      */

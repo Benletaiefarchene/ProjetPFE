@@ -22,6 +22,13 @@ class ForumRepository extends ServiceEntityRepository
         parent::__construct($registry, Forum::class);
         $this->paginator =$paginator;
     }
+    public function add(Forum $entity, bool $flush = true): void
+    {
+        $this->_em->persist($entity);
+        if ($flush) {
+            $this->_em->flush();
+        }
+    }
 
     // /**
     //  * @return Forum[] Returns an array of Forum objects

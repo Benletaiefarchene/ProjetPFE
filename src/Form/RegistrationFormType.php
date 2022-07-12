@@ -27,17 +27,7 @@ class RegistrationFormType extends AbstractType
             ->add('email')
             ->add('nom')
             ->add('prenom')
-            ->add('roles',  ChoiceType::class, array(
-                'required' => false,
-                'multiple' => false,
-                'expanded' => false,
-                'placeholder'=>false,
-                'choices'  => array(
-                  'Candidat' => 'ROLE_CANDIDAT',
-                  'Recruteur' => 'ROLE_RECRUTEUR',
-                  
-                ),
-            ))
+          
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -61,18 +51,7 @@ class RegistrationFormType extends AbstractType
                 
             ])
         ;
-         // Data transformer
-         $builder->get('roles')
-         ->addModelTransformer(new CallbackTransformer(
-             function ($rolesArray) {
-                  // transform the array to a string
-                  return count($rolesArray)? $rolesArray[0]: null;
-             },
-             function ($rolesString) {
-                  // transform the string back to an array
-                  return [$rolesString];
-             }
-     ));
+       
     }
 
     public function configureOptions(OptionsResolver $resolver): void

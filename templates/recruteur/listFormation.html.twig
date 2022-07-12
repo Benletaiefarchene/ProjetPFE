@@ -2,12 +2,61 @@
 
 {% block title %}Edit Profile
 {% endblock %}
-	{% block header %}
+{% block header %}
 			{% if is_granted('ROLE_CANDIDAT') %}
 
 
 					<!-- User Menu -->
-				<div class="header-widget">
+					{% if app.request.locale == "ar" %}
+						<div class="header-widget" style="margin-right: 1000px;margin-top: -82px;">
+					{% for can in can %}
+							
+						{% if app.token.user.id == can.user.id %}
+							<!-- Messages -->
+						<div class="header-notifications user-menu">
+							<div class="header-notifications-trigger">
+								<a href="#">
+									<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.CV.photo ) }}" alt=""></div>
+										
+								</a>
+							</div>
+						
+							<!-- Dropdown -->
+								<div class="header-notifications-dropdown">
+									<ul class="user-menu-small-nav" style="text-align: right;">
+									<div class="user-status">
+
+								<!-- User Name / Avatar -->
+								<div class="user-details">
+									<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.CV.photo ) }}" alt=""></div>
+									<div class="user-name">
+											
+											<span>{{app.token.user.nom}}</span>
+										</div>
+								</div>
+								</div>
+									
+										<li>
+											<a href="{{path('detailedCV',{'id': can.id})}}">
+												<i class="icon-material-outline-settings"></i>
+											{% trans %}	Settings {% endtrans %}</a>
+												
+										</li>
+										<li>
+											<a href="{{path('app_logout')}}">
+												<i class="icon-material-outline-power-settings-new"></i>
+											{% trans %}	Logout {% endtrans %}</a>
+										</li>
+									</ul>
+
+								</div>
+						</div>
+					
+			{% endif %}
+					{% endfor %}
+		</div>
+					{% else %}
+				<div class="header-widget" style="position: absolute;">
 					{% for can in can %}
 							
 						{% if app.token.user.id == can.user.id %}
@@ -38,13 +87,13 @@
 										<li>
 											<a href="{{path('detailedCV',{'id': can.id})}}">
 												<i class="icon-material-outline-settings"></i>
-												Settings</a>
+											{% trans %}	Settings {% endtrans %}</a>
 												
 										</li>
 										<li>
 											<a href="{{path('app_logout')}}">
 												<i class="icon-material-outline-power-settings-new"></i>
-												Logout</a>
+											{% trans %}	Logout {% endtrans %}</a>
 										</li>
 									</ul>
 
@@ -55,10 +104,68 @@
 					{% endfor %}
 		</div>
 		<!-- User Menu / End -->
+		{% endif %}
 	{% elseif is_granted('ROLE_RECRUTEUR') %}
 
 		<!-- User Menu -->
-		<div class="header-widget">
+			{% if app.request.locale == "ar" %}
+<div class="header-widget" style="margin-right: 1000px;margin-top: -82px;">
+			{% for rec in rec %}
+							
+				{% if app.token.user.id == rec.user.id %}
+			<!-- Messages -->
+			<div class="header-notifications user-menu">
+						<div class="header-notifications-trigger">
+						
+							<a href="#">
+								<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ rec.photo ) }}" alt=""></div>
+							</a>
+							
+						</div>
+					
+				<!-- Dropdown -->
+				<div class="header-notifications-dropdown">
+
+					<!-- User Status -->
+					<div
+						class="user-status">
+
+						<!-- User Name / Avatar -->
+						<div class="user-details">
+						
+							<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ rec.photo ) }}" alt=""></div>
+						
+							<div class="user-name">
+								{{app.token.user.nom}}
+								<span></span>
+							</div>
+						</div>
+
+					</div>
+
+					<ul class="user-menu-small-nav" style="text-align: right;">
+					
+						<li>
+							<a href="{{path('detailedRec',{'id': rec.id})}}">
+								<i class="icon-material-outline-settings"></i>
+							{% trans %}	Settings {% endtrans %}</a>
+						</li>
+						<li>
+							<a href="{{path('app_logout')}}">
+								<i class="icon-material-outline-power-settings-new"></i>
+							{% trans %}	Logout {% endtrans %}</a>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+			{% endif %}
+					{% endfor %}
+		</div>
+
+			{% else %}
+				
+		<div class="header-widget" style="position: absolute;">
 			{% for rec in rec %}
 							
 				{% if app.token.user.id == rec.user.id %}
@@ -97,12 +204,12 @@
 						<li>
 							<a href="{{path('detailedRec',{'id': rec.id})}}">
 								<i class="icon-material-outline-settings"></i>
-								Settings</a>
+							{% trans %}	Settings {% endtrans %}</a>
 						</li>
 						<li>
 							<a href="{{path('app_logout')}}">
 								<i class="icon-material-outline-power-settings-new"></i>
-								Logout</a>
+							{% trans %}	Logout {% endtrans %}</a>
 						</li>
 					</ul>
 
@@ -111,20 +218,33 @@
 			{% endif %}
 					{% endfor %}
 		</div>
+		{% endif %}
 		{% elseif is_granted('ROLE_ADMIN') %}
 		<!-- User Menu / End -->
 		{% else %}
-		<div
-			class="header-widget">
+		{% if app.request.locale == "ar" %}
+		<div class="trans-login">
 			<div class="connect" style="margin-right: -70px;">
 				<a href="{{ path('app_login') }}" class="connect">
-					<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-12" style="width: 120px;">Connexion<i class="icon-material-outline-arrow-right-alt"></i>
+					<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-12" style="width: 140px;">{% trans %} Login {% endtrans %}<i class="icon-material-outline-arrow-right-alt"></i>
 					</button>
 				</a>
 			</div>
 	
 	
 		</div>
+		{% else %}
+		<div class="header-widget" style="position: absolute;">
+			<div class="connect" style="margin-right: -70px;">
+				<a href="{{ path('app_login') }}" class="connect">
+					<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-12" style="width: 120px;">{% trans %} Login {% endtrans %}<i class="icon-material-outline-arrow-right-alt"></i>
+					</button>
+				</a>
+			</div>
+	
+	
+		</div>
+		{% endif %}
 	{% endif %}
 	
 	</br>
@@ -136,155 +256,7 @@
 	================================================== -->
 	<div class="container">
 		<div class="row">
-			<div class="col-xl-3 col-lg-4">
-				<div
-					class="sidebar-container">
-
-					<!-- Location -->
-					<div class="sidebar-widget">
-						<h3>Location</h3>
-						<div class="input-with-icon">
-							<div id="autocomplete-container">
-								<input id="autocomplete-input" type="text" placeholder="Location">
-							</div>
-							<i class="icon-material-outline-location-on"></i>
-						</div>
-					</div>
-
-
-					<!-- Keywords -->
-					<div class="sidebar-widget">
-						<h3>Keywords</h3>
-						<div class="keywords-container">
-							<div class="keyword-input-container">
-								<input type="text" class="keyword-input" placeholder="e.g. job title"/>
-								<button class="keyword-input-button ripple-effect">
-									<i class="icon-material-outline-add"></i>
-								</button>
-							</div>
-							<div class="keywords-list"><!-- keywords go here --></div>
-							<div class="clearfix"></div>
-						</div>
-					</div>
-
-					<!-- Category -->
-					<div class="sidebar-widget">
-						<h3>Category</h3>
-						<select class="selectpicker default" multiple data-selected-text-format="count" data-size="7" title="All Categories">
-							<option>Admin Support</option>
-							<option>Customer Service</option>
-							<option>Data Analytics</option>
-							<option>Design & Creative</option>
-							<option>Legal</option>
-							<option>Software Developing</option>
-							<option>IT & Networking</option>
-							<option>Writing</option>
-							<option>Translation</option>
-							<option>Sales & Marketing</option>
-						</select>
-					</div>
-
-					<!-- Job Types -->
-					<div class="sidebar-widget">
-						<h3>Job Type</h3>
-
-						<div class="switches-list">
-							<div class="switch-container">
-								<label class="switch"><input type="checkbox"><span class="switch-button"></span>
-									Freelance</label>
-							</div>
-
-							<div class="switch-container">
-								<label class="switch"><input type="checkbox"><span class="switch-button"></span>
-									Full Time</label>
-							</div>
-
-							<div class="switch-container">
-								<label class="switch"><input type="checkbox"><span class="switch-button"></span>
-									Part Time</label>
-							</div>
-
-							<div class="switch-container">
-								<label class="switch"><input type="checkbox"><span class="switch-button"></span>
-									Internship</label>
-							</div>
-							<div class="switch-container">
-								<label class="switch"><input type="checkbox"><span class="switch-button"></span>
-									Temporary</label>
-							</div>
-						</div>
-
-					</div>
-
-					<!-- Salary -->
-					<div class="sidebar-widget">
-						<h3>Salary</h3>
-						<div class="margin-top-55"></div>
-
-						<!-- Range Slider -->
-						<input class="range-slider" type="text" value="" data-slider-currency="$" data-slider-min="1500" data-slider-max="15000" data-slider-step="100" data-slider-value="[1500,15000]"/>
-					</div>
-
-					<!-- Tags -->
-					<div class="sidebar-widget">
-						<h3>Tags</h3>
-
-						<div class="tags-container">
-							<div class="tag">
-								<input type="checkbox" id="tag1"/>
-								<label for="tag1">front-end dev</label>
-							</div>
-							<div class="tag">
-								<input type="checkbox" id="tag2"/>
-								<label for="tag2">angular</label>
-							</div>
-							<div class="tag">
-								<input type="checkbox" id="tag3"/>
-								<label for="tag3">react</label>
-							</div>
-							<div class="tag">
-								<input type="checkbox" id="tag4"/>
-								<label for="tag4">vue js</label>
-							</div>
-							<div class="tag">
-								<input type="checkbox" id="tag5"/>
-								<label for="tag5">web apps</label>
-							</div>
-							<div class="tag">
-								<input type="checkbox" id="tag6"/>
-								<label for="tag6">design</label>
-							</div>
-							<div class="tag">
-								<input type="checkbox" id="tag7"/>
-								<label for="tag7">wordpress</label>
-							</div>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-
-				</div>
-			</div>
-			<div class="col-xl-9 col-lg-8 content-left-offset">
-
-				<h3 class="page-title">Search Results</h3>
-
-				<div class="notify-box margin-top-15">
-					<div class="switch-container">
-						<label class="switch"><input type="checkbox"><span class="switch-button"></span>
-							<span class="switch-text">Turn on email alerts for this search</span>
-						</label>
-					</div>
-
-					<div class="sort-by">
-						<span>Sort by:</span>
-						<select class="selectpicker hide-tick">
-							<option>Relevance</option>
-							<option>Newest</option>
-							<option>Oldest</option>
-							<option>Random</option>
-						</select>
-					</div>
-				</div>
+			
 				{% for Form in Form %}
 					<div
 						class="listings-container margin-top-35">
@@ -297,15 +269,11 @@
 							<div
 								class="job-listing-details">
 								<!-- Logo -->
-								<div class="job-listing-company-logo">
-									<img src="{{ asset('uploads/images/' ~ Form.recruteur.photo) }}" alt="">
-								</div>
+								
 
 								<!-- Details -->
 								<div class="job-listing-description">
-									<h4 class="job-listing-company">{{Form.recruteur.user.nom}}
-										<span class="verified-badge" title="Verified Employer" data-tippy-placement="top"></span>
-									</h4>
+								
 									<h3 class="job-listing-title">{{Form.titre}}</h3>
 									<p class="job-listing-text">{{Form.description}}</p>
 								</div>
@@ -314,27 +282,7 @@
 								<span class="bookmark-icon"></span>
 							</div>
 
-							<!-- Job Listing Footer -->
-							<div class="job-listing-footer">
-								<ul>
-									<li>
-                                    <i class="icon-material-outline-business"></i>
-										{{Form.recruteur.ville}}</li>
-										
-									<li>
-										<i class="icon-material-outline-location-on"></i>
-										{{Form.recruteur.pays}}</li>
-									<li>
-										<i class="icon-material-outline-account-balance-wallet"></i>
-										{{Form.price}} $</li>
-									<li>
-                                   <i class="icon-line-awesome-calendar-o"></i>
-                                    {{Form.DateDebut|date('d-m-Y ')}}</li>
-                                    <li>
-                                    <i class="icon-material-outline-access-time"></i>
-                                    {{Form.dureeformation}} Days</li>
-								</ul>
-							</div>
+						
 						</a>
 
 						{# <!-- Pagination -->

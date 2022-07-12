@@ -1,1 +1,440 @@
-Hello
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %} About {% endtrans %}{% endblock %}
+{% block header %}
+			{% if is_granted('ROLE_CANDIDAT') %}
+
+
+					<!-- User Menu -->
+					{% if app.request.locale == "ar" %}
+						<div class="header-widget" style="margin-right: 1000px;margin-top: -82px;">
+					{% for can in can %}
+							
+						{% if app.token.user.id == can.user.id %}
+							<!-- Messages -->
+						<div class="header-notifications user-menu">
+							<div class="header-notifications-trigger">
+								<a href="#">
+									<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.CV.photo ) }}" alt=""></div>
+										
+								</a>
+							</div>
+						
+							<!-- Dropdown -->
+								<div class="header-notifications-dropdown">
+									<ul class="user-menu-small-nav" style="text-align: right;">
+									<div class="user-status">
+
+								<!-- User Name / Avatar -->
+								<div class="user-details">
+									<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.CV.photo ) }}" alt=""></div>
+									<div class="user-name">
+											
+											<span>{{app.token.user.nom}}</span>
+										</div>
+								</div>
+								</div>
+									
+										<li>
+											<a href="{{path('detailedCV',{'id': can.id})}}">
+												<i class="icon-material-outline-settings"></i>
+											{% trans %}	Settings {% endtrans %}</a>
+												
+										</li>
+										<li>
+											<a href="{{path('app_logout')}}">
+												<i class="icon-material-outline-power-settings-new"></i>
+											{% trans %}	Logout {% endtrans %}</a>
+										</li>
+									</ul>
+
+								</div>
+						</div>
+					
+			{% endif %}
+					{% endfor %}
+		</div>
+					{% else %}
+				<div class="header-widget" style="position: absolute;">
+					{% for can in can %}
+							
+						{% if app.token.user.id == can.user.id %}
+							<!-- Messages -->
+						<div class="header-notifications user-menu">
+							<div class="header-notifications-trigger">
+								<a href="#">
+									<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.CV.photo ) }}" alt=""></div>
+										
+								</a>
+							</div>
+						
+							<!-- Dropdown -->
+								<div class="header-notifications-dropdown">
+									<ul class="user-menu-small-nav">
+									<div class="user-status">
+
+								<!-- User Name / Avatar -->
+								<div class="user-details">
+									<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ can.CV.photo ) }}" alt=""></div>
+									<div class="user-name">
+											
+											<span>{{app.token.user.nom}}</span>
+										</div>
+								</div>
+								</div>
+									
+										<li>
+											<a href="{{path('detailedCV',{'id': can.id})}}">
+												<i class="icon-material-outline-settings"></i>
+											{% trans %}	Settings {% endtrans %}</a>
+												
+										</li>
+										<li>
+											<a href="{{path('app_logout')}}">
+												<i class="icon-material-outline-power-settings-new"></i>
+											{% trans %}	Logout {% endtrans %}</a>
+										</li>
+									</ul>
+
+								</div>
+						</div>
+					
+			{% endif %}
+					{% endfor %}
+		</div>
+		<!-- User Menu / End -->
+		{% endif %}
+	{% elseif is_granted('ROLE_RECRUTEUR') %}
+
+		<!-- User Menu -->
+			{% if app.request.locale == "ar" %}
+<div class="header-widget" style="margin-right: 1000px;margin-top: -82px;">
+			{% for rec in rec %}
+							
+				{% if app.token.user.id == rec.user.id %}
+			<!-- Messages -->
+			<div class="header-notifications user-menu">
+						<div class="header-notifications-trigger">
+						
+							<a href="#">
+								<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ rec.photo ) }}" alt=""></div>
+							</a>
+							
+						</div>
+					
+				<!-- Dropdown -->
+				<div class="header-notifications-dropdown">
+
+					<!-- User Status -->
+					<div
+						class="user-status">
+
+						<!-- User Name / Avatar -->
+						<div class="user-details">
+						
+							<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ rec.photo ) }}" alt=""></div>
+						
+							<div class="user-name">
+								{{app.token.user.nom}}
+								<span></span>
+							</div>
+						</div>
+
+					</div>
+
+					<ul class="user-menu-small-nav" style="text-align: right;">
+					
+						<li>
+							<a href="{{path('detailedRec',{'id': rec.id})}}">
+								<i class="icon-material-outline-settings"></i>
+							{% trans %}	Settings {% endtrans %}</a>
+						</li>
+						<li>
+							<a href="{{path('app_logout')}}">
+								<i class="icon-material-outline-power-settings-new"></i>
+							{% trans %}	Logout {% endtrans %}</a>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+			{% endif %}
+					{% endfor %}
+		</div>
+
+			{% else %}
+				
+		<div class="header-widget" style="position: absolute;">
+			{% for rec in rec %}
+							
+				{% if app.token.user.id == rec.user.id %}
+			<!-- Messages -->
+			<div class="header-notifications user-menu">
+						<div class="header-notifications-trigger">
+						
+							<a href="#">
+								<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ rec.photo ) }}" alt=""></div>
+							</a>
+							
+						</div>
+					
+				<!-- Dropdown -->
+				<div class="header-notifications-dropdown">
+
+					<!-- User Status -->
+					<div
+						class="user-status">
+
+						<!-- User Name / Avatar -->
+						<div class="user-details">
+						
+							<div class="user-avatar status-online"><img src="{{ asset('uploads/images/' ~ rec.photo ) }}" alt=""></div>
+						
+							<div class="user-name">
+								{{app.token.user.nom}}
+								<span></span>
+							</div>
+						</div>
+
+					</div>
+
+					<ul class="user-menu-small-nav">
+					
+						<li>
+							<a href="{{path('detailedRec',{'id': rec.id})}}">
+								<i class="icon-material-outline-settings"></i>
+							{% trans %}	Settings {% endtrans %}</a>
+						</li>
+						<li>
+							<a href="{{path('app_logout')}}">
+								<i class="icon-material-outline-power-settings-new"></i>
+							{% trans %}	Logout {% endtrans %}</a>
+						</li>
+					</ul>
+
+				</div>
+			</div>
+			{% endif %}
+					{% endfor %}
+		</div>
+		{% endif %}
+		{% elseif is_granted('ROLE_ADMIN') %}
+		<!-- User Menu / End -->
+		{% else %}
+		{% if app.request.locale == "ar" %}
+		<div class="trans-login">
+			<div class="connect" style="margin-right: -70px;">
+				<a href="{{ path('app_login') }}" class="connect">
+					<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-12" style="width: 140px;">{% trans %} Login {% endtrans %}<i class="icon-material-outline-arrow-right-alt"></i>
+					</button>
+				</a>
+			</div>
+	
+	
+		</div>
+		{% else %}
+		<div class="header-widget" style="position: absolute;">
+			<div class="connect" style="margin-right: -70px;">
+				<a href="{{ path('app_login') }}" class="connect">
+					<button type="submit" class="button full-width button-sliding-icon ripple-effect margin-top-12" style="width: 120px;">{% trans %} Login {% endtrans %}<i class="icon-material-outline-arrow-right-alt"></i>
+					</button>
+				</a>
+			</div>
+	
+	
+		</div>
+		{% endif %}
+	{% endif %}
+	
+	</br>
+	</br>
+{% endblock %}
+{% block body %}
+
+       </br>
+       
+       
+    <!-- Titlebar
+================================================== -->
+<div class="single-page-header" data-background-image="images/internisa.jpg">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="single-page-header-inner">
+					<div class="left-side-home">
+							
+                   
+							<div class="header-details">
+                            <h3 style="color:#FFF;">{% trans %}About the project {% endtrans %} </h3>
+							<br><br>
+                             <p style="color:#FFF;">
+                      {% trans %}  Internisa is committed to respecting the privacy of its users. {% endtrans %} <br>
+					
+                      {% trans %}   	We strive to provide the user with a safe experience. {% endtrans %}<br>
+				
+                          {% trans %}   This Privacy Statement addresses the subject of collection {% endtrans %} <br> 
+				                      
+					    {% trans %} 	of online data as well as the policy of use {% endtrans %}<br>
+					
+                          {% trans %}  	and practices that relate to the Internisa website. {% endtrans %} <br>
+					
+                         {% trans %}   	By creating an account on the Internisa website, {% endtrans %}<br>
+					
+                           {% trans %}  you consent to the policies and practices described in this statement. {% endtrans %}
+						
+                    </p>
+                           
+							</div>
+						</div>
+						
+					</div>
+				
+				</div>
+			</div>
+		</div>
+	</div>
+    
+
+
+<!-- Page Content
+================================================== -->
+  
+
+	<div class="section white padding-top-0 padding-bottom-60 full-width-carousel-fix">
+		<div class="container">
+			<div class="row">
+            <div class="col-xl-6">
+
+					<!-- Section Headline -->
+					<div class="section-headline margin-top-0 margin-bottom-35">
+						<img src="{{ asset('/images/image1.jpg' ) }}" alt="" style="max-width: 370px;margin-top:40px">
+						 <button style="border: 5px solid #741919;color: #040404;padding: 83px 76px;border-radius: 20px;margin-top: -233px;margin-left: -67px;" ></button>
+                          <button style="border: 5px solid #741919;color: #040404;padding: 71px 71px;border-radius: 20px;margin-top: -75px;margin-left: -64px;" ></button>
+					</div>
+
+				</div>
+            
+				<div class="col-xl-6">
+
+					<!-- Section Headline -->
+					<div class="section-headline margin-top-0 margin-bottom-35" style="background-color: white;padding: 5px 0px 37px;margin-left: -37px;">
+						<h3 style="margin-left: 30px;">{% trans %} Collection and retention of information {% endtrans %} </h3>
+                        <p style="margin-left: 30px;">
+						 {% trans %} 	
+							To provide you with access to Internisa's services, in certain sections of our websites, Internisa asks or may ask you to provide personal information, including your name, address, email address, credit card number, telephone number (if applicable ), your contact details and other information revealing your identity.
+						{% endtrans %}
+
+						 {% trans %} 	
+     						In addition, Internisa may collect information about you indirectly when you use some of our website's partner services. This information may be used to assess your potential interest in additional services offered by our partners.
+						{% endtrans %}
+						{% trans %} 	
+							We also collect or may collect certain information about your use of our site, such as the sections you visit and the services you use. 
+						{% endtrans %}
+</p>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="section white padding-top-0 padding-bottom-60 full-width-carousel-fix">
+		<div class="container">
+			<div class="row">
+           
+            
+				<div class="col-xl-6">
+
+					<!-- Section Headline -->
+					<div class="section-headline margin-top-0 margin-bottom-35" style="background-color: white;padding: 5px 0px 37px;margin-left: -37px;">
+						<h3 style="margin-left: 30px;">{% trans %}Use of information by Internisa {% endtrans %} </h3>
+                        <p style="margin-left: 30px;">
+					{% trans %} 	
+								We use the information we collect on the Internisa website, whether personal, demographic, group or technical in nature, to administer and improve the Internisa website, to foster a positive user experience and to deliver our products and services effectively.
+						{% endtrans %}		
+						{% trans %} 	
+								We may also use the information we collect to inform you of other products or services available from Internisa or its affiliates or to contact you for your opinion regarding current products and services or new products and services we could provide.
+						{% endtrans %}	
+						{% trans %} 	
+								We may use your contact information to send you emails or other communications about updates to the Internisa site, such as new opportunities in Internisa and additional announcements that may be of interest to you. The nature and frequency of these messages will vary depending on the information you provide to us.
+ 						{% endtrans %}
+						</p>
+					</div>
+
+				</div>
+                <div class="col-xl-2">
+                </div>
+ <div class="col-xl-4">
+
+					<!-- Section Headline -->
+					<div class="section-headline margin-top-20 margin-bottom-35">
+						<img src="{{ asset('/images/image2.jpg' ) }}" alt="" style="max-width: 370px;margin-top:40px">
+						 <button style="border: 5px solid #741919;color: #040404;padding: 83px 76px;border-radius: 20px;margin-top: -233px;margin-left: -67px;" ></button>
+                          <button style="border: 5px solid #741919;color: #040404;padding: 71px 71px;border-radius: 20px;margin-top: -75px;margin-left: -64px;" ></button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="section white padding-top-0 padding-bottom-60 full-width-carousel-fix">
+		<div class="container">
+			<div class="row">
+            <div class="col-xl-6">
+
+					<!-- Section Headline -->
+					<div class="section-headline margin-bottom-35" style="margin-top: 75px !important;">
+					
+						<img src="{{ asset('/images/image9.jpg' ) }}" alt="" style="max-width: 370px;margin-top:40px;border-radius: 9px;">
+					 <button style="border: 5px solid #741919;color: #040404;padding: 50px 50px;border-radius: 20px;margin-top: -440px;margin-left: 330px;" ></button>
+					</div>
+ <button style="border: 5px solid #741919;color: #040404;padding: 83px 76px;border-radius: 20px;margin-top: -233px;margin-left: -67px;" ></button>
+				</div>
+            
+				<div class="col-xl-6">
+
+					<!-- Section Headline -->
+					<div class="section-headline margin-top-0 margin-bottom-35" style="background-color: white;padding: 5px 0px 37px;margin-left: -37px;">
+						<h3 style="margin-left: 30px;">
+						{% trans %}
+ 								The CVs {% endtrans %} </h3>
+                        <p style="margin-left: 30px;">
+
+	{% trans %}
+Since Internisa is a career management site, we give you the option to save your CV in our database. There are two ways to do this:
+{% endtrans %}
+	{% trans %}
+You can store your CV in our database but not allow it to be viewed by potential employers. Not allowing your CV to be searchable means you can use it to apply for a job online, but employers and recruiters won't have access to find it using our CV search tool.
+{% endtrans %}
+	{% trans %}
+If you make your resume searchable, all parties with access to our searchable resume database (or copies thereof) will be able to access your resume.
+{% endtrans %}
+	{% trans %}
+We try to limit access to our database of resumes (or copies thereof) to employers only, but cannot guarantee that other parties will not gain access to this database.
+{% endtrans %}
+</p>
+					</div>
+
+				</div>
+             
+			</div>
+		</div>
+	</div>
+
+
+<!-- Page Content
+================================================== -->
+<div class="container">
+	<div class="row">
+			
+			  
+	</div>
+</div>
+
+
+
+  </div>     
+{% endblock %}
+
